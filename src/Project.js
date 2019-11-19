@@ -15,12 +15,19 @@ class SearchProject extends React.Component {
   }
 }
 
+
+
 class AddProjects extends React.Component {
+  
+  handleClick() {
+
+  }
+  
   render () {
     return (
       <div>
         <h2 className='topic' style={{display: 'inline'}}>Adicionar Projetos</h2>
-        <button>+</button>
+        <button >+</button>
       </div>
     )
   }
