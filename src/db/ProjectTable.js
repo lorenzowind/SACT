@@ -1,13 +1,4 @@
 
-export function tablesProject() {
-    return tbProjects;
-
-
-}
-export function insertProject(proj) {
-    tbProjects = tbProjects.concat(proj);
-}
-
 var tbProjects =  [
         {
             id: 1,
@@ -42,3 +33,29 @@ var tbProjects =  [
             turma: 'BM',
         },
     ];
+
+
+
+export function tables() {
+    return tbProjects;
+}
+
+export function insert(proj) {
+    tbProjects = tbProjects.concat(proj);
+}
+
+
+export const header = [
+    "Projeto",
+    "Área de Atuação",
+    "Integrantes",
+    "Turma"
+]
+
+export const name = "Projetos"
+
+export const types = [
+    "project", "area", "integrantes", "turma"
+]
+
+export const key = "id"
