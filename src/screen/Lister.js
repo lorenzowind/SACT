@@ -16,15 +16,19 @@ class Search extends React.Component {
   }
 }
 
-class Add extends React.Component {
+export class Add extends React.Component {
   handleClick() {
 
   }
   
+  renderDialog() {
+    return (<h2 className='topic' style={{display: 'inline'}}>Adicionar {db[this.props.data].name}</h2>);
+  }
+
   render () {
     return (
       <div>
-  <h2 className='topic' style={{display: 'inline'}}>Adicionar {db[this.props.data].name}</h2>
+        {this.renderDialog()}
         <button >+</button>
       </div>
     )
@@ -34,10 +38,11 @@ class Add extends React.Component {
 function List(props) {
   const values = db[props.data].tables().map(
     (value) => {
-      console.log(value.id);
       return (
         <tr key={value[props.data.key]}>
-          {db[props.data].types.map(att => <td>{value[att]}</td>)}
+          {db[props.data].types.map(
+            att => <td key={att.toString()}> {value[att]} </td>
+          )}
           <td><button>E</button></td>
         </tr>
       );
@@ -48,9 +53,9 @@ function List(props) {
   return (
     <div>
       <table>
-        <tr>{header}</tr>
+        <thead><tr>{header}</tr></thead>
+        <tbody>{values}</tbody>
       </table>
-      <table>{values}</table>
     </div>
   );
 }
