@@ -1,5 +1,5 @@
 import React from 'react';
-import './Lister.css';
+import '../css/Lister.css';
 import * as db from '../db/Table';
 
 
@@ -60,9 +60,9 @@ function List(props) {
   );
 }
 function Project(props) {
-  console.log(props);
   return (
-    <div>
+    <div className="Lister">
+      <h1>{db[props.name].name}</h1>
       <Search data={props.name}/>
       <Add data={props.name}/>
       <List data={props.name}/>

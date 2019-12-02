@@ -5,7 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import Lister from './screen/Lister';
 
 //ReactDOM.render(<App />, document.getElementById('root'));
-var type = "administrator";
+var type = "project";
 
 ReactDOM.render(<Lister name={type} />, document.getElementById('root'));
 
