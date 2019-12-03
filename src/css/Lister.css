@@ -25,3 +25,18 @@
   padding-left: 8em;
   padding-top: 3em;
 }
+
+.add {
+  font-family:  "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial;
+  font-size: 80px;
+  height: 68px;
+  width: 68px;
+  border-collapse: collapse;
+  color: #707070;
+  text-align: center;
+  margin: -10px 0px;
+}
+
+#search {
+  display: inline;
+}

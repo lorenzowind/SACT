@@ -22,14 +22,14 @@ export class Add extends React.Component {
   }
   
   renderDialog() {
-    return (<h2 className='topic' style={{display: 'inline'}}>Adicionar {db[this.props.data].name}</h2>);
+    return (<h2 className='topic' id="search">Adicionar {db[this.props.data].name}</h2>);
   }
 
   render () {
     return (
       <div>
         {this.renderDialog()}
-        <button >+</button>
+        <button className='add'><img alt="add" src="./css/assets/add-sysmbol.png"></img></button>
       </div>
     )
   }

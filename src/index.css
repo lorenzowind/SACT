@@ -1,32 +1,37 @@
 h1 {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 50px;
-  line-height: 1.6;
-  letter-spacing: -1px;
-  color: #0000fb;
+  /* Size Configs */
   margin: 0px;
+
+  /* Font Settings */
+  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial;
+  font-size: 50px;
+  font-weight: bold;
+  line-height: 1.6;
+
+  /* Corlors Settings*/
+  color: #0000fb;
+
 } 
 
 h2 {
-  font-family: 'Segoe UI', sans-serif;
+  /* Size Configs */
+  width: fit-content;
+  height: auto;
+  margin: 0px;
+
+  /* Font Settings */
+  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial;
   font-size: 45px;
   line-height: 1.78;
   font-weight: normal;
-  margin: -15px 0px -15px 0px;
-  padding: 20px 0px 20px 0px;
+
+  /* Corlors Settings*/
   color: #0000fb;
 }
 body {
   background-image: url('./css/assets/textura_papel.png');
-  margin: 0;
-  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; */
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
