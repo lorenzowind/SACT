@@ -1,0 +1,75 @@
+#admIcon {
+    width: 40%;
+    height: 30%;
+    object-fit: contain;
+}
+
+table {
+    width: 70%;
+}
+
+h3 {
+    font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial;
+    color: #676060;
+    font-size: 250%;
+    margin-top: 5%;
+    margin-right: 100px;
+    font-weight: lighter;
+}
+
+.loginInfo {
+    font:arial;
+    color: #676060;
+    font-size: 110%;
+    margin-top:-5%;
+    font-weight: lighter;
+}
+
+input[type="button"] {
+    margin-top: 50px;
+    border: 0px;
+    border-radius: 10px;
+    font-size: 18px;
+    background-color:#0000fc;
+    height: 40px;
+    width: 20%;
+    padding: auto;
+    color:white;
+    font:arial;
+    font-weight:400;
+} 
+
+.remargin { /*Ajusts for the only needed*/
+    margin-top: -10%; 
+}
+
+h4{
+    font: arial;
+    color: #676060;
+    outline: #676060;
+    font-size: 130%;
+    margin-top: 10%;
+    font-weight:lighter;
+}
+
+#checkboxes{
+    opacity: 0.73;
+    font-family: SegoeUI;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    text-align: left; 
+    color: 676060; 
+}
+
+
+
+input[type="checkbox"] {
+     margin-left: 10%;
+     border: 0.5px solid #676060;
+     border-radius: 10px;
+     background-color: #ffffff;
+}
+

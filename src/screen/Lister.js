@@ -1,4 +1,5 @@
 import React from 'react';
+import addSymbol from '../css/assets/add-symbol.png';
 import '../css/Lister.css';
 import * as db from '../db/Table';
 
@@ -8,7 +9,7 @@ class Search extends React.Component {
   render() {
     return (
       <div className='search-projects'>
-  <h2 className='topic'>Pesquisar {db[this.props.data].name}</h2>
+        <h2 className='topic'>Pesquisar {db[this.props.data].name}</h2>
         <input className='searcher' type='text'></input>
         <button style={{display: 'inline'}}>Q</button>
       </div>
@@ -29,7 +30,7 @@ export class Add extends React.Component {
     return (
       <div>
         {this.renderDialog()}
-        <button className='add'><img alt="add" src="./css/assets/add-sysmbol.png"></img></button>
+        <button className='add'><img alt="add" src={addSymbol}></img></button>
       </div>
     )
   }

@@ -3,8 +3,8 @@ h1 {
   margin: 0px;
 
   /* Font Settings */
-  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial;
   font-size: 50px;
+  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial;
   font-weight: bold;
   line-height: 1.6;
 
@@ -16,7 +16,7 @@ h1 {
 h2 {
   /* Size Configs */
   width: fit-content;
-  height: auto;
+  height: 67px;
   margin: 0px;
 
   /* Font Settings */
@@ -29,9 +29,32 @@ h2 {
   color: #0000fb;
 }
 body {
-  background-image: url('./css/assets/textura_papel.png');
+  background-image: url('./css/assets/paper.png');
+  background-size: 100%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+input[type="text"] {
+    opacity: 0.90;
+     border: 0.5px solid #676060;
+     color:#707070;
+     width: 80%;
+     height: 30px;   
+     border-radius: 10px;
+     margin-left:10px;
 }
+
+input[type="text"] ~::placeholder{
+    opacity: 0.83;
+    font-family: SegoeUI;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.34;
+    letter-spacing: normal;
+    text-align: left;
+    color: #707070; 
+    padding-left: 60px;
+}
+/* code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+} */

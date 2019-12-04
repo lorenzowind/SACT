@@ -1,42 +1,27 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
-}
 
 .Lister {
-  padding-left: 8em;
+  padding-right: 8em;
   padding-top: 3em;
 }
 
 .add {
-  font-family:  "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial;
-  font-size: 80px;
-  height: 68px;
-  width: 68px;
-  border-collapse: collapse;
-  color: #707070;
+  height: 48px;
+  width: 48px;
+  border: solid 1px #707070;
+  border-radius: 50%;
+  padding: 0px;
+  background-color: #cdcdcd;
   text-align: center;
-  margin: -10px 0px;
 }
 
+.add img { /* center the image */
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.searcher {
+  max-width: 630px;
+}
 #search {
   display: inline;
 }

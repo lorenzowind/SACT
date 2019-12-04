@@ -20,7 +20,7 @@ export function tables() {
 }
 
 export function insert(admin) {
-    tbAdmin = tbAdmin.concat(admin);
+    tbAdmin.puch(admin);
 }
 
 export const name = "Administradores"
