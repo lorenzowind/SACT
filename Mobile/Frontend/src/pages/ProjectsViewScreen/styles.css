@@ -1,0 +1,73 @@
+.projects {
+    padding-top: 3%;
+    padding-left: 5%;
+    position: relative;
+}
+
+.rectangule {
+    margin-block-end: 50px;
+    margin-left: 10px;
+    width: 300px;
+    height: 220px;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.16);
+    border: solid 1px #707070;
+    background-color: #f9f8f8;
+}
+
+.project_name {
+    position: absolute;
+    width: 176px;
+    height: 100px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 3px 0 rgba(0, 0, 0, 0.16);
+    border: solid 1px #707070;
+    background-image: linear-gradient(to right, #0303f8 0%, #36bfd5 98%);
+    /*background-image: linear-gradient(to right, #00fc08 0%, #aeffb0 98%);*/
+}
+.project_name h1 {
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    padding: 10px 10px 10px 10px;   
+}
+.project_name:hover {
+    cursor: pointer;
+}
+
+.project_class {
+    position: absolute;
+    margin-left: 200px;
+}
+.project_class h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    color: #676060;
+}
+
+.project_course {
+    position: absolute;
+    margin-left: 200px;
+    margin-top: 50px;
+}
+.project_course h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    color: #676060;
+}
+
+.students {
+    margin-top: 120px;
+    margin-left: 20px;
+}
+
+.project_students {
+    margin-top: 10px;
+}
+.project_students h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    color: #676060;
+}
+
+
