@@ -14,6 +14,7 @@ export default class InitScreen extends React.Component {
         super(props);
         this.state = {
             back: false,
+            back_init: false,
             project: this.props.location.state.p
         }
     }
@@ -21,12 +22,18 @@ export default class InitScreen extends React.Component {
     handleChange_back = () => {
         this.setState({back: true});
     }
+
+    handleChange_conclude = () => {
+        this.setState({back_init: true});
+    }
     
     render(){
 
-        var mt_control = 1, st_control;
+        var mt_control = 0, st_control;
 
         if (this.state.back) return <Redirect to={{pathname: "/projects-view-description", state: {p: this.state.project}}}/>
+
+        if (this.state.back_init) return <Redirect to = "/projects-view"/>
 
         return(
 
@@ -36,22 +43,24 @@ export default class InitScreen extends React.Component {
 
                     <div className="header">
 
-                        <div className="back">
+                        <div className="back_">
                             <img src={back} alt="" onClick={this.handleChange_back}/>
                         </div>
 
-                        <div className="info_">
-                            <h1>Ficha de Avaliação</h1>
+                        <div className="info_"> 
+                            <h1>FICHA DE AVALIAÇÃO</h1>
                         </div>
                     
                     </div>
 
                     {this.state.project.avaliations.topics.map((mt) => (
                         
-                        <div className="project_topic">
+                        <div className="project_topic" key={mt.title}>
+
+                            <div style={{display: 'none'}}>{mt_control++}</div>
                         
-                            <div className="project_mainly_topic" key={mt.title}>
-                                <h1>{mt_control++}{'. '}{mt.title}</h1>
+                            <div className="project_mainly_topic_title">
+                                <h1>{mt_control}{'. '}{mt.title}</h1>
                             </div>
 
                             <div style={{display: 'none'}}>{st_control = 1}</div>
@@ -59,13 +68,15 @@ export default class InitScreen extends React.Component {
                             {mt.sub_topics.map((st) => (
 
                                 <div className="project_sub_topic" key={st.title}>
-                                    
+
+                                <div className="project_sub_topic_title">
                                     <h1>{mt_control}{'.'}{st_control++}{'. '}{st.title}</h1>
-                                    
-                                    <div className="project_slider">
-                                        <Slider/>
-                                    </div>
-                                
+                                </div>
+
+                                <div className="project_slider">
+                                    <Slider/>
+                                </div>
+
                                 </div>
 
                             ))}
@@ -73,6 +84,15 @@ export default class InitScreen extends React.Component {
                         </div>
 
                     ))}
+
+                    <div className="button_conclude">
+                        <input 
+                        type="button" 
+                        name="conclude"
+                        value="Concluir"
+                        onClick={this.handleChange_conclude}
+                        />
+                    </div>
 
                 </div>
 

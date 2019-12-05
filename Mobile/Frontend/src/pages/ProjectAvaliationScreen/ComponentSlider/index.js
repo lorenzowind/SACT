@@ -6,7 +6,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: 300 + theme.spacing(3) * 2,
+    width: 200 + theme.spacing(3) * 2,
   },
   margin: {
     height: theme.spacing(3),

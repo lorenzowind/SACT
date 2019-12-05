@@ -1,0 +1,83 @@
+.header {
+    display: table-cell;
+    position: relative;
+}
+
+.back {
+    display: table-cell;
+}
+.back img {
+    width: 100px;
+}
+.back img:hover {
+    cursor: pointer;
+}
+
+.logo_ {
+    display: table-cell;
+}
+.logo_ img {
+    padding-top: 50px;
+    width: 200px;
+}
+
+.next {
+    display: table-cell;
+    padding-left: 20px;
+}
+.next img {
+    width: 40px;
+}
+.next img:hover {
+    cursor: pointer;
+}
+
+.project_name_ {
+    padding-left: 5%;
+}
+.project_name_ h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #676060;
+    font-size: 35px;
+}
+
+.info {
+    padding-left: 5%;
+}
+.info h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #676060;
+    font-size: 30px;
+}
+
+.project_students_ {
+    padding-left: 5%;
+}
+.project_students_ h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #676060;
+    font-size: 15px;
+}
+
+.project_course_ {
+    padding-left: 5%;
+}
+.project_course_ h1 {   
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #676060;
+    font-size: 15px;
+}
+
+.project_observations {
+    padding-left: 5%;
+    margin-block-end: 40px;
+    width: 80%;
+    text-align: justify;
+}
+
+.project_observations h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #676060;
+    font-size: 15px;
+    line-height: 1.67;
+}

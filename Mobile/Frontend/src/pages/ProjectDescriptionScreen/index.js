@@ -63,11 +63,11 @@ export default class InitScreen extends React.Component {
                         <h1>Integrantes</h1>
                     </div>
 
-                    <div className="project_students_">
-                        {this.state.project.students.map((s) => (
-                            <h1 key={s}>{s}</h1>
-                        ))}
-                    </div>
+                    {this.state.project.students.map((s) => (
+                        <div className="project_students_" key={s}>
+                            <h1>{s}</h1>
+                        </div>
+                    ))}
 
                     <div className="info">
                         <h1>Área de atuação</h1>
