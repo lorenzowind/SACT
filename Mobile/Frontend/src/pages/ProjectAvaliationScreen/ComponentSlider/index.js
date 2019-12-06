@@ -115,7 +115,7 @@ export default function CustomizedSlider() {
 
   return (
     <div className={classes.root}>
-      <IOSSlider aria-label="ios slider" defaultValue={6.0} marks={marks} valueLabelDisplay="on" />
+      <IOSSlider aria-label="ios slider" defaultValue={0} marks={marks} valueLabelDisplay="on" />
     </div>
   );
 }

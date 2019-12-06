@@ -1,30 +1,17 @@
 .header {
-    display: table-cell;
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.back {
-    display: table-cell;
-}
-.back img {
-    width: 100px;
-}
 .back img:hover {
     cursor: pointer;
 }
 
-.logo_ {
-    display: table-cell;
-}
 .logo_ img {
-    padding-top: 50px;
     width: 200px;
 }
 
-.next {
-    display: table-cell;
-    padding-left: 20px;
-}
 .next img {
     width: 40px;
 }
@@ -33,7 +20,9 @@
 }
 
 .project_name_ {
-    padding-left: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .project_name_ h1 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -42,7 +31,9 @@
 }
 
 .info {
-    padding-left: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .info h1 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -51,7 +42,9 @@
 }
 
 .project_students_ {
-    padding-left: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .project_students_ h1 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -60,7 +53,9 @@
 }
 
 .project_course_ {
-    padding-left: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .project_course_ h1 {   
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -69,10 +64,12 @@
 }
 
 .project_observations {
-    padding-left: 5%;
-    margin-block-end: 40px;
-    width: 80%;
-    text-align: justify;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 300px;
+    margin-block-end: 50px;
 }
 
 .project_observations h1 {

@@ -1,18 +1,15 @@
 .back_ {
-    position: absolute;
     padding-top: 20px;
 }
 .back_ img {
-    width: 80px;
+    width: 50px;
 }
 .back_ img:hover {
     cursor: pointer;
 }
 
 .info_ {
-    padding-top: 20px;
-    margin-left: 20%;
-    width: 300px;
+    padding-left: 5px;
 }
 .info_ h1 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -22,8 +19,9 @@
 }
 
 .project_mainly_topic_title {
-    padding-left: 5%;
-    margin-block-end: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .project_mainly_topic_title h1 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -32,7 +30,10 @@
 }
 
 .project_sub_topic_title {
-    padding-left: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 .project_sub_topic_title h1 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -41,13 +42,17 @@
 }
 
 .project_slider {
-    padding-left: 5%;
-    margin-top: 45px;
-    margin-block-end: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    margin-block-end: 40px;
 }
 
 .button_conclude {
-    padding-left: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 50px;
     margin-block-end: 50px;
 }

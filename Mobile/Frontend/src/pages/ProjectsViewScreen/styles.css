@@ -1,12 +1,17 @@
+.init_ {
+    margin-top: 3%;
+    display: flex;
+    justify-content: center;
+}
+
 .projects {
-    padding-top: 3%;
-    padding-left: 5%;
     position: relative;
+    display: flex;
+    justify-content: center;
 }
 
 .rectangule {
     margin-block-end: 50px;
-    margin-left: 10px;
     width: 300px;
     height: 220px;
     border-radius: 10px;
@@ -70,4 +75,99 @@
     color: #676060;
 }
 
+.popup2 {
+    width: 350px;
+    height: 500px;
+    border-radius: 15px;
+    border: solid 1px;
+    background-color: #f9f8f8;
+    position: absolute;
+    top: 10%;
+    /*display: none;*/
+}
+
+.close {
+    padding-left: 300px;
+    padding-top: 10px;
+}
+.close h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #0004ff;
+    font-size: 40px;
+    font-weight: bold;
+    width: 30px;
+    height: 50px;
+    margin: 0px;
+}
+.close h1:hover {
+    cursor: pointer;
+}
+.close h1:active {
+    color: #3098F2;
+}
+
+.msg1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.msg1 h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 25px;
+    color: #676060;
+    margin: 0px;
+}
+
+.msg2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.msg2 h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 25px;
+    color: #676060;
+    width: 204px;
+}
+
+.msg3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.msg3 h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 25px;
+    color: #676060;
+    width: 220px;
+}
+
+.button_ok {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+.button_ok input {    
+    width: 100px;
+    height: 60px;
+    padding: 10px 0px 10px 0px;
+    border-radius: 10px;
+    box-shadow: 7px 7px 6px 0 rgba(0, 0, 0, 0.16);
+    background-color: #0000fb;
+    color: #f5f5f5;
+    font-size: 33px;
+    font-weight: bold;
+}
+.button_ok input:hover {
+    cursor: pointer;
+}
+.button_ok input:active{
+    background-color: #3098F2;
+}
+.button_ok input:focus{
+    outline: 0px;
+}
 

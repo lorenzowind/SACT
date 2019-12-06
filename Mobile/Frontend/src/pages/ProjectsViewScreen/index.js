@@ -113,7 +113,10 @@ export default class InitScreen extends React.Component {
         this.state = {
             projects: projects, 
             enter: false,
-            project: null
+            project: null,
+            logout: false,
+            popup: [],
+            is_posible: true
         }
         
     }
@@ -122,12 +125,23 @@ export default class InitScreen extends React.Component {
         //var element = document.getElementsByClassName("rectangule");
         //var element_ = element[0].getElementsByClassName("project_name");
         //element_[0].style.backgroundImage = "linear-gradient(to right, #00fc08 0%, #aeffb0 98%)";
-        this.setState({enter: true, project: project});
+        if(this.state.is_posible){
+            this.setState({enter: true, project: project});
+        }
+        else {
+            this.setState({popup: [true]});
+        }
+    }
+
+    handleChange_ok = () => {
+        this.setState({logout: true});
     }
 
     render(){
 
         if (this.state.enter) return <Redirect to={{pathname: "/projects-view-description", state: {p: this.state.project}}}/>
+        
+        if (this.state.logout) return <Redirect to = "/"/>
 
         return(
 
@@ -135,33 +149,74 @@ export default class InitScreen extends React.Component {
 
                 <div className="background">
 
-                    <div className="projects">
+                    <div className="init_">
 
-                        {this.state.projects.map((p) => (
+                        <div className="projects">
 
-                        <div className="rectangule" key={p.name}>
+                            <div>
 
-                        <div className="project_name" onClick={this.handleChange_select.bind(this, p)}>
-                            <h1>{p.name}</h1>
-                        </div>
+                            {this.state.projects.map((p) => (
 
-                        <div className="project_class">
-                            <h1>{p.class_name}</h1>
-                        </div>
+                            <div className="rectangule" key={p.name}>
 
-                        <div className="project_course">
-                            <h1>{p.course}</h1>
-                        </div>
-
-                        <div className="students">
-
-                        {p.students.map((s) => (
-                            <div className="project_students" key={s}>
-                                <h1>{s}</h1>
+                            <div className="project_name" onClick={this.handleChange_select.bind(this, p)}>
+                                <h1>{p.name}</h1>
                             </div>
-                        ))}
+
+                            <div className="project_class">
+                                <h1>{p.class_name}</h1>
+                            </div>
+
+                            <div className="project_course">
+                                <h1>{p.course}</h1>
+                            </div>
+
+                            <div className="students">
+
+                            {p.students.map((s) => (
+                                <div className="project_students" key={s}>
+                                    <h1>{s}</h1>
+                                </div>
+                            ))}
+
+                            </div>
+
+                            </div>
+
+                            ))}
+
+                            </div> 
 
                         </div>
+
+                        {this.state.popup.map((i) => (
+
+                            <div className="popup2" key={i}>
+
+                            <div className="close">
+                                <h1 onClick={this.handleChange_ok}>X</h1>
+                            </div>
+
+                            <div className="msg1">
+                                <h1>PARABÉNS</h1>
+                            </div>
+
+                            <div className="msg2">
+                                <h1>Você concluiu todas as suas fichas de avaliações!</h1>
+                            </div>
+
+                            <div className="msg3">
+                                <h1>Venha conhecer os outros projetos presentes na feira!</h1>
+                            </div>
+
+                            <div className="button_ok">
+                                <input 
+                                type="button" 
+                                name="ok"
+                                value="OK"
+                                onClick={this.handleChange_ok}
+                                />
+                            </div>
 
                         </div>
 

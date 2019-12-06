@@ -1,22 +1,27 @@
+.init {
+    margin-top: 10%;
+    display: flex;
+    justify-content: center;
+}
+
 .logo {
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin-block-end: 5%;
-    padding-top: 5%;
+    text-align: center;
+    margin-block-end: 50px;
 }
 .logo img {
-    width: 400px;
+    width: 350px;
 }
 
 .text_input {
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin-block-end: 10%;
+    text-align: center;
+    margin-block-end: 100px;
 }
 .text_input input{  
-    width: 320px;
+    width: 280px;
     height: 41px;
     font-size: 25px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -34,8 +39,7 @@
 .button_enter {
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin-top: 50px;
+    text-align: center;
 }
 .button_enter input {    
     width: 180px;
@@ -55,4 +59,15 @@
 }
 .button_enter input:focus{
     outline: 0px;
+}
+
+.popup1 {
+    width: 320px;
+    height: 620px;
+    border-radius: 15px;
+    border: solid 1px;
+    background-color: #f9f8f8;
+    position: absolute;
+    top: 5%;
+    /*display: none;*/
 }
