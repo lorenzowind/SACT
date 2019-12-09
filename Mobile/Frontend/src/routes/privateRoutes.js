@@ -1,4 +1,4 @@
-/*import React from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
 import { isAuthenticated } from "../services/auth";
@@ -10,10 +10,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
       isAuthenticated() ? (
         <Component {...props} />
       ) : (
-        <Redirect to={{ pathname: "/menu", state: props.location }} />
+        <Redirect to={{ pathname: "/", state: props.location }} />
       )
     }
   />
 );
 
-export default PrivateRoute;*/
+export default PrivateRoute;

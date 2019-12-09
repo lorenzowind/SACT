@@ -6,15 +6,23 @@ import logo from '../../assets/logo.png';
 import "./styles.css";
 import "../styles.css";
 
+import api from "../../services/api";
+
 export default class InitScreen extends React.Component {   
     
     constructor(props){
         super(props);
+        localStorage.removeItem('token');
         this.state = { 
-            cpf: '', 
             enter: false,
             popup: [],
-            is_possible: true
+            is_possible: null,
+            cpf: null,
+            id: null,
+            projects: null,
+            sections: [],
+            criterias: [],
+            projects_active: []
         };
     }
 
@@ -22,13 +30,56 @@ export default class InitScreen extends React.Component {
         this.setState({cpf: event.target.value});
     }
     
-    handleChange_enter = () => {
-        if(this.state.is_possible){
-            this.setState({enter: true});
+    handleChange_enter = async ev => {
+        
+        ev.preventDefault();
+
+        const state = {
+            cpf: this.state.cpf
+        };
+      
+        const post_user = await api.post("/login", state).catch((err) => (console.log("erro")));
+
+        if(post_user){
+
+            if(post_user.data.status === 'true'){
+                this.setState({is_possible: true});
+                this.setState({id: post_user.data.id});
+            }
+
+            if(this.state.is_possible){
+
+                localStorage.setItem('token', post_user.data.token);
+                
+                const post_projects = await api.get(`/users/${this.state.id}`).catch((err) => (console.log("erro")));
+                if(post_projects)this.setState({projects: post_projects.data.projects}); 
+
+                for(var i=0;i<this.state.projects.length;i++){
+
+                    this.state.projects_active[i] = true;
+                    
+                    const post_sections = await api.get(`/projects/${this.state.projects[i].id}`).catch((err) => (console.log("erro")));
+                    if(post_sections)this.state.sections[i] = post_sections.data.sections;
+                    
+                    var criterias = [];
+
+                    for(var j=0;j<this.state.sections[i].length;j++){
+                        const post_criterias = await api.get(`/sections/${this.state.sections[i][j].id}`).catch((err) => (console.log("erro")));
+                        if(post_criterias)criterias[j] = post_criterias.data.criteria;
+                    }
+                    this.state.criterias[i] = criterias;
+                
+                }
+
+                this.setState({enter: true});
+
+            }
+            else{
+                this.setState({popup: [true]});
+            }
+
         }
-        else{
-            this.setState({popup: [true]});
-        }
+      
     }
 
     handleChange_ok = () => {
@@ -39,7 +90,13 @@ export default class InitScreen extends React.Component {
 
         const {enter} = this.state; 
 
-        if (enter) return <Redirect to="/projects-view" push={true} />;
+        if (enter) return <Redirect to={{pathname: "/projects-view", state: {
+            id: this.state.id, 
+            projects: this.state.projects, 
+            sections: this.state.sections, 
+            criterias: this.state.criterias,
+            projects_active: this.state.projects_active
+        }}}/>
         
         return(
 

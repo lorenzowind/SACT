@@ -1,0 +1,325 @@
+3.1 - Critérios
+Criar
+   POST: _/projects_
+  
+   ```
+   Entrada esperada: 
+
+   {
+	"name": "Euclides",
+	"course": "informatica",
+	"class": "3BI",
+	"mebers": "Euclides",
+	"obs": "Alunos estão com problemas em sua apresentação"
+    }---
+
+   Saída esperada:
+
+   Status da requisição: 204 NO CONTENT
+   ---
+
+   Erro na saída:
+
+   {
+       "error": "mensagem de erro"
+   }
+
+   Status da requisição: 500
+
+
+   ```
+Mostrar todos
+   GET: _/projects
+   ```
+   Saída esperada: 
+   [
+       {
+           "id": 1,
+          
+	        "name": "teste",
+	        "course": "informatica",
+	        "class": "3BI",
+	        "mebers": "Euclides",
+	        "obs": "aaaa"
+           "createdAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE",
+           "updatedAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE"
+       },
+       {
+            "id": 2,
+          
+	        "name": "exemplo",
+	        "course": "mecatronica",
+	        "class": "3AI",
+	        "mebers": "Leonardo",
+	        "obs": "exemplo"
+           "createdAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE",
+           "updatedAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE"
+       },
+       ...
+   ]
+
+   Status da requisição: 200 OK
+   ---
+
+   Erro na saída: 
+
+   {
+       "error": "exemplo de erro"
+   }
+   ```
+Mostrar um
+   GET: _/projects/id_
+   ```
+   Saída esperada: 
+   {
+        "id": 1, 
+	        "name": "teste",
+	        "course": "informatica",
+	        "class": "3BI",
+	        "mebers": "Euclides",
+	        "obs": "aaaa"
+           "createdAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE",
+           "updatedAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE"
+    }
+
+   Status da requisição: 200 OK
+   ---
+
+   Erro na saída: 
+
+   {
+       "error": "exemplo de erro"
+   }
+   `
+``
+Atualizar
+   PUT: _/projects/id_
+   ```
+   Entrada esperada: 
+
+   {
+        "name": "teste novo",
+	        "course": "eletronica",
+	        "class": "3BE",
+	        "mebers": "Tuclides",
+	        "obs": "Exemplo"
+   }
+   ---
+
+   Saída esperada:
+
+   Um JSON com os novos dados do critério será retornado. 
+
+   Status da requisição: 204 NO CONTENT
+   ---
+
+   Erro na saída:
+
+   {
+       "error": "mensagem de erro"
+   }
+
+   Status da requisição: 500
+   ```
+Remover
+   DELETE: _/criteria/id_
+   ```
+   Saída esperada: 
+
+   Status da requisição: 204 NO CONTENT
+   ---
+
+   Erro na saída: 
+
+   {
+       "error":"mensagem de erro"
+   }
+   ```
+3.2 - Usuários
+Criar
+   POST: _/users
+   ```
+   Entrada esperada: 
+
+   {
+       "name": "nome do usuario",
+        "cpf": "CPF Do usuario",
+        "phone": "telefone do usuario",
+        "email": "email do usuario",
+        "occupationArea": "informatica",
+        "evaluatedPrjs: "3",      obs esse seria o numero de projetos que o avaliadores avaliará
+        "stats": "concluido"
+       "projects": [1,2,3,...] 
+
+       > Para adicionar critério(s) à seção, é necessário passar o(s) id(s) dos critério em um array. O campo de critérios (criteria) não é obrigartório.
+   }
+   ---
+
+   Saída esperada:
+
+   Status da requisição: 204 NO CONTENT
+   ---
+
+   Erro na saída:
+
+   {
+       "error": "mensagem de erro"
+   }
+
+   Status da requisição: 500
+   ```
+Mostrar todos
+   GET: _/sections_
+   ```
+   Saída esperada: 
+   [
+       {
+             "id": 1,
+             "name": "nome do usuario",
+             "cpf": "CPF Do usuario",
+             "phone": "telefone do usuario",
+             "email": "email do usuario",
+             "occupationArea": "informatica",
+             "evaluatedPrjs: "3",      obs esse seria o numero de projetos que o avaliadores avaliará
+             "stats": "concluido"
+             "projects": [1,2,3,...] 
+             "projects": [
+               {
+                   "id": 1,
+                   "name": "teste",
+	               "course": "informatica",
+	               "class": "3BI",
+	               "mebers": "Euclides",
+	               "obs": "aaaa"
+                   "createdAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE",
+                   "updatedAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE"
+               },
+               ...
+           ],
+           "createdAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE",
+           "updatedAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE"
+       },
+        {
+             "id": 2,
+             "name": "nome do usuario",
+             "cpf": "CPF Do usuario",
+             "phone": "telefone do usuario",
+             "email": "email do usuario",
+             "occupationArea": "informatica",
+             "evaluatedPrjs: "3",      obs esse seria o numero de projetos que o avaliadores avaliará
+             "stats": "concluido"
+             "projects": [1,2,3,...] 
+             "projects": [
+               {
+                   "id": 1,
+                   "name": "teste",
+	               "course": "informatica",
+	               "class": "3BI",
+	               "mebers": "Euclides",
+	               "obs": "aaaa"
+                   "createdAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE",
+                   "updatedAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE"
+               },
+               ...
+           ],
+           "createdAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE",
+           "updatedAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE"
+       }
+       ...
+   ]
+
+   Status da requisição: 200 OK
+   ---
+
+   Erro na saída: 
+
+   {
+       "error": "exemplo de erro"
+   }
+   ```
+Mostrar um
+   GET: _/users/id_
+   ```
+   Saída esperada: 
+   {
+             "id": 1,
+             "name": "nome do usuario",
+             "cpf": "CPF Do usuario",
+             "phone": "telefone do usuario",
+             "email": "email do usuario",
+             "occupationArea": "informatica",
+             "evaluatedPrjs: "3",      obs esse seria o numero de projetos que o avaliadores avaliará
+             "stats": "concluido"
+             "projects": [1,2,3,...] 
+             "projects": [
+               {
+                   "id": 1,
+                   "name": "teste",
+	               "course": "informatica",
+	               "class": "3BI",
+	               "mebers": "Euclides",
+	               "obs": "aaaa"
+                   "createdAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE",
+                   "updatedAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE"
+               },
+               ...
+           ],
+           "createdAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE",
+           "updatedAt": "YEAR-MONTH-HOUR:MINUTE:SECOND.ZONE"
+       }
+
+   Status da requisição: 200 OK
+   ---
+
+   Erro na saída: 
+
+   {
+       "error": "exemplo de erro"
+   }
+   ```
+Atualizar
+   PUT: _/users/id_
+   ```
+   Entrada esperada: 
+
+   {
+       "name": "nome do usuario",
+        "cpf": "CPF Do usuario",
+        "phone": "telefone do usuario",
+        "email": "email do usuario",
+        "occupationArea": "informatica",
+        "evaluatedPrjs: "3",      obs esse seria o numero de projetos que o avaliadores avaliará
+        "stats": "concluido"
+       "projects": [1,2,3,...] (não obrigatório)
+   }
+   ---
+
+   Saída esperada:
+
+   Um JSON com os novos dados da seção será retornado. 
+
+   Status da requisição: 204 NO CONTENT
+   ---
+
+   Erro na saída:
+
+   {
+       "error": "mensagem de erro"
+   }
+
+   Status da requisição: 500
+   ```
+Remover
+   DELETE: _/users/id_
+   ```
+   Saída esperada: 
+
+   Status da requisição: 204 NO CONTENT
+   ---
+
+   Erro na saída: 
+
+   {
+       "error":"mensagem de erro"
+   }
+   ```

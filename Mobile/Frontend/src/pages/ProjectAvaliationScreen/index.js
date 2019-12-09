@@ -8,6 +8,8 @@ import back from '../../assets/back.png';
 import "./styles.css";
 import "../styles.css";
 
+import api from "../../services/api";
+
 export default class InitScreen extends React.Component {
 
     constructor(props){
@@ -15,7 +17,8 @@ export default class InitScreen extends React.Component {
         this.state = {
             back: false,
             back_init: false,
-            project: this.props.location.state.p
+            project: this.props.location.state.p,
+            projects: null
         }
     }
 
@@ -23,7 +26,8 @@ export default class InitScreen extends React.Component {
         this.setState({back: true});
     }
 
-    handleChange_conclude = () => {
+    handleChange_conclude = async ev => {
+
         var element = document.getElementsByClassName("project_slider");
         var index = 0;
         this.setState(   
@@ -33,16 +37,80 @@ export default class InitScreen extends React.Component {
                 ))
             ))
         )
+
+        ev.preventDefault();
+
+        const post_projects = await api.get(`/users/${this.props.location.state.user_id}`).catch((err) => (console.log("erro")));
+        if(post_projects)this.setState({projects: post_projects.data.projects});
+
+        for(var i=0;i<this.state.project.avaliations.topics.length;i++){
+            for(var j=0;j<this.state.project.avaliations.topics[i].sub_topics.length;j++){
+
+                var rate_ = this.state.project.avaliations.topics[i].sub_topics[j].ponctuation;
+                var criteria_id = this.state.project.avaliations.topics[i].sub_topics[j].id;
+
+                const json = {
+                    rate: rate_   
+                }
+
+                const post_criteria = await api.post(`/prc/${this.state.project.id}/${criteria_id}/${this.props.location.state.user_id}`, json).catch((err) => (console.log("erro")));
+            }
+        }
+
+        this.state.project.active = false;
+
+        this.props.location.state.projects_active[this.state.project.index] = false;
+
+        var actives = 0;
+
+        for(var i=0;i<this.props.location.state.projects_active.length;i++){
+            if(!this.props.location.state.projects_active[i])actives++;
+        }
+
+        if(actives === this.props.location.state.projects_active.length){
+            
+            const post_user = await api.get(`/users/${this.props.location.state.user_id}`).catch((err) => (console.log("erro")));
+            var user = post_user.data;
+
+            const json = {
+                name: user.name,
+                cpf: user.cpf,
+                phone: user.phone,
+                email: user.email,
+                occupationArea: user.occupationArea,
+                evaluatedPrjs: user.evaluatedPrjs,
+                institution: user.institution,
+                status: 'false'
+            }
+
+            const post_user_ = await api.put(`/users/${this.props.location.state.user_id}`, json).catch((err) => (console.log("erro")));
+
+        }
+
         this.setState({back_init: true});
+
     }
     
     render(){
 
         var mt_control = 0, st_control;
 
-        if (this.state.back) return <Redirect to={{pathname: "/projects-view-description", state: {p: this.state.project}}}/>
+        if (this.state.back) return <Redirect to={{pathname: "/projects-view-description", state: {
+            p: this.state.project, 
+            user_id: this.props.location.state.user_id,
+            sections: this.props.location.state.sections,
+            criterias: this.props.location.state.criterias,
+            projects_active: this.props.location.state.projects_active
+        }}}/>
 
-        if (this.state.back_init) return <Redirect to = "/projects-view"/>
+        if (this.state.back_init) return <Redirect to={{pathname: "/projects-view", state: {
+            p: this.state.project, 
+            id: this.props.location.state.user_id,
+            projects: this.state.projects,
+            sections: this.props.location.state.sections,
+            criterias: this.props.location.state.criterias,
+            projects_active: this.props.location.state.projects_active
+        }}}/>
 
         return(
 
@@ -67,6 +135,8 @@ export default class InitScreen extends React.Component {
                         </div>
 
                         {this.state.project.avaliations.topics.map((mt) => (
+
+                            mt.title !== '' &&
                             
                             <div className="project_topic" key={mt.title}>
 
@@ -106,24 +176,6 @@ export default class InitScreen extends React.Component {
                             onClick={this.handleChange_conclude}
                             />
                         </div>
-
-                        {this.state.project.avaliations.topics.map((mt) => (
-                            
-                            <div className="mainly_topic" key={mt.title}>
-
-                                {mt.sub_topics.map((st) => (
-
-                                    <div className="sub_topic" key={st.title}>
-
-                                        <h1>{st.title}: {st.ponctuation}</h1>
-
-                                    </div>
-
-                                ))}
-
-                            </div>
-
-                        ))}
 
                         </div>
 

@@ -8,6 +8,8 @@ import next from '../../assets/next.png';
 import "./styles.css";
 import "../styles.css";
 
+import api from "../../services/api";
+
 export default class InitScreen extends React.Component {
 
     constructor(props){
@@ -15,11 +17,18 @@ export default class InitScreen extends React.Component {
         this.state = {
             back: false,
             next: false,
-            project: this.props.location.state.p
+            project: this.props.location.state.p,
+            projects: null
         }
     }
 
-    handleChange_back = () => {
+    handleChange_back = async ev => {
+
+        ev.preventDefault();
+
+        const post_projects = await api.get(`/users/${this.props.location.state.user_id}`).catch((err) => (console.log("erro")));
+        if(post_projects)this.setState({projects: post_projects.data.projects});
+
         this.setState({back: true});
     }
 
@@ -29,9 +38,21 @@ export default class InitScreen extends React.Component {
 
     render(){
         
-        if (this.state.back) return <Redirect to={{pathname: "/projects-view"}}/>
+        if (this.state.back) return <Redirect to={{pathname: "/projects-view", state: {
+            id: this.props.location.state.user_id, 
+            projects: this.state.projects,
+            sections: this.props.location.state.sections,
+            criterias: this.props.location.state.criterias,
+            projects_active: this.props.location.state.projects_active
+        }}}/>
 
-        if (this.state.next) return <Redirect to={{pathname: "/projects-view-description-avaliation", state: {p: this.state.project}}}/>
+        if (this.state.next) return <Redirect to={{pathname: "/projects-view-description-avaliation", state: {
+            user_id: this.props.location.state.user_id, 
+            p: this.state.project,
+            sections: this.props.location.state.sections,
+            criterias: this.props.location.state.criterias,
+            projects_active: this.props.location.state.projects_active
+        }}}/>
 
         return(
         

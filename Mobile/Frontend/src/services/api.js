@@ -1,6 +1,6 @@
-/*import axios from "axios";
+import axios from "axios";
 
-const api = axios.create({ baseURL: "http://localhost:3333" });
+const api = axios.create({ baseURL: "http://localhost:3006" });
 
 api.interceptors.request.use(async config => {
   const token = localStorage.getItem("token");
@@ -10,4 +10,4 @@ api.interceptors.request.use(async config => {
   return config;
 });
 
-export default api;*/
+export default api;
