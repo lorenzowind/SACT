@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router";
-import MaskedInput from 'react-text-mask'
+import MaskedInput from 'react-text-mask';
 
 import logo from '../../assets/logo.png';
 
@@ -17,6 +17,7 @@ export default class InitScreen extends React.Component {
         this.state = { 
             enter: false,
             popup: [],
+            popup_error: [],
             is_possible: null,
             cpf: null,
             id: null,
@@ -28,9 +29,9 @@ export default class InitScreen extends React.Component {
     }
 
     handleChange_cpf = (event) => {
-        this.setState({ cpf: event.target.value });
+        this.setState({cpf: event.target.value});
     }
-
+    
     handleChange_enter = async ev => {
         
         ev.preventDefault();
@@ -80,11 +81,20 @@ export default class InitScreen extends React.Component {
             }
 
         }
+        else{
+            this.setState({popup_error: [true]});
+        }
       
     }
 
     handleChange_ok = () => {
+
         this.setState({popup: []});
+        this.setState({popup_error: []});
+        
+        var element = document.getElementsByClassName("text_input");
+        element[0].firstChild.value = '';
+
     }
 
     render(){
@@ -115,10 +125,8 @@ export default class InitScreen extends React.Component {
 
                     <div className="text_input">
                         <MaskedInput
-                        mask={[/[1-9]/, /[1-9]/, /[1-9]/, '.', /[1-9]/, /[1-9]/, /[1-9]/, '.', /[1-9]/, /[1-9]/, /[1-9]/, '-', /[1-9]/, /[1-9]/]} 
-                        type="text" 
-                        name="cpf" 
                         placeholder="CPF"
+                        mask={[/[0-9]/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'-',/\d/,/\d/]}
                         onChange={this.handleChange_cpf}
                         />
                     </div>
@@ -168,6 +176,31 @@ export default class InitScreen extends React.Component {
                         </div>
 
                     </div>
+
+                    ))}
+
+                    {this.state.popup_error.map((i) => (
+
+                        <div className="popup3" key={i}>
+
+                        <div className="close">
+                            <h1 onClick={this.handleChange_ok}>X</h1>
+                        </div>
+
+                        <div className="msg4">
+                            <h1>CPF incorreto</h1>
+                        </div>
+
+                        <div className="button_ok">
+                            <input 
+                            type="button" 
+                            name="ok"
+                            value="OK"
+                            onClick={this.handleChange_ok}
+                            />
+                        </div>
+
+                        </div>
 
                     ))}
                 

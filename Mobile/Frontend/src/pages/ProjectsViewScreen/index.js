@@ -126,14 +126,6 @@ export default class InitScreen extends React.Component {
 
     }
 
-    handleChange_inactive = (index) => {
-
-        var element = document.getElementsByClassName("rectangule");
-        var element_ = element[index].getElementsByClassName("project_name");
-        element_[0].style.backgroundImage = "linear-gradient(to right, #00fc08 0%, #aeffb0 98%)";
-
-    }
-
     handleChange_select = (project) => {
 
         if(project.active){
@@ -145,6 +137,31 @@ export default class InitScreen extends React.Component {
     handleChange_ok = () => {
         this.setState({popup: []});
         this.setState({logout: true});
+    }
+
+    treat_name = (name) => {
+        var name_ = name;
+        if(name_.length > 10){
+            return name_.substring(0,9) + '...';
+        }
+        return name_;
+    }
+
+    componentDidMount = () => {
+
+        var element = document.getElementsByClassName("rectangule");
+
+        for(var i=0;i<this.props.location.state.projects_active.length;i++){
+            
+            if(!this.props.location.state.projects_active[i]){
+                
+                var element_ = element[i].getElementsByClassName("project_name");
+                element_[0].style.backgroundImage = "linear-gradient(to right, #00fc08 0%, #aeffb0 98%)";
+
+            }
+
+        }
+
     }
 
     render(){
@@ -179,7 +196,7 @@ export default class InitScreen extends React.Component {
                             <div className="rectangule" key={p.name}>
 
                             <div className="project_name" onClick={this.handleChange_select.bind(this, p)}>
-                                <h1>{p.name}</h1>
+                                <h1>{this.treat_name(p.name)}</h1>
                             </div>
 
                             <div className="project_class">
@@ -207,6 +224,7 @@ export default class InitScreen extends React.Component {
                             </div>
 
                         </div>
+
 
                         {this.state.popup.map((i) => (
 

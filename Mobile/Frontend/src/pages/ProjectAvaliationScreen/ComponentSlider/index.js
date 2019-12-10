@@ -29,7 +29,7 @@ function ValueLabelComponent(props) {
         popperRef,
       }}
       open={open}
-      enterTouchDelay={6}
+      enterTouchDelay={0}
       placement="top"
       title={value}
     >
@@ -50,7 +50,7 @@ const iOSBoxShadow =
 const marks = [
   {
     value: 6.0,
-  },
+  }, 
   {
     value: 10.0,
   },
@@ -112,7 +112,15 @@ export default function CustomizedSlider() {
 
   return (
     <div className={classes.root}>
-      <IOSSlider aria-label="ios slider" min={6.0} max={10.0} step={0.1} marks={marks} defaultValue={6.0} valueLabelDisplay="on" />
+      <IOSSlider 
+      aria-label="ios slider" 
+      defaultValue={6.0} 
+      marks={marks} 
+      valueLabelDisplay="on"
+      min={6.0}
+      max={10.0}
+      step={0.1}
+      />
     </div>
   );
 }

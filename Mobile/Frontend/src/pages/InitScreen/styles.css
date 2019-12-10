@@ -71,3 +71,27 @@
     top: 5%;
     /*display: none;*/
 }
+
+.popup3 {
+    width: 320px;
+    height: 250px;
+    border-radius: 15px;
+    border: solid 1px;
+    background-color: #f9f8f8;
+    position: absolute;
+    top: 30%;
+    /*display: none;*/
+}
+
+.msg4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.msg4 h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 25px;
+    color: #ff0000;
+    width: 220px;
+}
