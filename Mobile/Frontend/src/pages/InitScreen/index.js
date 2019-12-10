@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router";
+import MaskedInput from 'react-text-mask'
 
 import logo from '../../assets/logo.png';
 
@@ -27,9 +28,9 @@ export default class InitScreen extends React.Component {
     }
 
     handleChange_cpf = (event) => {
-        this.setState({cpf: event.target.value});
+        this.setState({ cpf: event.target.value });
     }
-    
+
     handleChange_enter = async ev => {
         
         ev.preventDefault();
@@ -113,7 +114,8 @@ export default class InitScreen extends React.Component {
                     </div>
 
                     <div className="text_input">
-                        <input 
+                        <MaskedInput
+                        mask={[/[1-9]/, /[1-9]/, /[1-9]/, '.', /[1-9]/, /[1-9]/, /[1-9]/, '.', /[1-9]/, /[1-9]/, /[1-9]/, '-', /[1-9]/, /[1-9]/]} 
                         type="text" 
                         name="cpf" 
                         placeholder="CPF"
