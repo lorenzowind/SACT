@@ -1,38 +1,58 @@
-# PASSO A PASSO
+<h1>
+    <img src="https://ik.imagekit.io/7lakfowkdj/sact_readme_IeIfMqzRq.PNG">
+</h1>
 
-## Inserção manual
+Login / Projetos      |  Detalhes / Avaliação
+:-------------------------:|:-------------------------:
+![](https://ik.imagekit.io/7lakfowkdj/telas_pt1_yVLIrcgtn.JPG)  |  ![](https://ik.imagekit.io/7lakfowkdj/telas_pt2_odFPuPXRs.JPG)
 
-- É recomendavel seguir o fluxo de inserção
+---
 
-### 1. Cadastrar usuários
+## 🌐 Sobre
 
-#### Obs: 
+O projeto **SACT** trata de uma solução de software para o interno da **Fundação Matias Machline**, que pretende auxiliar com eficiência o planejamento e organização das avaliações dos projetos de conclusão de curso durante a amostra técnica da FMM
 
-- o campo status deve ser: 'true'
-- o campo evaluatedPrjs deve ser tratado como string normal, sendo somente um campo sem valor agregado
+---
 
-### 2. Cadastrar projetos
+## 💻 Tecnologia utilizadas
 
-#### Obs:
+O projeto foi desenvolvido utilizando as seguintes tecnologias
 
-- o campo members deve ser preenchido com o nome dos alunos seguido de vírgula (Ex.: Aluno 1,Aluno 2,Aluno 3)
+- [React.js](https://reactjs.org/)
+- [Node.js](https://nodejs.org/en/)
+- [MySQL](https://www.mysql.com/)
+- [Sequelize](https://sequelize.org/)
 
-### 3. Cadastrar relações usuário - projeto
+---
 
-### 4. Cadastrar seções
+## 📁 Como baixar o projeto
 
-### 5. Cadastrar critérios
+```bash
 
-### 6. Cadastrar relações seção - critério
+    # Clonar o repositório
+    $ git clone https://github.com/lorenzowind/SACT
 
-### 7. Cadastrar relações projeto - seção
+    # Entrar no diretório do backend
+    $ cd API
 
-## Execução da pasta Frontend
+    # Instalar as dependências
+    $ yarn install
 
-### Executar o comando: npm install express
+    # Rodar as migrations
+    $ npx sequelize db:migrate
 
-## Execução da pasta Backend
+    # Iniciar o backend
+    $ node src/index.js
+    
+    # Entrar no diretório do frontend mobile
+    $ cd Web Mobile
 
-### 1. Executar o comando: npm install --save sequelize
+    # Instalar as dependências
+    $ yarn install
 
-### 2. Executar o comando: npx sequelize db:migrate
+    # Iniciar o frontend
+    $ yarn start
+
+```
+
+---

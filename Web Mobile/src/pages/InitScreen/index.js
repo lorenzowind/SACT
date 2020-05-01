@@ -44,6 +44,8 @@ export default class InitScreen extends React.Component {
 
         if(post_user){
 
+            console.log(post_user)
+
             if(post_user.data.status === 'true'){
                 this.setState({is_possible: true});
                 this.setState({id: post_user.data.id});
