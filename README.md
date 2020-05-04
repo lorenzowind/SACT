@@ -1,10 +1,10 @@
 <h1>
-    <img src="https://ik.imagekit.io/7lakfowkdj/sact_readme_IeIfMqzRq.PNG">
+    <img src="https://ik.imagekit.io/7lakfowkdj/sact_readme_DrLB5mHTf.png">
 </h1>
 
 Login / Projetos      |  Detalhes / Avaliação
 :-------------------------:|:-------------------------:
-![](https://ik.imagekit.io/7lakfowkdj/telas_pt1_yVLIrcgtn.JPG)  |  ![](https://ik.imagekit.io/7lakfowkdj/telas_pt2_odFPuPXRs.JPG)
+![](https://ik.imagekit.io/7lakfowkdj/tela_pt1_vhNZV43kI.JPG)  |  ![](https://ik.imagekit.io/7lakfowkdj/tela_pt2_kHWIE2Lvk.JPG)
 
 ---
 
