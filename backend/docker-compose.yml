@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  sact_mysql:
+    image: mysql
+    container_name: sact_mysql
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: mysql
+      MYSQL_DATABASE: sact
+    ports:
+      - 3306:3306
+    networks:
+      - mysql-compose-network
+
+  sact_adminer:
+    image: adminer
+    container_name: sact_adminer
+    ports:
+      - 8080:8080
+    networks:
+      - mysql-compose-network
+
+  sact_redis:
+    image: redis
+    container_name: sact_redis
+    command: redis-server --requirepass root
+    ports:
+      - 6379:6379
+
+networks:
+  mysql-compose-network:
+    driver: bridge
