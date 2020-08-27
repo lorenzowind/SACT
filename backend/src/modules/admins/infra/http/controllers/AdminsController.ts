@@ -23,7 +23,7 @@ export default class AdminsController {
 
     const updateAdmin = container.resolve(UpdateAdminService);
 
-    const admin = await updateAdmin.execute({ name, email, password });
+    const admin = await updateAdmin.execute({ id, name, email, password });
 
     return response.json(classToClass(admin));
   }
@@ -33,7 +33,7 @@ export default class AdminsController {
 
     const deleteAdmin = container.resolve(DeleteAdminService);
 
-    const admin = await deleteAdmin.execute(id);
+    await deleteAdmin.execute(id);
 
     return response.status(200).send();
   }

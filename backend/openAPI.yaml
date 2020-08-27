@@ -97,7 +97,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  user:
+                  admin:
                     type: object
                     properties:
                       id:
@@ -106,7 +106,7 @@ paths:
                         example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
                       name:
                         type: string
-                        example: "User Name"
+                        example: "Admin Name"
                       email:
                         type: string
                         format: email
@@ -187,14 +187,14 @@ paths:
                 properties:
                   name:
                     type: string
-                    example: "User Name"
+                    example: "Admin Name"
                   email:
                     type: string
                     format: email
                     example: "admin@email.com"
                   password:
                     type: string
-                    example: "user password"
+                    example: "admin password"
       responses:
         '200':
           description: Returns a JSON containing the created admin.
@@ -303,7 +303,7 @@ paths:
         - bearerAuth: []
       responses:
         '200':
-          description: Returns a successfully deleted user confirmation.
+          description: Returns a successfully deleted admin confirmation.
         '400':
           $ref:  '#/components/responses/IncorrectToken'
         '401':

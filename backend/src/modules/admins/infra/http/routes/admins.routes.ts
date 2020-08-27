@@ -3,13 +3,13 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
 
-import UsersController from '../controllers/AdminsController';
+import AdminsController from '../controllers/AdminsController';
 
-const usersRouter = Router();
+const adminsRouter = Router();
 
-const usersController = new UsersController();
+const adminsController = new AdminsController();
 
-usersRouter.post(
+adminsRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
@@ -18,10 +18,10 @@ usersRouter.post(
       password: Joi.string().required(),
     },
   }),
-  usersController.create,
+  adminsController.create,
 );
 
-usersRouter.put(
+adminsRouter.put(
   '/:id',
   ensureAuthenticated,
   celebrate({
@@ -31,9 +31,9 @@ usersRouter.put(
       password: Joi.string().min(6),
     },
   }),
-  usersController.update,
+  adminsController.update,
 );
 
-usersRouter.delete('/:id', ensureAuthenticated, usersController.delete);
+adminsRouter.delete('/:id', ensureAuthenticated, adminsController.delete);
 
-export default usersRouter;
+export default adminsRouter;

@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
 
-import ICreateUserDTO from '@modules/admins/dtos/ICreateOrUpdateAdminDTO';
+import ICreateAdminDTO from '@modules/admins/dtos/ICreateOrUpdateAdminDTO';
 
 import Admin from '@modules/admins/infra/typeorm/entities/Admin';
 
@@ -21,7 +21,7 @@ export default class DraftAdminsRepository implements IAdminsRepository {
     return admin;
   }
 
-  public async create(adminData: ICreateUserDTO): Promise<Admin> {
+  public async create(adminData: ICreateAdminDTO): Promise<Admin> {
     const admin = new Admin();
 
     Object.assign(admin, { id: v4() }, adminData);
