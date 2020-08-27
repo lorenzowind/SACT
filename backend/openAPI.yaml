@@ -1,0 +1,500 @@
+openapi: 3.0.0
+
+servers:
+  - description: Development server URL
+    url: http://127.0.0.1:3333/
+
+info:
+  description: HTTP Requests guide to utilize the SACT API.
+  version: "1.0.0"
+  title: SACT API
+
+tags:
+  - name: authentication
+  - name: admins
+  - name: evaluators
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    UnauthorizedError:
+      description: JWT token is missing
+    IncorrectToken:
+      description: Invalid JWT token
+  schemas:
+    Admin:
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        created_at:
+          type: string
+          format: dateformat
+        updated_at:
+          type: string
+          format: dateformat
+    Evaluator:
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        occupation_area:
+          type: string
+        institution:
+          type: string
+        phone_number:
+          type: string
+        email:
+          type: string
+        cpf:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+          format: dateformat
+        updated_at:
+          type: string
+          format: dateformat
+
+paths:
+  /sessions:
+    post:
+      summary: Creates an admin session.
+      tags:
+        - authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  email:
+                    type: string
+                    example: "admin@email.com"
+                  password:
+                    type: string
+                    example: "admin password"
+      responses:
+        '200':
+          description: Returns a JSON containing the admin data and a JWT token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                      name:
+                        type: string
+                        example: "User Name"
+                      email:
+                        type: string
+                        format: email
+                        example: "admin@email.com"
+                      created_at:
+                        type: string
+                        format: dateformat
+                        example: "2020-07-02T21:57:00.421Z"
+                      updated_at:
+                        type: string
+                        format: dateformat
+                        example: "2020-07-02T21:57:00.421Z"
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTcxMTQ0MDgsImV4cCI6MTU5NzIwMDgwOCwic3ViIjoiMWEwMWY3ZmYtYzZlMy00M2NiLThiNzQtY2YxOWVhZDYyMDdhIn0.P_NlcLb0Ob6j9pC6DxDJiF2q7Xrx6qqWkgOcUgqCpro"
+        '401':
+          description: 'Incorrect login/password combination.'
+  /password/forgot:
+    post:
+      summary: Generates a token for password recovering.
+      tags:
+        - authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "admin@email.com"
+      responses:
+        '204':
+          description: Confirmation of token sent to email successfully.
+        '400':
+          description: Admin does not exists.
+  /password/reset:
+    post:
+      summary: Resets the admin password.
+      tags:
+        - authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: "new admin password"
+                password_confirmation:
+                  type: string
+                  example: "new admin password"
+                token:
+                  type: string
+                  format: uuid
+                  example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+      responses:
+        '204':
+          description: Confirmation of admin password changed successfully.
+        '400':
+          description: Token expired | Admin token doesn't not exists.
+
+  /admins:
+    post:
+      summary: Creates an admin.
+      tags:
+        - admins
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: "User Name"
+                  email:
+                    type: string
+                    format: email
+                    example: "admin@email.com"
+                  password:
+                    type: string
+                    example: "user password"
+      responses:
+        '200':
+          description: Returns a JSON containing the created admin.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  name:
+                    type: string
+                    example: "Admin Name"
+                  email:
+                    type: string
+                    format: email
+                    example: "admin@email.com"
+                  created_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+                  updated_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+  /admins/{id}:
+    put:
+      summary: Updates an admin.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+            example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+          required: true
+          description: Admin id to update it.
+      tags:
+        - admins
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: "New Admin Name"
+                  email:
+                    type: string
+                    format: email
+                    example: "newadmin@email.com"
+                  password:
+                    type: string
+                    example: "new admin password"
+      responses:
+        '200':
+          description: Returns a JSON containing the updated admin.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  name:
+                    type: string
+                    example: "New Admin Name"
+                  email:
+                    type: string
+                    format: email
+                    example: "newadmin@email.com"
+                  created_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+                  updated_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+    delete:
+      summary: Deletes an admin.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+            example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+          required: true
+          description: Admin id to delete it.
+      tags:
+        - admins
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Returns a successfully deleted user confirmation.
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /evaluators:
+    post:
+      summary: Creates an evaluator.
+      tags:
+        - evaluators
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: "Evaluator Name"
+                  occupation_area:
+                    type: string
+                    example: "Evaluator Occupation Area"
+                  institution:
+                    type: string
+                    example: "Evaluator Institution"
+                  phone_number:
+                    type: string
+                    example: "(999)99999-9999"
+                  email:
+                    type: string
+                    format: email
+                    example: "evaluator@email.com"
+                  cpf:
+                    type: string
+                    example: "999.999.999-99"
+                  status:
+                    type: string
+                    example: "to_evaluate"
+      responses:
+        '200':
+          description: Returns a JSON containing the created evaluator.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  name:
+                    type: string
+                    example: "Evaluator Name"
+                  occupation_area:
+                    type: string
+                    example: "Evaluator Occupation Area"
+                  institution:
+                    type: string
+                    example: "Evaluator Institution"
+                  phone_number:
+                    type: string
+                    example: "(999)99999-9999"
+                  email:
+                    type: string
+                    format: email
+                    example: "evaluator@email.com"
+                  cpf:
+                    type: string
+                    example: "999.999.999-99"
+                  status:
+                    type: string
+                    example: "to_evaluate"
+                  created_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+                  updated_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+  /evaluators/{id}:
+    put:
+      summary: Updates an evaluator.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+            example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+          required: true
+          description: Evaluator id to update it.
+      tags:
+        - evaluators
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: "New Evaluator Name"
+                  occupation_area:
+                    type: string
+                    example: "New Evaluator Occupation Area"
+                  institution:
+                    type: string
+                    example: "New Evaluator Institution"
+                  phone_number:
+                    type: string
+                    example: "(999)99999-9999"
+                  email:
+                    type: string
+                    format: email
+                    example: "newevaluator@email.com"
+                  cpf:
+                    type: string
+                    example: "999.999.999-99"
+                  status:
+                    type: string
+                    example: "to_evaluate"
+      responses:
+        '200':
+          description: Returns a JSON containing the updated evaluator.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  name:
+                    type: string
+                    example: "New Evaluator Name"
+                  occupation_area:
+                    type: string
+                    example: "New Evaluator Occupation Area"
+                  institution:
+                    type: string
+                    example: "New Evaluator Institution"
+                  phone_number:
+                    type: string
+                    example: "(999)99999-9999"
+                  email:
+                    type: string
+                    format: email
+                    example: "newevaluator@email.com"
+                  cpf:
+                    type: string
+                    example: "999.999.999-99"
+                  status:
+                    type: string
+                    example: "to_evaluate"
+                  created_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+                  updated_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+    delete:
+      summary: Deletes an evaluator.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+            example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+          required: true
+          description: Evaluator id to delete it.
+      tags:
+        - evaluators
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Returns a successfully deleted evaluator confirmation.
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
