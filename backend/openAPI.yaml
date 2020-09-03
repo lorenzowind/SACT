@@ -308,6 +308,57 @@ paths:
           $ref:  '#/components/responses/IncorrectToken'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
+  /admins/all:
+    get:
+      summary: Gets all admins.
+      tags:
+        - admins
+      parameters:
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: A string to search for specific admins.
+        - in: query
+          name: page
+          schema:
+            type: number
+          description: A number to control the admins pagination.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Returns a JSON array containing all aministrators.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    name:
+                      type: string
+                      example: "Admin Name"
+                    email:
+                      type: string
+                      format: email
+                      example: "admin@email.com"
+                    created_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+                    updated_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
 
   /evaluators:
     post:
@@ -494,6 +545,72 @@ paths:
       responses:
         '200':
           description: Returns a successfully deleted evaluator confirmation.
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /evaluators/all:
+    get:
+      summary: Gets all evaluators.
+      tags:
+        - evaluators
+      parameters:
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: A string to search for specific evaluators.
+        - in: query
+          name: page
+          schema:
+            type: number
+          description: A number to control the evaluators pagination.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Returns a JSON array containing all evaluators.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    name:
+                      type: string
+                      example: "Evaluator Name"
+                    occupation_area:
+                      type: string
+                      example: "Evaluator Occupation Area"
+                    institution:
+                      type: string
+                      example: "Evaluator Institution"
+                    phone_number:
+                      type: string
+                      example: "(999)99999-9999"
+                    email:
+                      type: string
+                      format: email
+                      example: "evaluator@email.com"
+                    cpf:
+                      type: string
+                      example: "999.999.999-99"
+                    status:
+                      type: string
+                      example: "to_evaluate"
+                    created_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+                    updated_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
         '400':
           $ref:  '#/components/responses/IncorrectToken'
         '401':
