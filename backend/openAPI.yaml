@@ -10,7 +10,7 @@ info:
   title: SACT API
 
 tags:
-  - name: authentication
+  - name: admins authentication
   - name: admins
   - name: evaluators
 
@@ -71,11 +71,11 @@ components:
           format: dateformat
 
 paths:
-  /sessions:
+  /admins/sessions:
     post:
       summary: Creates an admin session.
       tags:
-        - authentication
+        - admins authentication
       requestBody:
         required: true
         content:
@@ -124,11 +124,11 @@ paths:
                     example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTcxMTQ0MDgsImV4cCI6MTU5NzIwMDgwOCwic3ViIjoiMWEwMWY3ZmYtYzZlMy00M2NiLThiNzQtY2YxOWVhZDYyMDdhIn0.P_NlcLb0Ob6j9pC6DxDJiF2q7Xrx6qqWkgOcUgqCpro"
         '401':
           description: 'Incorrect login/password combination.'
-  /password/forgot:
+  /admins/password/forgot:
     post:
       summary: Generates a token for password recovering.
       tags:
-        - authentication
+        - admins authentication
       requestBody:
         required: true
         content:
@@ -145,11 +145,11 @@ paths:
           description: Confirmation of token sent to email successfully.
         '400':
           description: Admin does not exists.
-  /password/reset:
+  /admins/password/reset:
     post:
       summary: Resets the admin password.
       tags:
-        - authentication
+        - admins authentication
       requestBody:
         required: true
         content:
@@ -365,6 +365,8 @@ paths:
       summary: Creates an evaluator.
       tags:
         - evaluators
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
