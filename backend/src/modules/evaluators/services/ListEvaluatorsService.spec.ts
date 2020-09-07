@@ -35,13 +35,11 @@ describe('ListEvaluators', () => {
     await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe II',
       cpf: 'evaluator CPF II',
-      status: 'to_evaluate',
     });
 
     const response = await listEvaluators.execute('', 1, admin.id);
@@ -59,7 +57,6 @@ describe('ListEvaluators', () => {
     await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     const response = await listEvaluators.execute('', -1, admin.id);
@@ -77,7 +74,6 @@ describe('ListEvaluators', () => {
     await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     const response = await listEvaluators.execute('', 2, admin.id);
@@ -95,7 +91,6 @@ describe('ListEvaluators', () => {
     await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     await listEvaluators.execute('', 1, admin.id);
@@ -115,7 +110,6 @@ describe('ListEvaluators', () => {
     await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     await listEvaluators.execute('', 1, admin.id);
@@ -135,73 +129,61 @@ describe('ListEvaluators', () => {
     await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe II',
       cpf: 'evaluator CPF II',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe III',
       cpf: 'evaluator CPF III',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe IV',
       cpf: 'evaluator CPF IV',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe V',
       cpf: 'evaluator CPF V',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe VI',
       cpf: 'evaluator CPF VI',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe VII',
       cpf: 'evaluator CPF VII',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe VIII',
       cpf: 'evaluator CPF VIII',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe IX',
       cpf: 'evaluator CPF IX',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe X',
       cpf: 'evaluator CPF X',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe XI',
       cpf: 'evaluator CPF XI',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe XII',
       cpf: 'evaluator CPF XII',
-      status: 'to_evaluate',
     });
 
     await listEvaluators.execute('', 1, admin.id);
@@ -223,37 +205,31 @@ describe('ListEvaluators', () => {
     await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe II',
       cpf: 'evaluator CPF II',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe III',
       cpf: 'evaluator CPF III',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: evaluatorSearch,
       cpf: 'evaluator CPF IV',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe V',
       cpf: 'evaluator CPF V',
-      status: 'to_evaluate',
     });
 
     await draftEvaluatorsRepository.create({
       name: 'John Doe VI',
       cpf: 'evaluator CPF VI',
-      status: 'to_evaluate',
     });
 
     const response = await listEvaluators.execute(evaluatorSearch, 1, admin.id);

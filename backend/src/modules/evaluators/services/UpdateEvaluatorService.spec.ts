@@ -28,14 +28,12 @@ describe('UpdateEvaluator', () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     const updatedEvaluator = await updateEvaluator.execute({
       id: evaluator.id,
       name: 'John Doe II',
       cpf: 'evaluator CPF II',
-      status: 'to_evaluate',
     });
 
     expect(updatedEvaluator.name).toBe('John Doe II');
@@ -48,7 +46,6 @@ describe('UpdateEvaluator', () => {
         id: 'non existing evaluator',
         name: 'John Doe',
         cpf: 'evaluator CPF',
-        status: 'to_evaluate',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -57,13 +54,11 @@ describe('UpdateEvaluator', () => {
     await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe II',
       cpf: 'evaluator CPF II',
-      status: 'to_evaluate',
     });
 
     await expect(
@@ -71,7 +66,6 @@ describe('UpdateEvaluator', () => {
         id: evaluator.id,
         name: evaluator.name,
         cpf: 'evaluator CPF',
-        status: 'to_evaluate',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

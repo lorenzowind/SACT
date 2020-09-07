@@ -21,7 +21,6 @@ describe('AuthenticateEvaluator', () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     const response = await authenticateEvaluator.execute({
@@ -33,6 +32,20 @@ describe('AuthenticateEvaluator', () => {
   });
 
   it('should not be able to authenticate with non existing evaluator', async () => {
+    await expect(
+      authenticateEvaluator.execute({
+        cpf: 'evaluator CPF',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not be able to authenticate with an evaluator who alredy has evaluated all projects', async () => {
+    const evaluator = await draftEvaluatorsRepository.create({
+      name: 'John Doe',
+      cpf: 'evaluator CPF',
+      status: 'rated',
+    });
+
     await expect(
       authenticateEvaluator.execute({
         cpf: 'evaluator CPF',

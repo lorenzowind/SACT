@@ -31,7 +31,6 @@ describe('DeleteAvaliation', () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     const project = await draftProjectsRepository.create({

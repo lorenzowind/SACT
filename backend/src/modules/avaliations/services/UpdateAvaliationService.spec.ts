@@ -29,7 +29,6 @@ describe('UpdateAvaliation', () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     const firstProject = await draftProjectsRepository.create({
@@ -58,7 +57,6 @@ describe('UpdateAvaliation', () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     const project = await draftProjectsRepository.create({
@@ -78,7 +76,6 @@ describe('UpdateAvaliation', () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     const project = await draftProjectsRepository.create({
@@ -103,7 +100,6 @@ describe('UpdateAvaliation', () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     const project = await draftProjectsRepository.create({

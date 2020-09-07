@@ -28,13 +28,11 @@ describe('ListAvaliations', () => {
     const firstEvaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     const secondEvaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe II',
       cpf: 'evaluator CPF II',
-      status: 'to_evaluate',
     });
 
     const firstProject = await draftProjectsRepository.create({

@@ -28,7 +28,6 @@ describe('CreateEvaluator', () => {
     const evaluator = await createEvaluator.execute({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     expect(evaluator).toHaveProperty('id');
@@ -38,14 +37,12 @@ describe('CreateEvaluator', () => {
     await createEvaluator.execute({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     await expect(
       createEvaluator.execute({
         name: 'John Doe II',
         cpf: 'evaluator CPF',
-        status: 'to_evaluate',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

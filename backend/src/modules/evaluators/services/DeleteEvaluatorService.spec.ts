@@ -34,13 +34,11 @@ describe('DeleteEvaluator', () => {
     await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe II',
       cpf: 'evaluator II CPF',
-      status: 'to_evaluate',
     });
 
     await deleteEvaluator.execute(evaluator.id);
