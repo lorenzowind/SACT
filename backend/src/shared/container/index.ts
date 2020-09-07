@@ -15,6 +15,9 @@ import EvaluatorsRepository from '@modules/evaluators/infra/typeorm/repositories
 import IProjectsRepository from '@modules/projects/repositories/IProjectsRepository';
 import ProjectsRepository from '@modules/projects/infra/typeorm/repositories/ProjectsRepository';
 
+import IQuestionsRepository from '@modules/questions/repositories/IQuestionsRepository';
+import QuestionsRepository from '@modules/questions/infra/typeorm/repositories/QuestionsRepository';
+
 container.registerSingleton<IAdminsRepository>(
   'AdminsRepository',
   AdminsRepository,
@@ -33,4 +36,9 @@ container.registerSingleton<IEvaluatorsRepository>(
 container.registerSingleton<IProjectsRepository>(
   'ProjectsRepository',
   ProjectsRepository,
+);
+
+container.registerSingleton<IQuestionsRepository>(
+  'QuestionsRepository',
+  QuestionsRepository,
 );

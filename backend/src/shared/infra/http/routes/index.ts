@@ -8,6 +8,7 @@ import evaluatorsRouter from '@modules/evaluators/infra/http/routes/evaluators.r
 import evaluatorsSessionsRouter from '@modules/evaluators/infra/http/routes/sessions.routes';
 
 import projectsRouter from '@modules/projects/infra/http/routes/projects.routes';
+import questionsRouter from '@modules/questions/infra/http/routes/questions.routes';
 
 const routes = Router();
 
@@ -19,5 +20,6 @@ routes.use('/evaluators', evaluatorsRouter);
 routes.use('/evaluators/sessions', evaluatorsSessionsRouter);
 
 routes.use('/projects', projectsRouter);
+routes.use('/questions', questionsRouter);
 
 export default routes;
