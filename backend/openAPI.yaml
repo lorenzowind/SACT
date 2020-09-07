@@ -12,7 +12,12 @@ info:
 tags:
   - name: admins authentication
   - name: admins
+  - name: evaluators authentication
   - name: evaluators
+  - name: projects
+  - name: questions
+  - name: avaliations
+  - name: grades
 
 components:
   securitySchemes:
@@ -69,6 +74,78 @@ components:
         updated_at:
           type: string
           format: dateformat
+    Project:
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        occupation_area:
+          type: string
+        classroom:
+          type: string
+        members:
+          type: string
+        observation:
+          type: string
+        created_at:
+          type: string
+          format: dateformat
+        updated_at:
+          type: string
+          format: dateformat
+    Question:
+      properties:
+        id:
+          type: string
+          format: uuid
+        section:
+          type: string
+        criterion:
+          type: string
+        created_at:
+          type: string
+          format: dateformat
+        updated_at:
+          type: string
+          format: dateformat
+    Avaliation:
+      properties:
+        id:
+          type: string
+          format: uuid
+        evaluator_id:
+          type: string
+          format: uuid
+        project_id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: dateformat
+        updated_at:
+          type: string
+          format: dateformat
+    Grades:
+      properties:
+        id:
+          type: string
+          format: uuid
+        avaliation_id:
+          type: string
+          format: uuid
+        question_id:
+          type: string
+          format: uuid
+        grade:
+          type: number
+        created_at:
+          type: string
+          format: dateformat
+        updated_at:
+          type: string
+          format: dateformat
 
 paths:
   /admins/sessions:
@@ -83,12 +160,12 @@ paths:
             schema:
               type: object
               properties:
-                  email:
-                    type: string
-                    example: "admin@email.com"
-                  password:
-                    type: string
-                    example: "admin password"
+                email:
+                  type: string
+                  example: "admin@email.com"
+                password:
+                  type: string
+                  example: "admin password"
       responses:
         '200':
           description: Returns a JSON containing the admin data and a JWT token.
@@ -360,6 +437,71 @@ paths:
         '401':
           $ref: '#/components/responses/UnauthorizedError'
 
+  /evaluators/sessions:
+    post:
+      summary: Creates an evaluator session.
+      tags:
+        - evaluators authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cpf:
+                  type: string
+                  example: "999.999.999-99"
+      responses:
+        '200':
+          description: Returns a JSON containing the evaluator data and a JWT token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  evaluator:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                      name:
+                        type: string
+                        example: "Evaluator Name"
+                      occupation_area:
+                        type: string
+                        example: "Evaluator Occupation Area"
+                      institution:
+                        type: string
+                        example: "Evaluator Institution"
+                      phone_number:
+                        type: string
+                        example: "(999)99999-9999"
+                      email:
+                        type: string
+                        format: email
+                        example: "evaluator@email.com"
+                      cpf:
+                        type: string
+                        example: "999.999.999-99"
+                      status:
+                        type: string
+                        example: "to_evaluate"
+                      created_at:
+                        type: string
+                        format: dateformat
+                        example: "2020-07-02T21:57:00.421Z"
+                      updated_at:
+                        type: string
+                        format: dateformat
+                        example: "2020-07-02T21:57:00.421Z"
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTcxMTQ0MDgsImV4cCI6MTU5NzIwMDgwOCwic3ViIjoiMWEwMWY3ZmYtYzZlMy00M2NiLThiNzQtY2YxOWVhZDYyMDdhIn0.P_NlcLb0Ob6j9pC6DxDJiF2q7Xrx6qqWkgOcUgqCpro"
+        '401':
+          description: 'Incorrect CPF.'
   /evaluators:
     post:
       summary: Creates an evaluator.
@@ -605,6 +747,797 @@ paths:
                     status:
                       type: string
                       example: "to_evaluate"
+                    created_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+                    updated_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /projects:
+    post:
+      summary: Creates a project.
+      tags:
+        - projects
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: "Project Name"
+                  occupation_area:
+                    type: string
+                    example: "Project Occupation Area"
+                  classroom:
+                    type: string
+                    example: "Classroom 1"
+                  members:
+                    type: string
+                    example: "Member 1, Member 2, Member 3"
+                  observation:
+                    type: string
+                    example: "Project observation"
+      responses:
+        '200':
+          description: Returns a JSON containing the created project.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  name:
+                    type: string
+                    example: "Project Name"
+                  occupation_area:
+                    type: string
+                    example: "Project Occupation Area"
+                  classroom:
+                    type: string
+                    example: "Classroom 1"
+                  members:
+                    type: string
+                    example: "Member 1, Member 2, Member 3"
+                  observation:
+                    type: string
+                    example: "Project observation"
+                  created_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+                  updated_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+  /projects/{id}:
+    put:
+      summary: Updates a project.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+            example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+          required: true
+          description: Project id to update it.
+      tags:
+        - projects
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: "New Project Name"
+                  occupation_area:
+                    type: string
+                    example: "New Project Occupation Area"
+                  classroom:
+                    type: string
+                    example: "Classroom 2"
+                  members:
+                    type: string
+                    example: "Member 1, Member 2, Member 3"
+                  observation:
+                    type: string
+                    example: "New Project observation"
+      responses:
+        '200':
+          description: Returns a JSON containing the updated project.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  name:
+                    type: string
+                    example: "New Project Name"
+                  occupation_area:
+                    type: string
+                    example: "New Project Occupation Area"
+                  classroom:
+                    type: string
+                    example: "Classroom 2"
+                  members:
+                    type: string
+                    example: "Member 1, Member 2, Member 3"
+                  observation:
+                    type: string
+                    example: "New Project observation"
+                  created_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+                  updated_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+    delete:
+      summary: Deletes a project.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+            example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+          required: true
+          description: Project id to delete it.
+      tags:
+        - projects
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Returns a successfully deleted project confirmation.
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /projects/all:
+    get:
+      summary: Gets all projects.
+      tags:
+        - projects
+      parameters:
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: A string to search for specific projects.
+        - in: query
+          name: page
+          schema:
+            type: number
+          description: A number to control the projects pagination.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Returns a JSON array containing all projects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    name:
+                      type: string
+                      example: "Project Name"
+                    occupation_area:
+                      type: string
+                      example: "Project Occupation Area"
+                    classroom:
+                      type: string
+                      example: "Classroom 1"
+                    members:
+                      type: string
+                      example: "Member 1, Member 2, Member 3"
+                    observation:
+                      type: string
+                      example: "Project observation"
+                    created_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+                    updated_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /questions:
+    post:
+      summary: Creates a question.
+      tags:
+        - questions
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  section:
+                    type: string
+                    example: "Section Name"
+                  criterion:
+                    type: string
+                    example: ""
+      responses:
+        '200':
+          description: Returns a JSON containing the created question.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  section:
+                    type: string
+                    example: "Section Name"
+                  criterion:
+                    type: string
+                    example: ""
+                  created_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+                  updated_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+  /questions/{id}:
+    put:
+      summary: Updates a question.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+            example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+          required: true
+          description: Question id to update it.
+      tags:
+        - questions
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  section:
+                    type: string
+                    example: "Section Name"
+                  criterion:
+                    type: string
+                    example: "Criterion Name"
+      responses:
+        '200':
+          description: Returns a JSON containing the updated question.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  section:
+                    type: string
+                    example: "Section Name"
+                  criterion:
+                    type: string
+                    example: "Criterion Name"
+                  created_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+                  updated_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+    delete:
+      summary: Deletes a question.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+            example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+          required: true
+          description: Question id to delete it.
+      tags:
+        - questions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Returns a successfully deleted question confirmation.
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /questions/all:
+    get:
+      summary: Gets all questions.
+      tags:
+        - questions
+      parameters:
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: A string to search for specific questions.
+        - in: query
+          name: page
+          schema:
+            type: number
+          description: A number to control the questions pagination.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Returns a JSON array containing all questions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    section:
+                      type: string
+                      example: "Section Name"
+                    criterion:
+                      type: string
+                      example: "Criterion Name"
+                    created_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+                    updated_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /avaliations:
+    post:
+      summary: Creates an avaliation.
+      tags:
+        - avaliations
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  evaluator_id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  project_id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+      responses:
+        '200':
+          description: Returns a JSON containing the created avaliation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  evaluator_id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  project_id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  created_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+                  updated_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+  /avaliations/{id}:
+    put:
+      summary: Updates an avaliation.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+            example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+          required: true
+          description: Avaliation id to update it.
+      tags:
+        - avaliations
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  evaluator_id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  project_id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+      responses:
+        '200':
+          description: Returns a JSON containing the updated avaliation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  evaluator_id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  project_id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  created_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+                  updated_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+    delete:
+      summary: Deletes an avaliation.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+            example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+          required: true
+          description: Avaliation id to delete it.
+      tags:
+        - avaliations
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Returns a successfully deleted avaliation confirmation.
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /avaliations/{evaluator_id}:
+    get:
+      summary: Gets all avaliations by evaluator id.
+      tags:
+        - avaliations
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+            example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+          required: true
+          description: Evaluator id to reference the avaliations.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Returns a JSON array containing all avaliatons.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    evaluator_id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    project_id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    created_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+                    updated_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /grades:
+    post:
+      summary: Creates a set of grades.
+      tags:
+        - grades
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  avaliation_id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  question_id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  grade:
+                    type: number
+                    example: 6.0
+      responses:
+        '200':
+          description: Returns a JSON containing the created grade set.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    avaliation_id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    question_id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    grade:
+                      type: number
+                      example: 6.0
+                    created_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+                    updated_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+    put:
+      summary: Updates a set of grades.
+      tags:
+        - grades
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  grade_id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  avaliation_id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  question_id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  grade:
+                    type: number
+                    example: 6.0
+      responses:
+        '200':
+          description: Returns a JSON containing the updated grade set.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    avaliation_id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    question_id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    grade:
+                      type: number
+                      example: 6.0
+                    created_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+                    updated_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /grades/{id}:
+    delete:
+      summary: Deletes a grade.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+            example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+          required: true
+          description: Grade id to delete it.
+      tags:
+        - grades
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Returns a successfully deleted grade confirmation.
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /grades/{avaliation_id}:
+    get:
+      summary: Gets all grades by avaliation id.
+      tags:
+        - grades
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+            example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+          required: true
+          description: Avaliation id to reference the grades.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Returns a JSON array containing all grades.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    avaliation_id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    question_id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    grade:
+                      type: number
+                      example: 6.0
                     created_at:
                       type: string
                       format: dateformat
