@@ -21,6 +21,9 @@ import QuestionsRepository from '@modules/questions/infra/typeorm/repositories/Q
 import IAvaliationsRepository from '@modules/avaliations/repositories/IAvaliationsRepository';
 import AvaliationsRepository from '@modules/avaliations/infra/typeorm/repositories/AvaliationsRepository';
 
+import IGradesRepository from '@modules/grades/repositories/IGradesRepository';
+import GradesRepository from '@modules/grades/infra/typeorm/repositories/GradesRepository';
+
 container.registerSingleton<IAdminsRepository>(
   'AdminsRepository',
   AdminsRepository,
@@ -49,4 +52,9 @@ container.registerSingleton<IQuestionsRepository>(
 container.registerSingleton<IAvaliationsRepository>(
   'AvaliationsRepository',
   AvaliationsRepository,
+);
+
+container.registerSingleton<IGradesRepository>(
+  'GradesRepository',
+  GradesRepository,
 );

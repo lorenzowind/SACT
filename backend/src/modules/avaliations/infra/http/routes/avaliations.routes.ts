@@ -9,7 +9,11 @@ const avaliationsRouter = Router();
 
 const avaliationsController = new AvaliationsController();
 
-avaliationsRouter.get('/all', ensureAuthenticated, avaliationsController.show);
+avaliationsRouter.get(
+  '/:evaluator_id',
+  ensureAuthenticated,
+  avaliationsController.show,
+);
 
 avaliationsRouter.post(
   '/',

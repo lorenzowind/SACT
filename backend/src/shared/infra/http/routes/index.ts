@@ -10,6 +10,7 @@ import evaluatorsSessionsRouter from '@modules/evaluators/infra/http/routes/sess
 import projectsRouter from '@modules/projects/infra/http/routes/projects.routes';
 import questionsRouter from '@modules/questions/infra/http/routes/questions.routes';
 import avaliationsRouter from '@modules/avaliations/infra/http/routes/avaliations.routes';
+import gradesRouter from '@modules/grades/infra/http/routes/grades.routes';
 
 const routes = Router();
 
@@ -23,5 +24,6 @@ routes.use('/evaluators/sessions', evaluatorsSessionsRouter);
 routes.use('/projects', projectsRouter);
 routes.use('/questions', questionsRouter);
 routes.use('/avaliations', avaliationsRouter);
+routes.use('/grades', gradesRouter);
 
 export default routes;
