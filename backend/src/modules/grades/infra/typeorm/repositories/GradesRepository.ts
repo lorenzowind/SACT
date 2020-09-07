@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 
 import IGradesRepository from '@modules/grades/repositories/IGradesRepository';
 
-import ICreateGradeDTO from '@modules/grades/dtos/ICreateOrUpdateGradeDTO';
+import ICreateGradeDTO from '@modules/grades/dtos/ICreateGradeDTO';
 
 import Grade from '../entities/Grade';
 
@@ -22,12 +22,6 @@ class GradesRepository implements IGradesRepository {
     return grades;
   }
 
-  public async findById(id: string): Promise<Grade | undefined> {
-    const findGrade = await this.ormRepository.findOne(id);
-
-    return findGrade;
-  }
-
   public async create(gradeData: ICreateGradeDTO): Promise<Grade> {
     const grade = this.ormRepository.create(gradeData);
 
@@ -36,14 +30,6 @@ class GradesRepository implements IGradesRepository {
     await this.ormRepository.save(grade);
 
     return grade;
-  }
-
-  public async save(grade: Grade): Promise<Grade> {
-    return this.ormRepository.save(grade);
-  }
-
-  public async remove(grade: Grade): Promise<void> {
-    await this.ormRepository.remove(grade);
   }
 }
 

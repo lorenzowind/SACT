@@ -26,7 +26,6 @@ class CreateEvaluatorService {
     institution,
     phone_number,
     email,
-    status,
     cpf,
   }: ICreateEvaluatorDTO): Promise<Evaluator> {
     const checkEvaluatorCpfExists = await this.evaluatorsRepository.findByCpf(
@@ -43,8 +42,8 @@ class CreateEvaluatorService {
       institution,
       phone_number,
       email,
-      status,
       cpf,
+      status: 'to_evaluate',
     });
 
     await this.cacheProvider.invalidatePrefix('evaluators-list');

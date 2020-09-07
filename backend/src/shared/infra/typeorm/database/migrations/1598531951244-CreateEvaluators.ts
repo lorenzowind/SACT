@@ -44,7 +44,7 @@ export default class CreateEvaluators1598531951244
           },
           {
             name: 'status',
-            type: "enum('to_evaluate', 'assessing', 'rated')",
+            type: "enum('to_evaluate', 'rated')",
           },
           {
             name: 'created_at',

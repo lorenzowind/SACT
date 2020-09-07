@@ -30,6 +30,9 @@ class Avaliation {
   @JoinColumn({ name: 'project_id' })
   project: Project;
 
+  @Column()
+  status: 'to_evaluate' | 'rated';
+
   @CreateDateColumn()
   created_at: Date;
 

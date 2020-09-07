@@ -30,7 +30,7 @@ class Evaluator {
   cpf: string;
 
   @Column()
-  status: 'to_evaluate' | 'assessing' | 'rated';
+  status: 'to_evaluate' | 'rated';
 
   @CreateDateColumn()
   created_at: Date;

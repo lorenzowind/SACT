@@ -29,6 +29,10 @@ export default class CreateAvaliations1599512518530
             isNullable: true,
           },
           {
+            name: 'status',
+            type: "enum('to_evaluate', 'rated')",
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'current_timestamp',

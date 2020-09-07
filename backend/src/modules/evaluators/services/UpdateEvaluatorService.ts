@@ -31,7 +31,6 @@ class UpdateEvaluatorService {
     institution,
     phone_number,
     email,
-    status,
     cpf,
   }: IRequest): Promise<Evaluator> {
     const evaluator = await this.evaluatorsRepository.findById(id);
@@ -53,8 +52,8 @@ class UpdateEvaluatorService {
     evaluator.institution = institution;
     evaluator.phone_number = phone_number;
     evaluator.email = email;
-    evaluator.status = status;
     evaluator.cpf = cpf;
+    evaluator.status = 'to_evaluate';
 
     await this.cacheProvider.invalidatePrefix('evaluators-list');
 

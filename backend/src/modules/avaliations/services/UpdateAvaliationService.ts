@@ -31,6 +31,7 @@ class UpdateAvaliationService {
     id,
     evaluator_id,
     project_id,
+    status,
   }: IRequest): Promise<Avaliation> {
     const avaliation = await this.avaliationsRepository.findById(id);
 
@@ -56,6 +57,7 @@ class UpdateAvaliationService {
 
     avaliation.evaluator_id = evaluator_id;
     avaliation.project_id = project_id;
+    avaliation.status = 'to_evaluate';
 
     return this.avaliationsRepository.save(avaliation);
   }

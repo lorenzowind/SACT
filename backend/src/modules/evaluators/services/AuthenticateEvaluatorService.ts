@@ -32,6 +32,10 @@ class AuthenticateEvaluatorService {
       throw new AppError('Incorrect CPF.', 401);
     }
 
+    if (evaluator.status === 'rated') {
+      throw new AppError('All projects have already been evaluated.', 401);
+    }
+
     const { secret, expiresIn } = authConfig.jwt;
 
     const token = sign({}, secret, {

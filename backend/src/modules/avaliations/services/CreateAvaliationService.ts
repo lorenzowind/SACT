@@ -46,6 +46,7 @@ class CreateAvaliationService {
     const avaliation = await this.avaliationsRepository.create({
       evaluator_id,
       project_id,
+      status: 'to_evaluate',
     });
 
     return avaliation;

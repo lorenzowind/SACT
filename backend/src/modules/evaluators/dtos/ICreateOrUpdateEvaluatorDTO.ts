@@ -5,5 +5,5 @@ export default interface ICreateOrUpdateEvaluatorDTO {
   phone_number?: string;
   email?: string;
   cpf: string;
-  status: 'to_evaluate' | 'assessing' | 'rated';
+  status?: 'to_evaluate' | 'rated';
 }
