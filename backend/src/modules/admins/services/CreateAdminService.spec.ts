@@ -1,5 +1,6 @@
 import AppError from '@shared/errors/AppError';
 
+import DraftCacheProvider from '@shared/container/providers/CacheProvider/drafts/DraftCacheProvider';
 import DraftHashProvider from '../providers/HashProvider/drafts/DraftHashProvider';
 
 import DraftAdminsRepository from '../repositories/drafts/DraftAdminsRepository';
@@ -8,6 +9,7 @@ import CreateAdminService from './CreateAdminService';
 
 let draftAdminsRepository: DraftAdminsRepository;
 
+let draftCacheProvider: DraftCacheProvider;
 let draftHashProvider: DraftHashProvider;
 
 let createAdmin: CreateAdminService;
@@ -17,10 +19,12 @@ describe('CreateAdmin', () => {
     draftAdminsRepository = new DraftAdminsRepository();
 
     draftHashProvider = new DraftHashProvider();
+    draftCacheProvider = new DraftCacheProvider();
 
     createAdmin = new CreateAdminService(
       draftAdminsRepository,
       draftHashProvider,
+      draftCacheProvider,
     );
   });
 

@@ -9,6 +9,14 @@ import IAdminsRepository from '../IAdminsRepository';
 export default class DraftAdminsRepository implements IAdminsRepository {
   private admins: Admin[] = [];
 
+  public async findAllAdmins(search: string, page: number): Promise<Admin[]> {
+    const admins = search
+      ? this.admins.filter(findUser => findUser.name.includes(search))
+      : this.admins;
+
+    return admins.slice((page - 1) * 10, page * 10);
+  }
+
   public async findById(id: string): Promise<Admin | undefined> {
     const admin = this.admins.find(findAdmin => findAdmin.id === id);
 

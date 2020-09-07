@@ -2,6 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
 import IAdminsRepository from '../repositories/IAdminsRepository';
@@ -14,13 +15,16 @@ interface IRequest extends IUpdateAdminDTO {
 }
 
 @injectable()
-class UpdateProfileService {
+class UpdateAdminService {
   constructor(
     @inject('AdminsRepository')
     private adminsRepository: IAdminsRepository,
 
     @inject('HashProvider')
     private hashProvider: IHashProvider,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -48,8 +52,10 @@ class UpdateProfileService {
 
     admin.password = await this.hashProvider.generateHash(password);
 
+    await this.cacheProvider.invalidatePrefix('admins-list');
+
     return this.adminsRepository.save(admin);
   }
 }
 
-export default UpdateProfileService;
+export default UpdateAdminService;

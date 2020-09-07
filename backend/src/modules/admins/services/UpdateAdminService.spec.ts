@@ -9,19 +9,22 @@ import UpdateAdminService from './UpdateAdminService';
 
 let draftAdminsRepository: DraftAdminsRepository;
 
+let draftCacheProvider: DraftCacheProvider;
 let draftHashProvider: DraftHashProvider;
 
 let updateAdmin: UpdateAdminService;
 
-describe('UpdateProfile', () => {
+describe('UpdateAdmin', () => {
   beforeEach(() => {
     draftAdminsRepository = new DraftAdminsRepository();
 
+    draftCacheProvider = new DraftCacheProvider();
     draftHashProvider = new DraftHashProvider();
 
     updateAdmin = new UpdateAdminService(
       draftAdminsRepository,
       draftHashProvider,
+      draftCacheProvider,
     );
   });
 

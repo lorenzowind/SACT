@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository, Like } from 'typeorm';
 import { v4 } from 'uuid';
 
 import IAdminsRepository from '@modules/admins/repositories/IAdminsRepository';
@@ -12,6 +12,24 @@ class AdminsRepository implements IAdminsRepository {
 
   constructor() {
     this.ormRepository = getRepository(Admin);
+  }
+
+  public async findAllAdmins(search: string, page: number): Promise<Admin[]> {
+    const admins =
+      search !== ''
+        ? await this.ormRepository.find({
+            skip: (page - 1) * 10,
+            take: 10,
+            where: {
+              name: Like(`%${search}%`),
+            },
+          })
+        : await this.ormRepository.find({
+            skip: (page - 1) * 10,
+            take: 10,
+          });
+
+    return admins;
   }
 
   public async findById(id: string): Promise<Admin | undefined> {

@@ -127,7 +127,7 @@ components:
         updated_at:
           type: string
           format: dateformat
-    Grades:
+    Grade:
       properties:
         id:
           type: string
@@ -1303,7 +1303,7 @@ paths:
         - avaliations
       parameters:
         - in: path
-          name: id
+          name: evaluator_id
           schema:
             type: string
             format: uuid
@@ -1504,7 +1504,7 @@ paths:
         - grades
       parameters:
         - in: path
-          name: id
+          name: avaliation_id
           schema:
             type: string
             format: uuid

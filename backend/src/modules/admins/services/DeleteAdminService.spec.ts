@@ -1,10 +1,14 @@
 import AppError from '@shared/errors/AppError';
 
+import DraftCacheProvider from '@shared/container/providers/CacheProvider/drafts/DraftCacheProvider';
+
 import DraftAdminsRepository from '../repositories/drafts/DraftAdminsRepository';
 
 import DeleteAdminService from './DeleteAdminService';
 
 let draftAdminsRepository: DraftAdminsRepository;
+
+let draftCacheProvider: DraftCacheProvider;
 
 let deleteAdmin: DeleteAdminService;
 
@@ -12,7 +16,12 @@ describe('DeleteAdmin', () => {
   beforeEach(() => {
     draftAdminsRepository = new DraftAdminsRepository();
 
-    deleteAdmin = new DeleteAdminService(draftAdminsRepository);
+    draftCacheProvider = new DraftCacheProvider();
+
+    deleteAdmin = new DeleteAdminService(
+      draftAdminsRepository,
+      draftCacheProvider,
+    );
   });
 
   it('should not be able to delete a non existing admin', async () => {

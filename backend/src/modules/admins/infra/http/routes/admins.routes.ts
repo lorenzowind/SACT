@@ -9,6 +9,8 @@ const adminsRouter = Router();
 
 const adminsController = new AdminsController();
 
+adminsRouter.get('/all', ensureAuthenticated, adminsController.show);
+
 adminsRouter.post(
   '/',
   celebrate({
