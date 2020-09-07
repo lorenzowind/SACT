@@ -9,6 +9,7 @@ import evaluatorsSessionsRouter from '@modules/evaluators/infra/http/routes/sess
 
 import projectsRouter from '@modules/projects/infra/http/routes/projects.routes';
 import questionsRouter from '@modules/questions/infra/http/routes/questions.routes';
+import avaliationsRouter from '@modules/avaliations/infra/http/routes/avaliations.routes';
 
 const routes = Router();
 
@@ -21,5 +22,6 @@ routes.use('/evaluators/sessions', evaluatorsSessionsRouter);
 
 routes.use('/projects', projectsRouter);
 routes.use('/questions', questionsRouter);
+routes.use('/avaliations', avaliationsRouter);
 
 export default routes;
