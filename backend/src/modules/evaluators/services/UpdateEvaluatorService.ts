@@ -40,11 +40,11 @@ class UpdateEvaluatorService {
       throw new AppError('Evaluator not found.');
     }
 
-    const adminWithUpdatedEmail = await this.evaluatorsRepository.findByCpf(
+    const evaluatorWithUpdatedEmail = await this.evaluatorsRepository.findByCpf(
       cpf,
     );
 
-    if (adminWithUpdatedEmail && adminWithUpdatedEmail.id !== id) {
+    if (evaluatorWithUpdatedEmail && evaluatorWithUpdatedEmail.id !== id) {
       throw new AppError('CPF already in use.');
     }
 

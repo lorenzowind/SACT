@@ -49,7 +49,7 @@ class Project {
       case 'disk':
         return `${process.env.APP_API_URL}/files/${this.image}`;
       case 's3':
-        return `https://${uploadConfig.config.aws.bucket}.s3.us-east-2.amazonaws.com/${this.avatar}`;
+        return `https://${uploadConfig.config.aws.bucket}.s3.us-east-2.amazonaws.com/${this.image}`;
       default:
         return null;
     }

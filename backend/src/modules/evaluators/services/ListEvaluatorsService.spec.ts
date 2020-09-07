@@ -212,7 +212,7 @@ describe('ListEvaluators', () => {
   });
 
   it('should be able to list all the evaluators from the first page which includes a search string', async () => {
-    const evaluatorSearch = 'Evaluators Searching';
+    const evaluatorSearch = 'Evaluator Searching';
 
     const admin = await draftAdminsRepository.create({
       name: 'John Doe',

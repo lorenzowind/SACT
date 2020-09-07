@@ -4,5 +4,4 @@ export default interface ICreateOrUpdateProjectDTO {
   classroom?: string;
   members?: string;
   observation?: string;
-  image?: string;
 }
