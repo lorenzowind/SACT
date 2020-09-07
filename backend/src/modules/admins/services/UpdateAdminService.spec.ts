@@ -28,7 +28,7 @@ describe('UpdateAdmin', () => {
     );
   });
 
-  it('should be able to update the profile', async () => {
+  it('should be able to update the admin', async () => {
     const admin = await draftAdminsRepository.create({
       name: 'John Doe',
       email: 'johndoe@example.com',

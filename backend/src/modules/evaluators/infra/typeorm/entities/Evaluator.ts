@@ -15,16 +15,16 @@ class Evaluator {
   name: string;
 
   @Column()
-  occupation_area: string;
+  occupation_area?: string;
 
   @Column()
-  institution: string;
+  institution?: string;
 
   @Column()
-  phone_number: string;
+  phone_number?: string;
 
   @Column()
-  email: string;
+  email?: string;
 
   @Column()
   cpf: string;
