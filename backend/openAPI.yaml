@@ -89,6 +89,9 @@ components:
           type: string
         observation:
           type: string
+        image:
+          type: string
+          format: binary
         created_at:
           type: string
           format: dateformat
@@ -816,6 +819,9 @@ paths:
                   observation:
                     type: string
                     example: "Project observation"
+                  image_url:
+                    type: string
+                    example: null
                   created_at:
                     type: string
                     format: dateformat
@@ -889,6 +895,9 @@ paths:
                   observation:
                     type: string
                     example: "New Project observation"
+                  image_url:
+                    type: string
+                    example: "https://image_upload_provider/2196cf1aec2f18533aaf-file_name.png"
                   created_at:
                     type: string
                     format: dateformat
@@ -919,6 +928,74 @@ paths:
       responses:
         '200':
           description: Returns a successfully deleted project confirmation.
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /projects/{id}/image:
+    patch:
+      summary: Updates the project image.
+      tags:
+        - projects
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+            example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+          required: true
+          description: Project id to update it.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Returns a JSON containing the updated project with image.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                  name:
+                    type: string
+                    example: "Project Name"
+                  occupation_area:
+                    type: string
+                    example: "Project Occupation Area"
+                  classroom:
+                    type: string
+                    example: "Classroom 1"
+                  members:
+                    type: string
+                    example: "Member 1, Member 2, Member 3"
+                  observation:
+                    type: string
+                    example: "Project observation"
+                  image_url:
+                    type: string
+                    example: "https://image_upload_provider/2196cf1aec2f18533aaf-file_name.png"
+                  created_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
+                  updated_at:
+                    type: string
+                    format: dateformat
+                    example: "2020-07-02T21:57:00.421Z"
         '400':
           $ref:  '#/components/responses/IncorrectToken'
         '401':
@@ -970,6 +1047,9 @@ paths:
                     observation:
                       type: string
                       example: "Project observation"
+                    image_url:
+                      type: string
+                      example: "https://image_upload_provider/2196cf1aec2f18533aaf-file_name.png"
                     created_at:
                       type: string
                       format: dateformat

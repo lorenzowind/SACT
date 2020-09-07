@@ -7,6 +7,8 @@ import passwordRouter from '@modules/admins/infra/http/routes/password.routes';
 import evaluatorsRouter from '@modules/evaluators/infra/http/routes/evaluators.routes';
 import evaluatorsSessionsRouter from '@modules/evaluators/infra/http/routes/sessions.routes';
 
+import projectsRouter from '@modules/projects/infra/http/routes/projects.routes';
+
 const routes = Router();
 
 routes.use('/admins', adminsRouter);
@@ -15,5 +17,7 @@ routes.use('/admins/password', passwordRouter);
 
 routes.use('/evaluators', evaluatorsRouter);
 routes.use('/evaluators/sessions', evaluatorsSessionsRouter);
+
+routes.use('/projects', projectsRouter);
 
 export default routes;

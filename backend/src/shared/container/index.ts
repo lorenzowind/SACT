@@ -12,6 +12,9 @@ import AdminTokensRepository from '@modules/admins/infra/typeorm/repositories/Ad
 import IEvaluatorsRepository from '@modules/evaluators/repositories/IEvaluatorsRepository';
 import EvaluatorsRepository from '@modules/evaluators/infra/typeorm/repositories/EvaluatorsRepository';
 
+import IProjectsRepository from '@modules/projects/repositories/IProjectsRepository';
+import ProjectsRepository from '@modules/projects/infra/typeorm/repositories/ProjectsRepository';
+
 container.registerSingleton<IAdminsRepository>(
   'AdminsRepository',
   AdminsRepository,
@@ -25,4 +28,9 @@ container.registerSingleton<IAdminTokensRepository>(
 container.registerSingleton<IEvaluatorsRepository>(
   'EvaluatorsRepository',
   EvaluatorsRepository,
+);
+
+container.registerSingleton<IProjectsRepository>(
+  'ProjectsRepository',
+  ProjectsRepository,
 );
