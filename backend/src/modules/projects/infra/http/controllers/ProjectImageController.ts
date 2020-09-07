@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
-import UpdateProjectImageService from '@modules/users/services/UpdateProjectImageService';
+import UpdateProjectImageService from '@modules/projects/services/UpdateProjectImageService';
 
 export default class ProjectImageController {
   public async update(request: Request, response: Response): Promise<Response> {
@@ -12,7 +12,7 @@ export default class ProjectImageController {
 
     const project = await updateProjectImage.execute({
       project_id,
-      avatarFilename: request.file.filename,
+      imageFilename: request.file.filename,
     });
 
     return response.json(classToClass(project));
