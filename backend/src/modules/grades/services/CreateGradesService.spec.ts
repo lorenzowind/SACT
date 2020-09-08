@@ -163,51 +163,74 @@ describe('CreateGrades', () => {
       project_id: project.id,
     });
 
-    await expect(
-      createGrades.execute({
-        avaliation_id: avaliation.id,
-        grades: [
-          {
-            question_id: 'non existing question id',
-            grade: 6.0,
-          },
-        ],
-      }),
-    ).rejects.toBeInstanceOf(AppError);
+    const response = await createGrades.execute({
+      avaliation_id: avaliation.id,
+      grades: [
+        {
+          question_id: 'non existing question id',
+          grade: 6.0,
+        },
+      ],
+    });
+
+    expect(response).toEqual([]);
   });
 
-  // it('should not be able to create new grades with non existing evaluator', async () => {
-  //   const evaluator = await draftEvaluatorsRepository.create({
-  //     name: 'John Doe',
-  //     cpf: 'evaluator CPF',
-  //   });
+  it('should be able to evaluate the projects and have the status changed', async () => {
+    const evaluator = await draftEvaluatorsRepository.create({
+      name: 'John Doe',
+      cpf: 'evaluator CPF',
+    });
 
-  //   const project = await draftProjectsRepository.create({
-  //     name: 'Project Name',
-  //   });
+    const firstProject = await draftProjectsRepository.create({
+      name: 'Project Name',
+    });
 
-  //   const avaliation = await draftAvaliationsRepository.create({
-  //     evaluator_id: evaluator.id,
-  //     project_id: project.id,
-  //   });
+    const secondProject = await draftProjectsRepository.create({
+      name: 'Project Name',
+    });
 
-  //   const question = await draftQuestionsRepository.create({
-  //     section: 'Section Name',
-  //     criterion: 'Criterion Name',
-  //   });
+    const firstAvaliation = await draftAvaliationsRepository.create({
+      evaluator_id: evaluator.id,
+      project_id: firstProject.id,
+    });
 
-  //   await draftEvaluatorsRepository.remove(evaluator);
+    const secondAvaliation = await draftAvaliationsRepository.create({
+      evaluator_id: evaluator.id,
+      project_id: secondProject.id,
+    });
 
-  //   await expect(
-  //     createGrades.execute({
-  //       avaliation_id: avaliation.id,
-  //       grades: [
-  //         {
-  //           question_id: question.id,
-  //           grade: 6.0,
-  //         },
-  //       ],
-  //     }),
-  //   ).rejects.toBeInstanceOf(AppError);
-  // });
+    const question = await draftQuestionsRepository.create({
+      section: 'Section Name',
+      criterion: 'Criterion Name',
+    });
+
+    await createGrades.execute({
+      avaliation_id: firstAvaliation.id,
+      grades: [
+        {
+          question_id: question.id,
+          grade: 6.0,
+        },
+      ],
+    });
+
+    await createGrades.execute({
+      avaliation_id: secondAvaliation.id,
+      grades: [
+        {
+          question_id: question.id,
+          grade: 6.0,
+        },
+      ],
+    });
+
+    const updatedEvaluator = await draftEvaluatorsRepository.findById(
+      evaluator.id,
+    );
+
+    const expected = { status: 'rated' };
+
+    expect(updatedEvaluator).toMatchObject(expected);
+  });
 });
