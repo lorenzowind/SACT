@@ -21,7 +21,11 @@ avaliationsRouter.post(
   celebrate({
     [Segments.BODY]: {
       evaluator_id: Joi.string().required(),
-      project_id: Joi.string().required(),
+      projects: Joi.array().items(
+        Joi.object({
+          project_id: Joi.string().required(),
+        }),
+      ),
     },
   }),
   avaliationsController.create,

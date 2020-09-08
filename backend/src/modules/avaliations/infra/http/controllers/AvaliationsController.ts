@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import ListAvaliationsService from '@modules/avaliations/services/ListAvaliationsService';
-import CreateAvaliationService from '@modules/avaliations/services/CreateAvaliationService';
+import CreateAvaliationService from '@modules/avaliations/services/CreateAvaliationsService';
 import UpdateAvaliationService from '@modules/avaliations/services/UpdateAvaliationService';
 import DeleteAvaliationService from '@modules/avaliations/services/DeleteAvaliationService';
 
@@ -18,16 +18,16 @@ export default class AvaliationsController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { evaluator_id, project_id } = request.body;
+    const { evaluator_id, projects } = request.body;
 
     const createAvaliation = container.resolve(CreateAvaliationService);
 
-    const avaliation = await createAvaliation.execute({
+    const avaliations = await createAvaliation.execute({
       evaluator_id,
-      project_id,
+      projects,
     });
 
-    return response.json(avaliation);
+    return response.json(avaliations);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {

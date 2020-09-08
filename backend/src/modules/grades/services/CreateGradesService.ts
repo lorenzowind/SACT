@@ -7,7 +7,7 @@ import IAvaliationsRepository from '@modules/avaliations/repositories/IAvaliatio
 import IQuestionsRepository from '@modules/questions/repositories/IQuestionsRepository';
 import IEvaluatorsRepository from '@modules/evaluators/repositories/IEvaluatorsRepository';
 
-import ICreateGradeRequestDTO from '../dtos/ICreateGradeRequestDTO';
+import ICreateGradeRequestDTO from '../dtos/ICreateGradesRequestDTO';
 
 import Grade from '../infra/typeorm/entities/Grade';
 
@@ -43,23 +43,23 @@ class CreateGradeService {
 
     const createdGrades: Grade[] = [];
 
-    grades.map(async informedGrade => {
+    for (let index = 0; index < grades.length; index += 1) {
       const checkQuestionExists = await this.questionsRepository.findById(
-        informedGrade.question_id,
+        grades[index].question_id,
       );
 
       if (!checkQuestionExists) {
         throw new AppError('Informed question does not exists.');
       }
 
-      const avaliation = await this.gradesRepository.create({
+      const grade = await this.gradesRepository.create({
         avaliation_id,
-        question_id: informedGrade.question_id,
-        grade: informedGrade.grade,
+        question_id: grades[index].question_id,
+        grade: grades[index].grade,
       });
 
-      createdGrades.push(avaliation);
-    });
+      createdGrades.push(grade);
+    }
 
     checkAvaliationExists.status = 'rated';
 
@@ -77,6 +77,11 @@ class CreateGradeService {
       const evaluator = await this.evaluatorsRepository.findById(
         checkAvaliationExists.evaluator_id,
       );
+
+      /*
+        The evaluator will always be found in the search above, therefore is
+        no need to test the handling of an undefined evaluator.
+      */
 
       if (evaluator) {
         evaluator.status = 'rated';

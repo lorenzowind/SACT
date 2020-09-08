@@ -4,43 +4,54 @@ import DraftAvaliationsRepository from '@modules/avaliations/repositories/drafts
 import DraftEvaluatorsRepository from '@modules/evaluators/repositories/drafts/DraftEvaluatorsRepository';
 import DraftProjectsRepository from '@modules/projects/repositories/drafts/DraftProjectsRepository';
 
-import CreateAvaliationService from './CreateAvaliationService';
+import CreateAvaliationsService from './CreateAvaliationsService';
 
 let draftAvaliationsRepository: DraftAvaliationsRepository;
 let draftEvaluatorsRepository: DraftEvaluatorsRepository;
 let draftProjectsRepository: DraftProjectsRepository;
 
-let createAvaliation: CreateAvaliationService;
+let createAvaliations: CreateAvaliationsService;
 
-describe('CreateAvaliation', () => {
+describe('CreateAvaliations', () => {
   beforeEach(() => {
     draftAvaliationsRepository = new DraftAvaliationsRepository();
     draftEvaluatorsRepository = new DraftEvaluatorsRepository();
     draftProjectsRepository = new DraftProjectsRepository();
 
-    createAvaliation = new CreateAvaliationService(
+    createAvaliations = new CreateAvaliationsService(
       draftAvaliationsRepository,
       draftEvaluatorsRepository,
       draftProjectsRepository,
     );
   });
 
-  it('should be able to create a new avaliation', async () => {
+  it('should be able to create new avaliations', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
     });
 
-    const project = await draftProjectsRepository.create({
+    const firstProject = await draftProjectsRepository.create({
       name: 'Project Name',
     });
 
-    const avaliation = await createAvaliation.execute({
-      evaluator_id: evaluator.id,
-      project_id: project.id,
+    const secondProject = await draftProjectsRepository.create({
+      name: 'Project Name II',
     });
 
-    expect(avaliation).toHaveProperty('id');
+    const avaliations = await createAvaliations.execute({
+      evaluator_id: evaluator.id,
+      projects: [
+        {
+          project_id: firstProject.id,
+        },
+        {
+          project_id: secondProject.id,
+        },
+      ],
+    });
+
+    expect(avaliations).toHaveLength(2);
   });
 
   it('should not be able to create a new avaliation with non existing evaluator', async () => {
@@ -49,9 +60,13 @@ describe('CreateAvaliation', () => {
     });
 
     await expect(
-      createAvaliation.execute({
+      createAvaliations.execute({
         evaluator_id: 'non existing teacher id',
-        project_id: project.id,
+        projects: [
+          {
+            project_id: project.id,
+          },
+        ],
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -63,9 +78,13 @@ describe('CreateAvaliation', () => {
     });
 
     await expect(
-      createAvaliation.execute({
+      createAvaliations.execute({
         evaluator_id: evaluator.id,
-        project_id: 'non existing project id',
+        projects: [
+          {
+            project_id: 'non existing project id',
+          },
+        ],
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

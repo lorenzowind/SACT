@@ -163,17 +163,17 @@ describe('CreateGrades', () => {
       project_id: project.id,
     });
 
-    const response = await createGrades.execute({
-      avaliation_id: avaliation.id,
-      grades: [
-        {
-          question_id: 'non existing question id',
-          grade: 6.0,
-        },
-      ],
-    });
-
-    expect(response).toEqual([]);
+    await expect(
+      createGrades.execute({
+        avaliation_id: avaliation.id,
+        grades: [
+          {
+            question_id: 'non existing question id',
+            grade: 6.0,
+          },
+        ],
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 
   it('should be able to evaluate the projects and have the status changed', async () => {

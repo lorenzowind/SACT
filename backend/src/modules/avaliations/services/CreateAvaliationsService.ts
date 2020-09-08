@@ -6,7 +6,7 @@ import IAvaliationsRepository from '@modules/avaliations/repositories/IAvaliatio
 import IEvaluatorsRepository from '@modules/evaluators/repositories/IEvaluatorsRepository';
 import IProjectsRepository from '@modules/projects/repositories/IProjectsRepository';
 
-import ICreateAvaliationDTO from '../dtos/ICreateOrUpdateAvaliationDTO';
+import ICreateAvaliations from '../dtos/ICreateAvaliationsRequest';
 
 import Avaliation from '../infra/typeorm/entities/Avaliation';
 
@@ -25,8 +25,8 @@ class CreateAvaliationService {
 
   public async execute({
     evaluator_id,
-    project_id,
-  }: ICreateAvaliationDTO): Promise<Avaliation> {
+    projects,
+  }: ICreateAvaliations): Promise<Avaliation[]> {
     const checkEvaluatorExists = await this.evaluatorsRepository.findById(
       evaluator_id,
     );
@@ -35,21 +35,27 @@ class CreateAvaliationService {
       throw new AppError('Informed evaluator does not exists.');
     }
 
-    const checkProjectExists = await this.projectsRepository.findById(
-      project_id,
-    );
+    const avaliations: Avaliation[] = [];
 
-    if (!checkProjectExists) {
-      throw new AppError('Informed project does not exists.');
+    for (let index = 0; index < projects.length; index += 1) {
+      const checkProjectExists = await this.projectsRepository.findById(
+        projects[index].project_id,
+      );
+
+      if (!checkProjectExists) {
+        throw new AppError('Informed project does not exists.');
+      }
+
+      const avaliation = await this.avaliationsRepository.create({
+        evaluator_id,
+        project_id: projects[index].project_id,
+        status: 'to_evaluate',
+      });
+
+      avaliations.push(avaliation);
     }
 
-    const avaliation = await this.avaliationsRepository.create({
-      evaluator_id,
-      project_id,
-      status: 'to_evaluate',
-    });
-
-    return avaliation;
+    return avaliations;
   }
 }
 
