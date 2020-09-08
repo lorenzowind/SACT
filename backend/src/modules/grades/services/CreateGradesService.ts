@@ -41,7 +41,7 @@ class CreateGradeService {
       throw new AppError('This avaliation have already been evaluated.');
     }
 
-    const createdGrades: Grade[] = [{} as Grade];
+    const createdGrades: Grade[] = [];
 
     grades.map(async informedGrade => {
       const checkQuestionExists = await this.questionsRepository.findById(
@@ -74,9 +74,15 @@ class CreateGradeService {
     );
 
     if (checkAllRated) {
-      checkAvaliationExists.evaluator.status = 'rated';
+      const evaluator = await this.evaluatorsRepository.findById(
+        checkAvaliationExists.evaluator_id,
+      );
 
-      await this.evaluatorsRepository.save(checkAvaliationExists.evaluator);
+      if (evaluator) {
+        evaluator.status = 'rated';
+
+        await this.evaluatorsRepository.save(evaluator);
+      }
     }
 
     return createdGrades;

@@ -2,8 +2,8 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
+import IGradesRepository from '@modules/grades/repositories/IGradesRepository';
 import IAvaliationsRepository from '@modules/avaliations/repositories/IAvaliationsRepository';
-import IGradesRepository from '../repositories/IGradesRepository';
 
 import Grade from '../infra/typeorm/entities/Grade';
 
@@ -13,7 +13,7 @@ class ListGradesService {
     @inject('GradesRepository')
     private gradesRepository: IGradesRepository,
 
-    @inject('avaliationsRepository')
+    @inject('AvaliationsRepository')
     private avaliationsRepository: IAvaliationsRepository,
   ) {}
 

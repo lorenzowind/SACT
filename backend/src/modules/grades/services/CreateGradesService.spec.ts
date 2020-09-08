@@ -1,74 +1,213 @@
 import AppError from '@shared/errors/AppError';
 
+import DraftGradesRepository from '@modules/grades/repositories/drafts/DraftGradesRepository';
 import DraftAvaliationsRepository from '@modules/avaliations/repositories/drafts/DraftAvaliationsRepository';
+import DraftQuestionsRepository from '@modules/questions/repositories/drafts/DraftQuestionsRepository';
 import DraftEvaluatorsRepository from '@modules/evaluators/repositories/drafts/DraftEvaluatorsRepository';
+
 import DraftProjectsRepository from '@modules/projects/repositories/drafts/DraftProjectsRepository';
 
-import CreateAvaliationService from './CreateGradesService';
+import CreateGradesService from './CreateGradesService';
 
+let draftGradesRepository: DraftGradesRepository;
 let draftAvaliationsRepository: DraftAvaliationsRepository;
+let draftQuestionsRepository: DraftQuestionsRepository;
 let draftEvaluatorsRepository: DraftEvaluatorsRepository;
+
 let draftProjectsRepository: DraftProjectsRepository;
 
-let createAvaliation: CreateAvaliationService;
+let createGrades: CreateGradesService;
 
-describe('CreateAvaliation', () => {
+describe('CreateGrades', () => {
   beforeEach(() => {
+    draftGradesRepository = new DraftGradesRepository();
     draftAvaliationsRepository = new DraftAvaliationsRepository();
+    draftQuestionsRepository = new DraftQuestionsRepository();
     draftEvaluatorsRepository = new DraftEvaluatorsRepository();
+
     draftProjectsRepository = new DraftProjectsRepository();
 
-    createAvaliation = new CreateAvaliationService(
+    createGrades = new CreateGradesService(
+      draftGradesRepository,
       draftAvaliationsRepository,
+      draftQuestionsRepository,
       draftEvaluatorsRepository,
-      draftProjectsRepository,
     );
   });
 
-  it('should be able to create a new avaliation', async () => {
+  it('should be able to create new grades', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
     });
 
     const project = await draftProjectsRepository.create({
       name: 'Project Name',
     });
 
-    const avaliation = await createAvaliation.execute({
+    const avaliation = await draftAvaliationsRepository.create({
       evaluator_id: evaluator.id,
       project_id: project.id,
     });
 
-    expect(avaliation).toHaveProperty('id');
+    const firstQuestion = await draftQuestionsRepository.create({
+      section: 'Section Name',
+      criterion: 'Criterion Name',
+    });
+
+    const secondQuestion = await draftQuestionsRepository.create({
+      section: 'Section Name',
+      criterion: 'Criterion Name II',
+    });
+
+    const thirdQuestion = await draftQuestionsRepository.create({
+      section: 'Section Name',
+      criterion: 'Criterion Name III',
+    });
+
+    const grades = await createGrades.execute({
+      avaliation_id: avaliation.id,
+      grades: [
+        {
+          question_id: firstQuestion.id,
+          grade: 6.0,
+        },
+        {
+          question_id: secondQuestion.id,
+          grade: 6.0,
+        },
+        {
+          question_id: thirdQuestion.id,
+          grade: 6.0,
+        },
+      ],
+    });
+
+    expect(grades).toHaveLength(3);
   });
 
-  it('should not be able to create a new avaliation with non existing evaluator', async () => {
+  it('should not be able to create grades with non existing avaliation', async () => {
+    const question = await draftQuestionsRepository.create({
+      section: 'Section Name',
+      criterion: 'Criterion Name',
+    });
+
+    await expect(
+      createGrades.execute({
+        avaliation_id: 'non existing avaliation id',
+        grades: [
+          {
+            question_id: question.id,
+            grade: 6.0,
+          },
+        ],
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not be able to create new grades with avaliation already evaluated', async () => {
+    const evaluator = await draftEvaluatorsRepository.create({
+      name: 'John Doe',
+      cpf: 'evaluator CPF',
+    });
+
     const project = await draftProjectsRepository.create({
       name: 'Project Name',
     });
 
-    await expect(
-      createAvaliation.execute({
-        evaluator_id: 'non existing teacher id',
-        project_id: project.id,
-      }),
-    ).rejects.toBeInstanceOf(AppError);
-  });
+    const avaliation = await draftAvaliationsRepository.create({
+      evaluator_id: evaluator.id,
+      project_id: project.id,
+    });
 
-  it('should not be able to create a new avaliation with non existing project', async () => {
-    const evaluator = await draftEvaluatorsRepository.create({
-      name: 'John Doe',
-      cpf: 'evaluator CPF',
-      status: 'to_evaluate',
+    const question = await draftQuestionsRepository.create({
+      section: 'Section Name',
+      criterion: 'Criterion Name',
+    });
+
+    await createGrades.execute({
+      avaliation_id: avaliation.id,
+      grades: [
+        {
+          question_id: question.id,
+          grade: 6.0,
+        },
+      ],
     });
 
     await expect(
-      createAvaliation.execute({
-        evaluator_id: evaluator.id,
-        project_id: 'non existing project id',
+      createGrades.execute({
+        avaliation_id: avaliation.id,
+        grades: [
+          {
+            question_id: question.id,
+            grade: 6.0,
+          },
+        ],
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should not be able to create new grades with non existing question', async () => {
+    const evaluator = await draftEvaluatorsRepository.create({
+      name: 'John Doe',
+      cpf: 'evaluator CPF',
+    });
+
+    const project = await draftProjectsRepository.create({
+      name: 'Project Name',
+    });
+
+    const avaliation = await draftAvaliationsRepository.create({
+      evaluator_id: evaluator.id,
+      project_id: project.id,
+    });
+
+    await expect(
+      createGrades.execute({
+        avaliation_id: avaliation.id,
+        grades: [
+          {
+            question_id: 'non existing question id',
+            grade: 6.0,
+          },
+        ],
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  // it('should not be able to create new grades with non existing evaluator', async () => {
+  //   const evaluator = await draftEvaluatorsRepository.create({
+  //     name: 'John Doe',
+  //     cpf: 'evaluator CPF',
+  //   });
+
+  //   const project = await draftProjectsRepository.create({
+  //     name: 'Project Name',
+  //   });
+
+  //   const avaliation = await draftAvaliationsRepository.create({
+  //     evaluator_id: evaluator.id,
+  //     project_id: project.id,
+  //   });
+
+  //   const question = await draftQuestionsRepository.create({
+  //     section: 'Section Name',
+  //     criterion: 'Criterion Name',
+  //   });
+
+  //   await draftEvaluatorsRepository.remove(evaluator);
+
+  //   await expect(
+  //     createGrades.execute({
+  //       avaliation_id: avaliation.id,
+  //       grades: [
+  //         {
+  //           question_id: question.id,
+  //           grade: 6.0,
+  //         },
+  //       ],
+  //     }),
+  //   ).rejects.toBeInstanceOf(AppError);
+  // });
 });

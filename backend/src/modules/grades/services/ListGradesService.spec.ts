@@ -1,40 +1,51 @@
 import AppError from '@shared/errors/AppError';
 
 import DraftAvaliationsRepository from '@modules/avaliations/repositories/drafts/DraftAvaliationsRepository';
+import DraftGradesRepository from '@modules/grades/repositories/drafts/DraftGradesRepository';
+
+import DraftQuestionsRepository from '@modules/questions/repositories/drafts/DraftQuestionsRepository';
 import DraftEvaluatorsRepository from '@modules/evaluators/repositories/drafts/DraftEvaluatorsRepository';
 import DraftProjectsRepository from '@modules/projects/repositories/drafts/DraftProjectsRepository';
 
-import ListAvaliationsService from './ListGradesService';
+import ListGradesService from './ListGradesService';
+import CreateGradesService from './CreateGradesService';
 
 let draftAvaliationsRepository: DraftAvaliationsRepository;
+let draftGradesRepository: DraftGradesRepository;
+
+let draftQuestionsRepository: DraftQuestionsRepository;
 let draftEvaluatorsRepository: DraftEvaluatorsRepository;
 let draftProjectsRepository: DraftProjectsRepository;
 
-let listAvaliations: ListAvaliationsService;
+let listGrades: ListGradesService;
+let createGrades: CreateGradesService;
 
-describe('ListAvaliations', () => {
+describe('ListGrades', () => {
   beforeEach(() => {
     draftAvaliationsRepository = new DraftAvaliationsRepository();
+    draftGradesRepository = new DraftGradesRepository();
+
+    draftQuestionsRepository = new DraftQuestionsRepository();
     draftEvaluatorsRepository = new DraftEvaluatorsRepository();
     draftProjectsRepository = new DraftProjectsRepository();
 
-    listAvaliations = new ListAvaliationsService(
+    listGrades = new ListGradesService(
+      draftGradesRepository,
       draftAvaliationsRepository,
+    );
+
+    createGrades = new CreateGradesService(
+      draftGradesRepository,
+      draftAvaliationsRepository,
+      draftQuestionsRepository,
       draftEvaluatorsRepository,
     );
   });
 
-  it('should be able to list all the avaliations', async () => {
-    const firstEvaluator = await draftEvaluatorsRepository.create({
+  it('should be able to list all grades by an evaluator id', async () => {
+    const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
       cpf: 'evaluator CPF',
-      status: 'to_evaluate',
-    });
-
-    const secondEvaluator = await draftEvaluatorsRepository.create({
-      name: 'John Doe II',
-      cpf: 'evaluator CPF II',
-      status: 'to_evaluate',
     });
 
     const firstProject = await draftProjectsRepository.create({
@@ -45,43 +56,75 @@ describe('ListAvaliations', () => {
       name: 'Project Name II',
     });
 
-    const thirdProject = await draftProjectsRepository.create({
-      name: 'Project Name III',
-    });
-
-    await draftAvaliationsRepository.create({
-      evaluator_id: firstEvaluator.id,
+    const firstAvaliation = await draftAvaliationsRepository.create({
+      evaluator_id: evaluator.id,
       project_id: firstProject.id,
     });
 
-    await draftAvaliationsRepository.create({
-      evaluator_id: firstEvaluator.id,
+    const secondAvaliation = await draftAvaliationsRepository.create({
+      evaluator_id: evaluator.id,
       project_id: secondProject.id,
     });
 
-    await draftAvaliationsRepository.create({
-      evaluator_id: secondEvaluator.id,
-      project_id: firstProject.id,
+    const firstQuestion = await draftQuestionsRepository.create({
+      section: 'Section Name',
+      criterion: 'Criterion Name',
     });
 
-    await draftAvaliationsRepository.create({
-      evaluator_id: secondEvaluator.id,
-      project_id: secondProject.id,
+    const secondQuestion = await draftQuestionsRepository.create({
+      section: 'Section Name',
+      criterion: 'Criterion Name II',
     });
 
-    await draftAvaliationsRepository.create({
-      evaluator_id: secondEvaluator.id,
-      project_id: thirdProject.id,
+    const thirdQuestion = await draftQuestionsRepository.create({
+      section: 'Section Name',
+      criterion: 'Criterion Name III',
     });
 
-    const response = await listAvaliations.execute(firstEvaluator.id);
+    await createGrades.execute({
+      avaliation_id: firstAvaliation.id,
+      grades: [
+        {
+          question_id: firstQuestion.id,
+          grade: 6.0,
+        },
+        {
+          question_id: secondQuestion.id,
+          grade: 6.0,
+        },
+        {
+          question_id: thirdQuestion.id,
+          grade: 6.0,
+        },
+      ],
+    });
 
-    expect(response).toHaveLength(2);
+    await createGrades.execute({
+      avaliation_id: secondAvaliation.id,
+      grades: [
+        {
+          question_id: firstQuestion.id,
+          grade: 6.0,
+        },
+        {
+          question_id: secondQuestion.id,
+          grade: 6.0,
+        },
+        {
+          question_id: thirdQuestion.id,
+          grade: 6.0,
+        },
+      ],
+    });
+
+    const response = await listGrades.execute(firstAvaliation.id);
+
+    expect(response).toHaveLength(3);
   });
 
-  it('should not be able to list avaliations with non existing evaluator', async () => {
+  it('should not be able to list grades with non existing avaliation', async () => {
     await expect(
-      listAvaliations.execute('non existing evaluator id'),
+      listGrades.execute('non existing avaliation id'),
     ).rejects.toBeInstanceOf(AppError);
   });
 });
