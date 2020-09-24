@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import BackgroundImage from '../assets/images/BackgroundImage/BackgroundImage.png';
 
 export default createGlobalStyle`
   * {
@@ -9,9 +10,10 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #dfdfdf;
-    color: #0000fb;
+    background: url(${BackgroundImage}) no-repeat 50% cover;
+    
     -webkit-font-smoothing: antialiased;
+    
   }
 
   body, input, button {
@@ -23,7 +25,7 @@ export default createGlobalStyle`
     font-weight: 500;
   }
 
-  button {
+  button,a {
     cursor: pointer;
   }
 `;
