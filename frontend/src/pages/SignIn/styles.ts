@@ -1,22 +1,5 @@
 import styled from 'styled-components';
 
-export const Header = styled.header`
-  width: 100%;
-  height: max-content;
-
-  div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    float: right;
-    margin-right: 20px;
-    text-align: right;
-    color: '#707070';
-    line-height: 20px;
-    font-size: 14pt;
-  }
-`;
-
 export const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -91,7 +74,7 @@ export const ButtonHidden = styled.a`
   font-size: 14pt;
   border: 0;
   cursor: pointer;
-  font-size: '24pt';
+  font-size: 24pt;
   line-height: 30px;
   font-weight: 700;
   float: right;

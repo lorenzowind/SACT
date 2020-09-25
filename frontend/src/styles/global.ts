@@ -8,9 +8,17 @@ export default createGlobalStyle`
     outline: 0;
     box-sizing: border-box;
   }
+  #root{
+    background-image: url(${BackgroundImage});
+    background-repeat: no-repeat;
+    backgroun-size:cover;
+    object-fit:contain;
+    
+  }
 
   body {
-    background: url(${BackgroundImage}) no-repeat 50% cover;
+    max-width:1920px;
+    max-height:1080px;
     
     -webkit-font-smoothing: antialiased;
     

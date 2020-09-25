@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 
-import AdminImg from '../../assets/images/Admin/Admin.png';
 import LogoImg from '../../assets/images/Logo/Logo.png';
+import HeaderAdm from '../../components/HeaderAdm';
 
 import {
   Container,
   Content,
   FormAuthentication,
-  Header,
   InputFormAuth,
   Button,
   AlertPassword,
@@ -29,12 +28,7 @@ const SignIn: React.FC = () => {
 
   return (
     <Container>
-      <Header>
-        <div>
-          <img src={AdminImg} alt="ADM" height={64} />
-          ADM
-        </div>
-      </Header>
+      <HeaderAdm isAuthenticated={false} />
       <Content>
         <img
           style={{
