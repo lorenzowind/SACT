@@ -255,7 +255,7 @@ const Home: React.FC = () => {
           ''
         )}
         <Ranking>
-          <Link to="">
+          <Link to="/ranking">
             <img src={TrofeuImg} alt="Trofeu" height={155} />
             <footer>Ranking</footer>
           </Link>
