@@ -12,8 +12,14 @@ interface HeaderProps {
 const HeaderAdm: React.FC<HeaderProps> = ({ isAuthenticated }) => {
   return (
     <Header>
-      <div>
-        {isAuthenticated ? <Link to="/">Logout</Link> : ''}
+      <div style={{ color: '#707070' }}>
+        {isAuthenticated ? (
+          <Link to="/" style={{ color: '#707070' }}>
+            Logout
+          </Link>
+        ) : (
+          ''
+        )}
         <img src={AdminImg} alt="ADM" height={64} />
         ADM
       </div>

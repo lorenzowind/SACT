@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 695px;
 `;
 
 export const Content = styled.main`
@@ -234,6 +234,9 @@ export const Informacoes = styled.div`
 
   li a {
     text-decoration: none;
+  }
+  li a:visited {
+    color: #0004ff;
   }
 `;
 

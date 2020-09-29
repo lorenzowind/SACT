@@ -1,9 +1,9 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { Container } from './styles';
 
 const Admin: React.FC = () => {
-  return <div />;
+  return <Container>Administador</Container>;
 };
 
 export default Admin;

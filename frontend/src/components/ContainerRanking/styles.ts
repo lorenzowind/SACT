@@ -1,33 +1,13 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 100%;
-  height: 695px;
-`;
-
-export const Content = styled.div`
-  display: grid;
-  grid-template-columns: 20% 80%;
-  grid-template-areas: 'back ranking';
-`;
-
-export const RankingGrid = styled.div`
-  grid-area: ranking;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 259px 259px;
-  grid-template-areas: 'geral info' 'meca eletro';
-  padding: 10px;
-  margin-top: 20px;
-`;
-
-export const RankingGeral = styled.div`
   grid-area: geral;
   width: 330px;
-  height: 259px;
+  height: 180px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 5px;
   background-color: #f9f8f8;
   border-radius: 10px;
@@ -43,13 +23,13 @@ export const RankingGeral = styled.div`
     margin-bottom: 10px;
   }
 
-  div ul {
+  ul {
     list-style-type: none;
     justify-content: space-between;
     margin-left: 10px;
   }
 
-  div ul li {
+  ul li {
     color: #676060;
     margin-bottom: 10px;
     font-weight: normal;

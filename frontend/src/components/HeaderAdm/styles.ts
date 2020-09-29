@@ -13,17 +13,17 @@ export const Header = styled.header`
     color: '#707070';
     line-height: 20px;
     font-size: 14pt;
-    a {
-      align-items: center;
-      float: right;
-      text-decoration: none;
-      cursor: pointer;
-      color: '#707070';
-      line-height: 20px;
-      font-size: 14pt;
-    }
-    a:visited {
-      color: '#707070';
-    }
+  }
+  div a {
+    align-items: center;
+    float: right;
+    text-decoration: none;
+    cursor: pointer;
+    color: '#707070';
+    line-height: 20px;
+    font-size: 14pt;
+  }
+  div a:visited {
+    color: '#707070';
   }
 `;

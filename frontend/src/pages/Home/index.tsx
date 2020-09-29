@@ -308,16 +308,16 @@ const Home: React.FC = () => {
           <hr />
           <ul>
             <li>
-              <Link to="/">Avaliadores</Link>
+              <Link to="/evaluator">Avaliadores</Link>
             </li>
             <li>
-              <Link to="/">Projetos</Link>
+              <Link to="/project">Projetos</Link>
             </li>
             <li>
-              <Link to="/">Fichas de Avaliação</Link>
+              <Link to="/evaluation">Fichas de Avaliação</Link>
             </li>
             <li>
-              <Link to="/">Adminitrador</Link>
+              <Link to="/admin">Administrador</Link>
             </li>
           </ul>
         </Informacoes>

@@ -7,6 +7,7 @@ import Ranking from '../pages/Ranking';
 import Evaluator from '../pages/Evaluator';
 import Admin from '../pages/Admin';
 import Project from '../pages/Project';
+import Evaluation from '../pages/Evaluation';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -15,6 +16,7 @@ const Routes: React.FC = () => (
     <Route path="/ranking" component={Ranking} />
     <Route path="/evaluator" component={Evaluator} />
     <Route path="/project" component={Project} />
+    <Route path="/evaluation" component={Evaluation} />
     <Route path="/admin" component={Admin} />
   </Switch>
 );
