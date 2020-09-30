@@ -19,6 +19,8 @@ export default createGlobalStyle`
   body {
     max-width:1920px;
     max-height:1080px;
+    height:100vh;
+    width:100vw;
     
     -webkit-font-smoothing: antialiased;
     
