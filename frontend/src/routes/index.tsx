@@ -20,17 +20,22 @@ const Routes: React.FC = () => (
     <Route path="/dashboard" component={Home} />
     <Route path="/ranking" component={Ranking} />
     <Route path="/evaluator" component={Evaluator} />
-    <Route path="/evaluator/register" component={EvaluatorRegister} />
+    <Route exact path="/evaluator/register" component={EvaluatorRegister} />
     <Route path="/project" component={Project} />
-    <Route path="/project/register" component={ProjectRegister} />
+    <Route exact path="/project/register" component={ProjectRegister} />
     <Route path="/evaluation" component={Evaluation} />
-    <Route path="/evaluation/session/register" component={SessionRegister} />
     <Route
+      exact
+      path="/evaluation/session/register"
+      component={SessionRegister}
+    />
+    <Route
+      exact
       path="/evaluation/criterion/register"
       component={CriterionRegister}
     />
     <Route path="/admin" component={Admin} />
-    <Route path="/admin/register" component={AdminRegister} />
+    <Route exact path="/admin/register" component={AdminRegister} />
   </Switch>
 );
 
