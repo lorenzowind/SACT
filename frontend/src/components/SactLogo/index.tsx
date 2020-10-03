@@ -1,5 +1,5 @@
 import React from 'react';
-import SACTLogoImg from '../assets/img/SACTLogo.png';
+import SACTLogoImg from '../../assets/img/SACTLogo.png';
 
 export const SactLogo: React.FC<React.ImgHTMLAttributes<
   HTMLImageElement
