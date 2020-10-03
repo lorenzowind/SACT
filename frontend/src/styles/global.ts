@@ -11,7 +11,7 @@ export default createGlobalStyle`
     --secondary-light: #5eff63;
     --secondary-dark: #00cf07;
     --secondary-glow: #aeffb0;
-    --background: #dfdfdf;
+    --background: white;
     --light-gray: #777;
     --dark-gray: #676060;
   }
@@ -28,7 +28,7 @@ export default createGlobalStyle`
 
   body {
     background: var(--background);
-    color: var(--primary);
+    color: var(--dark-gray);
     -webkit-font-smoothing: antialiased;
   }
 

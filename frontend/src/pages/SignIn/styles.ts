@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Main = styled.main`
+  padding-top: 10vh;
   text-align: center;
 
   & > input[type='text'] {

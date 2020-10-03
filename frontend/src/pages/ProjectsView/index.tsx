@@ -58,7 +58,6 @@ const ProjectsView: React.FC = () => {
   return (
     <PaperBackground>
       <Main>
-        <ProjectCard project={projects[0]} done />
         {projects.map((project, index) => {
           return (
             <ProjectCard project={project} key={`${index}:${project.id}`} />

@@ -1,4 +1,4 @@
-import styled, { StyledFunction } from 'styled-components';
+import styled from 'styled-components';
 
 export const BasicCard = styled.div`
   padding: 1rem;

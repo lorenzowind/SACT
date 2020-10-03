@@ -1,5 +1,4 @@
 import React from 'react';
-import { Col, Container, Row } from 'react-grid-system';
 import { Input } from '../../components/Input';
 
 import { PaperBackground } from '../../components/PaperBackground';
@@ -18,23 +17,17 @@ const CPFInputHandleKeyPress = (
 const SignIn: React.FC = () => {
   return (
     <PaperBackground>
-      <Container>
-        <Row align="center" style={{ height: '100vh' }}>
-          <Col>
-            <Main>
-              <SactLogo style={{ width: '100%', maxWidth: '400px' }} />
-              <br />
-              <Input
-                type="text"
-                placeholder="CPF"
-                onKeyPress={CPFInputHandleKeyPress}
-              />
-              <br />
-              <Input type="button" value="Entrar" />
-            </Main>
-          </Col>
-        </Row>
-      </Container>
+      <Main>
+        <SactLogo style={{ width: '100%', maxWidth: '400px' }} />
+        <br />
+        <Input
+          type="text"
+          placeholder="CPF"
+          onKeyPress={CPFInputHandleKeyPress}
+        />
+        <br />
+        <Input type="button" value="Entrar" />
+      </Main>
     </PaperBackground>
   );
 };

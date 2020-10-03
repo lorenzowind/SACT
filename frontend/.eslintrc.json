@@ -1,7 +1,7 @@
 {
   "env": {
-      "browser": true,
-      "es6": true
+    "browser": true,
+    "es6": true
   },
   "extends": [
     "plugin:react/recommended",
@@ -10,22 +10,18 @@
     "plugin:prettier/recommended"
   ],
   "globals": {
-      "Atomics": "readonly",
-      "SharedArrayBuffer": "readonly"
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-      "ecmaFeatures": {
-          "jsx": true
-      },
-      "ecmaVersion": 2018,
-      "sourceType": "module"
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
   },
-  "plugins": [
-      "react",
-      "react-hooks",
-      "prettier"
-  ],
+  "plugins": ["react", "react-hooks", "prettier"],
   "rules": {
     "camelcase": "off",
     "prettier/prettier": "error",
@@ -37,9 +33,12 @@
     "react-hooks/exhaustive-deps": "warn",
     "no-unused-expressions": "off",
     "no-unused-vars": "off",
-    "react/jsx-filename-extension": [1, {
-      "extensions": [".tsx"]
-    }],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".tsx"]
+      }
+    ],
     "import/prefer-default-export": "off",
     "import/extensions": [
       "error",
