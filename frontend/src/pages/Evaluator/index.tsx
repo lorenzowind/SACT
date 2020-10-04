@@ -40,7 +40,7 @@ const Evaluator: React.FC = () => {
           <div className="add-eva">
             {' '}
             <h2>Adicionar Avaliadores</h2>
-            <Link to="/evaluator/register" style={{ textDecoration: 'none' }}>
+            <Link to="/evaluator-register" style={{ textDecoration: 'none' }}>
               <div className="btn-add">+</div>
             </Link>
           </div>

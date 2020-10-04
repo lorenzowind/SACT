@@ -39,7 +39,7 @@ const Project: React.FC = () => {
           <div className="add-proj">
             {' '}
             <h2>Adicionar Projetos</h2>
-            <Link to="/project/register" style={{ textDecoration: 'none' }}>
+            <Link to="/project-register" style={{ textDecoration: 'none' }}>
               <div className="btn-add">+</div>
             </Link>
           </div>

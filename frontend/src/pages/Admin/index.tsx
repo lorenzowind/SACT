@@ -38,7 +38,7 @@ const Admin: React.FC = () => {
           <div className="add-adm">
             {' '}
             <h2>Adicionar Administradores</h2>
-            <Link to="/admin/register" style={{ textDecoration: 'none' }}>
+            <Link to="/admin-register" style={{ textDecoration: 'none' }}>
               <div className="btn-add">+</div>
             </Link>
           </div>

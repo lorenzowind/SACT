@@ -41,10 +41,7 @@ const Evaluation: React.FC = () => {
             <div className="add-av">
               {' '}
               <h2>Adicionar Seção</h2>
-              <Link
-                to="/evaluation/session/register"
-                style={{ textDecoration: 'none' }}
-              >
+              <Link to="/session-register" style={{ textDecoration: 'none' }}>
                 <div className="btn-add">+</div>
               </Link>
             </div>
@@ -52,10 +49,7 @@ const Evaluation: React.FC = () => {
             <div className="add-av" style={{ marginLeft: 20 }}>
               {' '}
               <h2>Adicionar Critério</h2>
-              <Link
-                to="/evaluation/criterion/register"
-                style={{ textDecoration: 'none' }}
-              >
+              <Link to="/criterion-register" style={{ textDecoration: 'none' }}>
                 <div className="btn-add">+</div>
               </Link>
             </div>
