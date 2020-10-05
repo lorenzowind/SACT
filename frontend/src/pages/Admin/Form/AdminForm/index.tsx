@@ -35,7 +35,7 @@ const AdminForm: React.FC = () => {
               style={{
                 position: 'absolute',
                 textAlign: 'center',
-                left: '35%',
+                left: '40%',
                 top: 100,
                 color: '#676060',
               }}
@@ -47,21 +47,21 @@ const AdminForm: React.FC = () => {
               <input type="text" placeholder="Nome" id="name" />
             </InputGroupAdm>
 
-            <InputGroupAdm style={{ gridArea: 'cpf' }}>
-              <label htmlFor="cpf">2. Email</label>
+            <InputGroupAdm style={{ gridArea: 'email', marginTop: 15 }}>
+              <label htmlFor="email">2. Email</label>
               <input type="text" placeholder="Email" id="email" />
             </InputGroupAdm>
 
-            <InputGroupAdm style={{ gridArea: 'ra', marginTop: 15 }}>
-              <label htmlFor="ra">3. Senha</label>
-              <input type="password" placeholder="Senha" id="senha" />
+            <InputGroupAdm style={{ gridArea: 'password', marginTop: 15 }}>
+              <label htmlFor="password">3. Senha</label>
+              <input type="password" placeholder="Senha" id="password" />
             </InputGroupAdm>
 
             <footer
               style={{
                 gridArea: 'button',
                 marginTop: 60,
-                marginLeft: '45%',
+                marginLeft: '25%',
               }}
             >
               <ButtonForm type="submit">Salvar</ButtonForm>

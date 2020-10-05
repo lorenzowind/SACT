@@ -48,17 +48,16 @@ const AvaliationForm: React.FC = () => {
 
             <SessionsList>
               <InputGroup>
-                <label htmlFor="1secao">Seção:</label>
-                <input type="text" id="1secao" />
+                <label htmlFor="session">Seção:</label>
+                <input type="text" id="session" placeholder="Seção" />
               </InputGroup>
               <InputGroup>
-                <label htmlFor="1secao">Critério:</label>
-                <input type="text" id="1secao" />
+                <label htmlFor="criterion">Critério:</label>
+                <input type="text" id="criterion" placeholder="Critério" />
               </InputGroup>
-            </SessionsList>
-            <footer style={{ width: '100%' }}>
+
               <ButtonForm type="submit">Salvar</ButtonForm>
-            </footer>
+            </SessionsList>
           </SessionRegisterForm>
         </Content>
       </Container>

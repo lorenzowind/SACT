@@ -28,7 +28,7 @@ export const RankingGrid = styled.div`
   grid-template-rows: 259px 259px;
   grid-template-areas: 'geral info' 'meca eletro';
   padding: 10px;
-  margin-top: 20px;
+  margin-top: 100px;
 `;
 
 export const RankingGeral = styled.div`

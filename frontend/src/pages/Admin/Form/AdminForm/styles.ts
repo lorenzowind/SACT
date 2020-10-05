@@ -17,26 +17,24 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   display: grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 10% 90%;
   grid-template-areas: 'back regis';
 `;
 
 export const AdmRegisterForm = styled.form`
   grid-area: regis;
   padding-top: 200px;
-  margin-left: 10%;
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: repeat(4, 1fr);
-  grid-template-areas: 'name cpf' 'area ra' 'area  senha' 'btn button';
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const InputGroupAdm = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   height: max-content;
-  justify-content: start;
   label {
     font-size: 20px;
     font-weight: normal;
@@ -44,30 +42,12 @@ export const InputGroupAdm = styled.div`
     margin-bottom: 5px;
   }
   input {
-    width: 245px;
+    width: 400px;
     height: 32px;
     border-radius: 5px;
     padding: 10px;
     border: solid 1px #707070;
     background-color: #ffffff;
-  }
-  div.checkbox-input {
-    margin-left: 10px;
-  }
-  div.checkbox-input input {
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-    border-radius: 5px;
-    border: solid 1px #707070;
-    background-color: #ffffff;
-  }
-  div.checkbox-input label {
-    font-size: 18px;
-    font-weight: normal;
-    color: #676060;
-    margin-left: 5px;
-    margin-bottom: 5px;
   }
 `;
 

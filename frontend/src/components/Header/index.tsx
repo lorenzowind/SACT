@@ -14,7 +14,7 @@ const HeaderAdm: React.FC<HeaderProps> = ({ isAuthenticated }) => {
     <Header>
       <div style={{ color: '#707070' }}>
         {isAuthenticated ? (
-          <Link to="/" style={{ color: '#707070' }}>
+          <Link to="/admin" style={{ color: '#707070' }}>
             Logout
           </Link>
         ) : (

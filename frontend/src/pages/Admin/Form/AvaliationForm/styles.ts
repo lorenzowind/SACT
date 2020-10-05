@@ -17,41 +17,42 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   display: grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 10% 90%;
   grid-template-areas: 'back regis';
 `;
 export const SessionRegisterForm = styled.form`
   grid-area: regis;
   padding-top: 180px;
-  margin: 0 auto;
-  width: 70%;
-  height: 300px;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const SessionsList = styled.ul`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 300px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const InputGroup = styled.li`
   display: flex;
-  width: 100%;
+  flex-direction: column;
   height: max-content;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: 25px;
+
   label {
     width: 120px;
     font-size: 20pt;
+    margin-bottom: 5px;
     font-weight: normal;
     color: #676060;
   }
+
   input {
-    flex: 1;
+    width: 400px;
     height: 32px;
     border-radius: 5px;
     padding: 10px;
@@ -77,5 +78,6 @@ export const ButtonForm = styled.button`
   border-radius: 5px;
   border: 0;
   background-color: #0000fb;
-  margin-left: 90%;
+  margin-top: 30px;
+  margin-left: 75%;
 `;
