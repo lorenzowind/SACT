@@ -3,11 +3,21 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import GlobalStyle from './styles/global';
 
-import Routes from './routes';
+import AppProviderAdmin from './hooks/adminIndex';
+import AppProviderEvaluator from './hooks/evaluatorIndex';
+
+import AdminRoutes from './routes/adminIndex';
+import EvaluatorRoutes from './routes/evaluatorIndex';
 
 const App: React.FC = () => (
   <Router>
-    <Routes />
+    <AppProviderAdmin>
+      <AdminRoutes />
+    </AppProviderAdmin>
+
+    <AppProviderEvaluator>
+      <EvaluatorRoutes />
+    </AppProviderEvaluator>
 
     <GlobalStyle />
   </Router>
