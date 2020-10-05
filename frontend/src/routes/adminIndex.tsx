@@ -6,6 +6,7 @@ import Route from './adminRoute';
 import SignIn from '../pages/Admin/SignIn';
 
 import Dashboard from '../pages/Admin/Dashboard';
+import Ranking from '../pages/Admin/Ranking';
 
 import Admins from '../pages/Admin/Admins';
 import Avaliations from '../pages/Admin/Avaliations';
@@ -21,17 +22,18 @@ const Routes: React.FC = () => (
   <Switch>
     <Route path="/admin" component={SignIn} />
 
-    <Route path="/dashboard" component={Dashboard} isPrivate />
+    <Route path="/dashboard" component={Dashboard} />
+    <Route path="/ranking" component={Ranking} />
 
-    <Route path="/admins" component={Admins} isPrivate />
-    <Route path="/avaliations" component={Avaliations} isPrivate />
-    <Route path="/evaluators" component={Evaluators} isPrivate />
-    <Route path="/projects" component={Projects} isPrivate />
+    <Route path="/admins" component={Admins} />
+    <Route path="/avaliations" component={Avaliations} />
+    <Route path="/evaluators" component={Evaluators} />
+    <Route path="/projects" component={Projects} />
 
-    <Route path="/admin-form" component={AdminForm} isPrivate />
-    <Route path="/avaliation-form" component={AvaliationForm} isPrivate />
-    <Route path="/evaluator-form" component={EvaluatorForm} isPrivate />
-    <Route path="/project-form" component={ProjectForm} isPrivate />
+    <Route path="/admin-form" component={AdminForm} />
+    <Route path="/avaliation-form" component={AvaliationForm} />
+    <Route path="/evaluator-form" component={EvaluatorForm} />
+    <Route path="/project-form" component={ProjectForm} />
   </Switch>
 );
 
