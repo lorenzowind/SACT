@@ -2,33 +2,42 @@ import { createGlobalStyle } from 'styled-components';
 import BackgroundImage from '../assets/images/BackgroundImage/BackgroundImage.png';
 
 export default createGlobalStyle`
+  :root {
+    --primary: #0000fb;
+    --primary-light: #4d4dff;
+    --primary-dark: #0000db;
+    --primary-glow: #36bfd5;
+    --secondary: #00fc08;
+    --secondary-light: #5eff63;
+    --secondary-dark: #00cf07;
+    --secondary-glow: #aeffb0;
+    --background: white;
+    --light-gray: #777;
+    --dark-gray: #676060;
+  }
+
   * {
     margin: 0;
     padding: 0;
     outline: 0;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-size: 100%;
+    line-height: 100%;
   }
   #root{
     background-image: url(${BackgroundImage});
     background-repeat: no-repeat;
     backgroun-size:cover;
     object-fit:contain;
-    
+
   }
 
   body {
-    max-width:1920px;
-    max-height:1080px;
-    height:100vh;
-    width:100vw;
-    
+    background: var(--background);
+    color: var(--dark-gray);
     -webkit-font-smoothing: antialiased;
-    
-  }
 
-  body, input, button {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
   }
 
   h1, h2, h3, h4, h5, h6, strong {

@@ -13,7 +13,6 @@ export const Container = styled.div`
   border-radius: 10px;
   box-shadow: 20px 20px 10px 0 rgba(0, 0, 0, 0.16);
   border: solid 1px #707070;
-
   h1 {
     color: #0004ff;
     line-height: 35px;
@@ -22,13 +21,11 @@ export const Container = styled.div`
     text-align: center;
     margin-bottom: 10px;
   }
-
   ul {
     list-style-type: none;
     justify-content: space-between;
     margin-left: 10px;
   }
-
   ul li {
     color: #676060;
     margin-bottom: 10px;
