@@ -31,10 +31,12 @@
     "prettier/prettier": "error",
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/no-array-index-key": "off",
     "react/no-unescaped-entities": "off",
     "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "jsx-a11y/label-has-associated-control": "off",
     "no-unused-expressions": "off",
     "no-unused-vars": "off",
     "react/jsx-filename-extension": [1, {
