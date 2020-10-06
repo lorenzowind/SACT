@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
-
   :root {
     --primary: #0000fb;
     --primary-light: #4d4dff;
@@ -21,7 +20,7 @@ export default createGlobalStyle`
     padding: 0;
     outline: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI','Segoe Alt', 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 100%;
     line-height: 100%;
   }
