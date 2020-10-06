@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import BackgroundImage from '../assets/images/BackgroundImage/BackgroundImage.png';
 
 export default createGlobalStyle`
   :root {
@@ -24,13 +23,6 @@ export default createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     font-size: 100%;
     line-height: 100%;
-  }
-  #root{
-    background-image: url(${BackgroundImage});
-    background-repeat: no-repeat;
-    backgroun-size:cover;
-    object-fit:contain;
-
   }
 
   body {
