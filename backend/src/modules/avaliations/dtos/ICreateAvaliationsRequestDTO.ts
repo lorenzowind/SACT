@@ -1,4 +1,4 @@
-export default interface ICreateOrUpdateAvaliationDTO {
+export default interface ICreateAvaliationRequestDTO {
   evaluator_id: string;
   projects: {
     project_id: string;

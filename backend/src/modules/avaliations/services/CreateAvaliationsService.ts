@@ -6,7 +6,7 @@ import IAvaliationsRepository from '@modules/avaliations/repositories/IAvaliatio
 import IEvaluatorsRepository from '@modules/evaluators/repositories/IEvaluatorsRepository';
 import IProjectsRepository from '@modules/projects/repositories/IProjectsRepository';
 
-import ICreateAvaliations from '../dtos/ICreateAvaliationsRequest';
+import ICreateAvaliations from '../dtos/ICreateAvaliationsRequestDTO';
 
 import Avaliation from '../infra/typeorm/entities/Avaliation';
 
@@ -49,6 +49,7 @@ class CreateAvaliationService {
       const avaliation = await this.avaliationsRepository.create({
         evaluator_id,
         project_id: projects[index].project_id,
+        comments: '',
         status: 'to_evaluate',
       });
 

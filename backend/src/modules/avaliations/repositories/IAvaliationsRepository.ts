@@ -1,6 +1,6 @@
 import Avaliation from '../infra/typeorm/entities/Avaliation';
 
-import ICreateAvaliationDTO from '../dtos/ICreateOrUpdateAvaliationDTO';
+import ICreateAvaliationDTO from '../dtos/IUpdateAvaliationDTO';
 
 export default interface IAvaliationsRepository {
   findAllAvaliationsByEvaluatorId(evaluator_id: string): Promise<Avaliation[]>;
