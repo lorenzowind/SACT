@@ -33,12 +33,14 @@ describe('DeleteAdmin', () => {
   it('should be able to delete an admin', async () => {
     await draftAdminsRepository.create({
       name: 'John Doe',
+      ra: '111111',
       email: 'johndoe@example.com',
       password: '123456',
     });
 
     const admin = await draftAdminsRepository.create({
       name: 'John Doe II',
+      ra: '222222',
       email: 'johndoeII@example.com',
       password: '123456',
     });

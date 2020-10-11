@@ -15,40 +15,16 @@ class ListAdminsService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute(
-    search: string,
-    page: number,
-    admin_id: string,
-  ): Promise<Admin[]> {
+  public async execute(search: string, admin_id: string): Promise<Admin[]> {
     let admins = !search
-      ? await this.cacheProvider.recover<Admin[]>(
-          `admins-list:${admin_id}:page=${page}`,
-        )
+      ? await this.cacheProvider.recover<Admin[]>(`admins-list:${admin_id}`)
       : null;
 
     if (!admins) {
-      admins = await this.adminsRepository.findAllAdmins(
-        search,
-        page > 0 ? page : 1,
-      );
-
-      const adminsPreviousPage = !search
-        ? await this.cacheProvider.recover<Admin[]>(
-            `admins-list:${admin_id}:page=${page - 1}`,
-          )
-        : null;
-
-      if (adminsPreviousPage) {
-        admins = adminsPreviousPage.concat(admins);
-      } else if (page > 1 && !search) {
-        return [];
-      }
+      admins = await this.adminsRepository.findAllAdmins(search);
 
       if (!search) {
-        await this.cacheProvider.save(
-          `admins-list:${admin_id}:page=${page}`,
-          admins,
-        );
+        await this.cacheProvider.save(`admins-list:${admin_id}`, admins);
       }
     }
 

@@ -31,6 +31,7 @@ describe('CreateAdmin', () => {
   it('should be able to create a new admin', async () => {
     const admin = await createAdmin.execute({
       name: 'John Doe',
+      ra: '111111',
       email: 'johndoe@example.com',
       password: '123456',
     });
@@ -38,9 +39,10 @@ describe('CreateAdmin', () => {
     expect(admin).toHaveProperty('id');
   });
 
-  it('should not be able to create a new admin with the same email from another', async () => {
+  it('should not be able to create a new admin with the same RA from another', async () => {
     await createAdmin.execute({
       name: 'John Doe',
+      ra: '111111',
       email: 'johndoe@example.com',
       password: '123456',
     });
@@ -48,6 +50,25 @@ describe('CreateAdmin', () => {
     await expect(
       createAdmin.execute({
         name: 'John Doe',
+        ra: '111111',
+        email: 'johndoeII@example.com',
+        password: '123456',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not be able to create a new admin with the same email from another', async () => {
+    await createAdmin.execute({
+      name: 'John Doe',
+      ra: '111111',
+      email: 'johndoe@example.com',
+      password: '123456',
+    });
+
+    await expect(
+      createAdmin.execute({
+        name: 'John Doe',
+        ra: '222222',
         email: 'johndoe@example.com',
         password: '123456',
       }),

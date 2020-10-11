@@ -14,26 +14,27 @@ class AdminsRepository implements IAdminsRepository {
     this.ormRepository = getRepository(Admin);
   }
 
-  public async findAllAdmins(search: string, page: number): Promise<Admin[]> {
+  public async findAllAdmins(search: string): Promise<Admin[]> {
     const admins =
       search !== ''
         ? await this.ormRepository.find({
-            skip: (page - 1) * 10,
-            take: 10,
             where: {
               name: Like(`%${search}%`),
             },
           })
-        : await this.ormRepository.find({
-            skip: (page - 1) * 10,
-            take: 10,
-          });
+        : await this.ormRepository.find();
 
     return admins;
   }
 
   public async findById(id: string): Promise<Admin | undefined> {
     const findAdmin = await this.ormRepository.findOne(id);
+
+    return findAdmin;
+  }
+
+  public async findByRa(ra: string): Promise<Admin | undefined> {
+    const findAdmin = await this.ormRepository.findOne({ where: { ra } });
 
     return findAdmin;
   }

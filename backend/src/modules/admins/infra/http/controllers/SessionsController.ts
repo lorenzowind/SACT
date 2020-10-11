@@ -6,12 +6,12 @@ import AuthenticateAdminService from '@modules/admins/services/AuthenticateAdmin
 
 export default class SessionsController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { email, password } = request.body;
+    const { ra, password } = request.body;
 
     const authenticateAdmin = container.resolve(AuthenticateAdminService);
 
     const { admin, token } = await authenticateAdmin.execute({
-      email,
+      ra,
       password,
     });
 

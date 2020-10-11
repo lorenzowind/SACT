@@ -17,6 +17,9 @@ class Admin {
   name: string;
 
   @Column()
+  ra: string;
+
+  @Column()
   email: string;
 
   @Column()
