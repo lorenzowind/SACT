@@ -38,6 +38,8 @@ components:
           format: uuid
         name:
           type: string
+        ra:
+          type: string
         email:
           type: string
           format: email
@@ -64,8 +66,6 @@ components:
           type: string
         email:
           type: string
-        cpf:
-          type: string
         status:
           type: string
         created_at:
@@ -81,13 +81,15 @@ components:
           format: uuid
         name:
           type: string
+        description:
+          type: string
         occupation_area:
           type: string
         classroom:
           type: string
         members:
           type: string
-        observation:
+        observations:
           type: string
         image:
           type: string
@@ -124,6 +126,8 @@ components:
         project_id:
           type: string
           format: uuid
+        comments:
+          type: string
         status:
           type: string
         created_at:
@@ -165,9 +169,9 @@ paths:
             schema:
               type: object
               properties:
-                email:
+                ra:
                   type: string
-                  example: "admin@email.com"
+                  example: "111111"
                 password:
                   type: string
                   example: "admin password"
@@ -189,6 +193,9 @@ paths:
                       name:
                         type: string
                         example: "Admin Name"
+                      ra:
+                        type: string
+                        example: "111111"
                       email:
                         type: string
                         format: email
@@ -270,6 +277,9 @@ paths:
                   name:
                     type: string
                     example: "Admin Name"
+                  ra:
+                    type: string
+                    example: "111111"
                   email:
                     type: string
                     format: email
@@ -292,6 +302,9 @@ paths:
                   name:
                     type: string
                     example: "Admin Name"
+                  ra:
+                    type: string
+                    example: "111111"
                   email:
                     type: string
                     format: email
@@ -330,6 +343,9 @@ paths:
                   name:
                     type: string
                     example: "New Admin Name"
+                  ra:
+                    type: string
+                    example: "111111"
                   email:
                     type: string
                     format: email
@@ -352,6 +368,9 @@ paths:
                   name:
                     type: string
                     example: "New Admin Name"
+                  ra:
+                    type: string
+                    example: "111111"
                   email:
                     type: string
                     format: email
@@ -401,11 +420,6 @@ paths:
           schema:
             type: string
           description: A string to search for specific admins.
-        - in: query
-          name: page
-          schema:
-            type: number
-          description: A number to control the admins pagination.
       security:
         - bearerAuth: []
       responses:
@@ -425,6 +439,9 @@ paths:
                     name:
                       type: string
                       example: "Admin Name"
+                    ra:
+                      type: string
+                      example: "111111"
                     email:
                       type: string
                       format: email
@@ -454,9 +471,10 @@ paths:
             schema:
               type: object
               properties:
-                cpf:
+                email:
                   type: string
-                  example: "999.999.999-99"
+                  format: email
+                  example: "evaluator@email.com"
       responses:
         '200':
           description: Returns a JSON containing the evaluator data and a JWT token.
@@ -488,9 +506,6 @@ paths:
                         type: string
                         format: email
                         example: "evaluator@email.com"
-                      cpf:
-                        type: string
-                        example: "999.999.999-99"
                       status:
                         type: string
                         example: "to_evaluate"
@@ -506,7 +521,7 @@ paths:
                     type: string
                     example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTcxMTQ0MDgsImV4cCI6MTU5NzIwMDgwOCwic3ViIjoiMWEwMWY3ZmYtYzZlMy00M2NiLThiNzQtY2YxOWVhZDYyMDdhIn0.P_NlcLb0Ob6j9pC6DxDJiF2q7Xrx6qqWkgOcUgqCpro"
         '401':
-          description: 'Incorrect CPF.'
+          description: 'Incorrect Email.'
   /evaluators:
     post:
       summary: Creates an evaluator.
@@ -537,9 +552,6 @@ paths:
                     type: string
                     format: email
                     example: "evaluator@email.com"
-                  cpf:
-                    type: string
-                    example: "999.999.999-99"
       responses:
         '200':
           description: Returns a JSON containing the created evaluator.
@@ -568,9 +580,6 @@ paths:
                     type: string
                     format: email
                     example: "evaluator@email.com"
-                  cpf:
-                    type: string
-                    example: "999.999.999-99"
                   status:
                     type: string
                     example: "to_evaluate"
@@ -621,9 +630,6 @@ paths:
                     type: string
                     format: email
                     example: "newevaluator@email.com"
-                  cpf:
-                    type: string
-                    example: "999.999.999-99"
       responses:
         '200':
           description: Returns a JSON containing the updated evaluator.
@@ -652,9 +658,6 @@ paths:
                     type: string
                     format: email
                     example: "newevaluator@email.com"
-                  cpf:
-                    type: string
-                    example: "999.999.999-99"
                   status:
                     type: string
                     example: "to_evaluate"
@@ -703,11 +706,6 @@ paths:
           schema:
             type: string
           description: A string to search for specific evaluators.
-        - in: query
-          name: page
-          schema:
-            type: number
-          description: A number to control the evaluators pagination.
       security:
         - bearerAuth: []
       responses:
@@ -740,9 +738,6 @@ paths:
                       type: string
                       format: email
                       example: "evaluator@email.com"
-                    cpf:
-                      type: string
-                      example: "999.999.999-99"
                     status:
                       type: string
                       example: "to_evaluate"
@@ -776,6 +771,9 @@ paths:
                   name:
                     type: string
                     example: "Project Name"
+                  description:
+                    type: string
+                    example: "Project description"
                   occupation_area:
                     type: string
                     example: "Project Occupation Area"
@@ -785,9 +783,9 @@ paths:
                   members:
                     type: string
                     example: "Member 1, Member 2, Member 3"
-                  observation:
+                  observations:
                     type: string
-                    example: "Project observation"
+                    example: "Project observations"
       responses:
         '200':
           description: Returns a JSON containing the created project.
@@ -803,6 +801,9 @@ paths:
                   name:
                     type: string
                     example: "Project Name"
+                  description:
+                    type: string
+                    example: "Project description"
                   occupation_area:
                     type: string
                     example: "Project Occupation Area"
@@ -812,9 +813,9 @@ paths:
                   members:
                     type: string
                     example: "Member 1, Member 2, Member 3"
-                  observation:
+                  observations:
                     type: string
-                    example: "Project observation"
+                    example: "Project observations"
                   image_url:
                     type: string
                     example: null
@@ -852,6 +853,9 @@ paths:
                   name:
                     type: string
                     example: "New Project Name"
+                  description:
+                    type: string
+                    example: "Project description"
                   occupation_area:
                     type: string
                     example: "New Project Occupation Area"
@@ -861,9 +865,9 @@ paths:
                   members:
                     type: string
                     example: "Member 1, Member 2, Member 3"
-                  observation:
+                  observations:
                     type: string
-                    example: "New Project observation"
+                    example: "New Project observations"
       responses:
         '200':
           description: Returns a JSON containing the updated project.
@@ -879,6 +883,9 @@ paths:
                   name:
                     type: string
                     example: "New Project Name"
+                  description:
+                    type: string
+                    example: "Project description"
                   occupation_area:
                     type: string
                     example: "New Project Occupation Area"
@@ -888,9 +895,9 @@ paths:
                   members:
                     type: string
                     example: "Member 1, Member 2, Member 3"
-                  observation:
+                  observations:
                     type: string
-                    example: "New Project observation"
+                    example: "New Project observations"
                   image_url:
                     type: string
                     example: "https://image_upload_provider/2196cf1aec2f18533aaf-file_name.png"
@@ -969,6 +976,9 @@ paths:
                   name:
                     type: string
                     example: "Project Name"
+                  description:
+                    type: string
+                    example: "Project description"
                   occupation_area:
                     type: string
                     example: "Project Occupation Area"
@@ -978,9 +988,9 @@ paths:
                   members:
                     type: string
                     example: "Member 1, Member 2, Member 3"
-                  observation:
+                  observations:
                     type: string
-                    example: "Project observation"
+                    example: "Project observations"
                   image_url:
                     type: string
                     example: "https://image_upload_provider/2196cf1aec2f18533aaf-file_name.png"
@@ -1007,11 +1017,6 @@ paths:
           schema:
             type: string
           description: A string to search for specific projects.
-        - in: query
-          name: page
-          schema:
-            type: number
-          description: A number to control the projects pagination.
       security:
         - bearerAuth: []
       responses:
@@ -1031,6 +1036,9 @@ paths:
                     name:
                       type: string
                       example: "Project Name"
+                    description:
+                      type: string
+                      example: "Project description"
                     occupation_area:
                       type: string
                       example: "Project Occupation Area"
@@ -1040,9 +1048,9 @@ paths:
                     members:
                       type: string
                       example: "Member 1, Member 2, Member 3"
-                    observation:
+                    observations:
                       type: string
-                      example: "Project observation"
+                      example: "Project observations"
                     image_url:
                       type: string
                       example: "https://image_upload_provider/2196cf1aec2f18533aaf-file_name.png"
@@ -1197,11 +1205,6 @@ paths:
           schema:
             type: string
           description: A string to search for specific questions.
-        - in: query
-          name: page
-          schema:
-            type: number
-          description: A number to control the questions pagination.
       security:
         - bearerAuth: []
       responses:
@@ -1423,6 +1426,42 @@ paths:
                       type: string
                       format: uuid
                       example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    project:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                        name:
+                          type: string
+                          example: "Project Name"
+                        description:
+                          type: string
+                          example: "Project description"
+                        occupation_area:
+                          type: string
+                          example: "Project Occupation Area"
+                        classroom:
+                          type: string
+                          example: "Classroom 1"
+                        members:
+                          type: string
+                          example: "Member 1, Member 2, Member 3"
+                        observations:
+                          type: string
+                          example: "Project observations"
+                        image_url:
+                          type: string
+                          example: null
+                        created_at:
+                          type: string
+                          format: dateformat
+                          example: "2020-07-02T21:57:00.421Z"
+                        updated_at:
+                          type: string
+                          format: dateformat
+                          example: "2020-07-02T21:57:00.421Z"
                     status:
                       type: string
                       example: "to_evaluate"
@@ -1457,6 +1496,9 @@ paths:
                   type: string
                   format: uuid
                   example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                comments:
+                  type: string
+                  example: "Comments about the project"
                 grades:
                   type: array
                   items:
@@ -1470,38 +1512,8 @@ paths:
                         type: number
                         example: 6.0
       responses:
-        '200':
-          description: Returns a JSON containing the created grade set.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      format: uuid
-                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
-                    avaliation_id:
-                      type: string
-                      format: uuid
-                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
-                    question_id:
-                      type: string
-                      format: uuid
-                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
-                    grade:
-                      type: number
-                      example: 6.0
-                    created_at:
-                      type: string
-                      format: dateformat
-                      example: "2020-07-02T21:57:00.421Z"
-                    updated_at:
-                      type: string
-                      format: dateformat
-                      example: "2020-07-02T21:57:00.421Z"
+        '204':
+          description: Confirmation of successfully project avaliation.
   /grades/{avaliation_id}:
     get:
       summary: Gets all grades by avaliation id.

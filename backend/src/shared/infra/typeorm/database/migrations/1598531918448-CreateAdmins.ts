@@ -17,6 +17,11 @@ export default class CreateAdmins1598531918448 implements MigrationInterface {
             type: 'varchar(255)',
           },
           {
+            name: 'ra',
+            type: 'varchar(12)',
+            isUnique: true,
+          },
+          {
             name: 'email',
             type: 'varchar(255)',
             isUnique: true,
