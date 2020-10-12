@@ -27,17 +27,17 @@ describe('UpdateEvaluator', () => {
   it('should be able to update the evaluator', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const updatedEvaluator = await updateEvaluator.execute({
       id: evaluator.id,
       name: 'John Doe II',
-      cpf: 'evaluator CPF II',
+      email: 'evaluatorII@email.com',
     });
 
     expect(updatedEvaluator.name).toBe('John Doe II');
-    expect(updatedEvaluator.cpf).toBe('evaluator CPF II');
+    expect(updatedEvaluator.email).toBe('evaluatorII@email.com');
   });
 
   it('should not be able to update from a non existing evaluator', async () => {
@@ -45,27 +45,27 @@ describe('UpdateEvaluator', () => {
       updateEvaluator.execute({
         id: 'non existing evaluator',
         name: 'John Doe',
-        cpf: 'evaluator CPF',
+        email: 'evaluator@email.com',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('should not be able to update to another evaluator CPF', async () => {
+  it('should not be able to update to another evaluator email', async () => {
     await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe II',
-      cpf: 'evaluator CPF II',
+      email: 'evaluatorII@email.com',
     });
 
     await expect(
       updateEvaluator.execute({
         id: evaluator.id,
         name: evaluator.name,
-        cpf: 'evaluator CPF',
+        email: 'evaluator@email.com',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

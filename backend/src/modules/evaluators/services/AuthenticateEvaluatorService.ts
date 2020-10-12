@@ -10,7 +10,7 @@ import Evaluator from '../infra/typeorm/entities/Evaluator';
 import IEvaluatorsRepository from '../repositories/IEvaluatorsRepository';
 
 interface IRequest {
-  cpf: string;
+  email: string;
 }
 
 interface IResponse {
@@ -25,11 +25,11 @@ class AuthenticateEvaluatorService {
     private evaluatorsRepository: IEvaluatorsRepository,
   ) {}
 
-  public async execute({ cpf }: IRequest): Promise<IResponse> {
-    const evaluator = await this.evaluatorsRepository.findByCpf(cpf);
+  public async execute({ email }: IRequest): Promise<IResponse> {
+    const evaluator = await this.evaluatorsRepository.findByEmail(email);
 
     if (!evaluator) {
-      throw new AppError('Incorrect CPF.', 401);
+      throw new AppError('Incorrect Email.', 401);
     }
 
     if (evaluator.status === 'rated') {

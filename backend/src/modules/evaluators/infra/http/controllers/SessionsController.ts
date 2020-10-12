@@ -5,14 +5,14 @@ import AuthenticateEvaluatorService from '@modules/evaluators/services/Authentic
 
 export default class SessionsController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { cpf } = request.body;
+    const { email } = request.body;
 
     const authenticateEvaluator = container.resolve(
       AuthenticateEvaluatorService,
     );
 
     const { evaluator, token } = await authenticateEvaluator.execute({
-      cpf,
+      email,
     });
 
     return response.json({ evaluator, token });

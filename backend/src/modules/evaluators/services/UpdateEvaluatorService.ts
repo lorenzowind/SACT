@@ -31,7 +31,6 @@ class UpdateEvaluatorService {
     institution,
     phone_number,
     email,
-    cpf,
   }: IRequest): Promise<Evaluator> {
     const evaluator = await this.evaluatorsRepository.findById(id);
 
@@ -39,12 +38,12 @@ class UpdateEvaluatorService {
       throw new AppError('Evaluator not found.');
     }
 
-    const evaluatorWithUpdatedEmail = await this.evaluatorsRepository.findByCpf(
-      cpf,
+    const evaluatorWithUpdatedEmail = await this.evaluatorsRepository.findByEmail(
+      email,
     );
 
     if (evaluatorWithUpdatedEmail && evaluatorWithUpdatedEmail.id !== id) {
-      throw new AppError('CPF already in use.');
+      throw new AppError('Email address already in use.');
     }
 
     evaluator.name = name;
@@ -52,7 +51,6 @@ class UpdateEvaluatorService {
     evaluator.institution = institution;
     evaluator.phone_number = phone_number;
     evaluator.email = email;
-    evaluator.cpf = cpf;
     evaluator.status = 'to_evaluate';
 
     await this.cacheProvider.invalidatePrefix('evaluators-list');

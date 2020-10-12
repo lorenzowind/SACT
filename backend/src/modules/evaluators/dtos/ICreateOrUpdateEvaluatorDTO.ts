@@ -3,7 +3,6 @@ export default interface ICreateOrUpdateEvaluatorDTO {
   occupation_area?: string;
   institution?: string;
   phone_number?: string;
-  email?: string;
-  cpf: string;
+  email: string;
   status?: 'to_evaluate' | 'rated';
 }

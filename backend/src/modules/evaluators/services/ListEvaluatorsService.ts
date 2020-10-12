@@ -16,38 +16,19 @@ class ListEvaluatorsService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute(
-    search: string,
-    page: number,
-    admin_id: string,
-  ): Promise<Evaluator[]> {
+  public async execute(search: string, admin_id: string): Promise<Evaluator[]> {
     let evaluators = !search
       ? await this.cacheProvider.recover<Evaluator[]>(
-          `evaluators-list:${admin_id}:page=${page}`,
+          `evaluators-list:${admin_id}`,
         )
       : null;
 
     if (!evaluators) {
-      evaluators = await this.evaluatorsRepository.findAllEvaluators(
-        search,
-        page > 0 ? page : 1,
-      );
-
-      const evaluatorsPreviousPage = !search
-        ? await this.cacheProvider.recover<Evaluator[]>(
-            `evaluators-list:${admin_id}:page=${page - 1}`,
-          )
-        : null;
-
-      if (evaluatorsPreviousPage) {
-        evaluators = evaluatorsPreviousPage.concat(evaluators);
-      } else if (page > 1 && !search) {
-        return [];
-      }
+      evaluators = await this.evaluatorsRepository.findAllEvaluators(search);
 
       if (!search) {
         await this.cacheProvider.save(
-          `evaluators-list:${admin_id}:page=${page}`,
+          `evaluators-list:${admin_id}`,
           evaluators,
         );
       }

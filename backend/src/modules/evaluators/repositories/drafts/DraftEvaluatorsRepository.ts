@@ -10,17 +10,14 @@ export default class DraftEvaluatorsRepository
   implements IEvaluatorsRepository {
   private evaluators: Evaluator[] = [];
 
-  public async findAllEvaluators(
-    search: string,
-    page: number,
-  ): Promise<Evaluator[]> {
+  public async findAllEvaluators(search: string): Promise<Evaluator[]> {
     const evaluators = search
       ? this.evaluators.filter(findEvaluator =>
           findEvaluator.name.includes(search),
         )
       : this.evaluators;
 
-    return evaluators.slice((page - 1) * 10, page * 10);
+    return evaluators;
   }
 
   public async findById(id: string): Promise<Evaluator | undefined> {
@@ -31,9 +28,9 @@ export default class DraftEvaluatorsRepository
     return evaluator;
   }
 
-  public async findByCpf(cpf: string): Promise<Evaluator | undefined> {
+  public async findByEmail(email: string): Promise<Evaluator | undefined> {
     const evaluator = this.evaluators.find(
-      findEvaluator => findEvaluator.cpf === cpf,
+      findEvaluator => findEvaluator.email === email,
     );
 
     return evaluator;

@@ -33,12 +33,12 @@ describe('DeleteEvaluator', () => {
   it('should be able to delete an evaluator', async () => {
     await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe II',
-      cpf: 'evaluator II CPF',
+      email: 'evaluatorII@email.com',
     });
 
     await deleteEvaluator.execute(evaluator.id);
