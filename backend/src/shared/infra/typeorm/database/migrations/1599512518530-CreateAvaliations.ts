@@ -29,6 +29,10 @@ export default class CreateAvaliations1599512518530
             isNullable: true,
           },
           {
+            name: 'comments',
+            type: 'varchar(255)',
+          },
+          {
             name: 'status',
             type: "enum('to_evaluate', 'rated')",
           },

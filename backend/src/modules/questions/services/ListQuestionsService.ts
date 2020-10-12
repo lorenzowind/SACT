@@ -16,40 +16,18 @@ class ListQuestionsService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute(
-    search: string,
-    page: number,
-    admin_id: string,
-  ): Promise<Question[]> {
+  public async execute(search: string, admin_id: string): Promise<Question[]> {
     let questions = !search
       ? await this.cacheProvider.recover<Question[]>(
-          `questions-list:${admin_id}:page=${page}`,
+          `questions-list:${admin_id}`,
         )
       : null;
 
     if (!questions) {
-      questions = await this.questionsRepository.findAllQuestions(
-        search,
-        page > 0 ? page : 1,
-      );
-
-      const questionsPreviousPage = !search
-        ? await this.cacheProvider.recover<Question[]>(
-            `questions-list:${admin_id}:page=${page - 1}`,
-          )
-        : null;
-
-      if (questionsPreviousPage) {
-        questions = questionsPreviousPage.concat(questions);
-      } else if (page > 1 && !search) {
-        return [];
-      }
+      questions = await this.questionsRepository.findAllQuestions(search);
 
       if (!search) {
-        await this.cacheProvider.save(
-          `questions-list:${admin_id}:page=${page}`,
-          questions,
-        );
+        await this.cacheProvider.save(`questions-list:${admin_id}`, questions);
       }
     }
 

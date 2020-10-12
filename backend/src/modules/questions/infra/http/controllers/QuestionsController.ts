@@ -10,15 +10,11 @@ export default class ProjectsController {
   public async show(request: Request, response: Response): Promise<Response> {
     const admin_id = request.admin.id;
 
-    const { search = '', page = 1 } = request.query;
+    const { search = '' } = request.query;
 
     const listQuestions = container.resolve(ListQuestionsService);
 
-    const questions = await listQuestions.execute(
-      String(search),
-      Number(page),
-      admin_id,
-    );
+    const questions = await listQuestions.execute(String(search), admin_id);
 
     return response.json(questions);
   }

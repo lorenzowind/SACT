@@ -16,6 +16,7 @@ adminsRouter.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
+      ra: Joi.string().required(),
       email: Joi.string().required().email(),
       password: Joi.string().required(),
     },
@@ -29,6 +30,7 @@ adminsRouter.put(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
+      ra: Joi.string().required(),
       email: Joi.string().required().email(),
       password: Joi.string().min(6),
     },

@@ -26,14 +26,13 @@ class CreateEvaluatorService {
     institution,
     phone_number,
     email,
-    cpf,
   }: ICreateEvaluatorDTO): Promise<Evaluator> {
-    const checkEvaluatorCpfExists = await this.evaluatorsRepository.findByCpf(
-      cpf,
+    const checkEvaluatorEmailExists = await this.evaluatorsRepository.findByEmail(
+      email,
     );
 
-    if (checkEvaluatorCpfExists) {
-      throw new AppError('CPF already used.');
+    if (checkEvaluatorEmailExists) {
+      throw new AppError('Email address already used.');
     }
 
     const evaluator = await this.evaluatorsRepository.create({
@@ -42,7 +41,6 @@ class CreateEvaluatorService {
       institution,
       phone_number,
       email,
-      cpf,
       status: 'to_evaluate',
     });
 

@@ -11,36 +11,32 @@ export default class AdminsController {
   public async show(request: Request, response: Response): Promise<Response> {
     const admin_id = request.admin.id;
 
-    const { search = '', page = 1 } = request.query;
+    const { search = '' } = request.query;
 
     const listAdmins = container.resolve(ListAdminsService);
 
-    const admins = await listAdmins.execute(
-      String(search),
-      Number(page),
-      admin_id,
-    );
+    const admins = await listAdmins.execute(String(search), admin_id);
 
     return response.json(classToClass(admins));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, email, password } = request.body;
+    const { name, ra, email, password } = request.body;
 
     const createAdmin = container.resolve(CreateAdminService);
 
-    const admin = await createAdmin.execute({ name, email, password });
+    const admin = await createAdmin.execute({ name, ra, email, password });
 
     return response.json(classToClass(admin));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-    const { name, email, password } = request.body;
+    const { name, ra, email, password } = request.body;
 
     const updateAdmin = container.resolve(UpdateAdminService);
 
-    const admin = await updateAdmin.execute({ id, name, email, password });
+    const admin = await updateAdmin.execute({ id, name, ra, email, password });
 
     return response.json(classToClass(admin));
   }

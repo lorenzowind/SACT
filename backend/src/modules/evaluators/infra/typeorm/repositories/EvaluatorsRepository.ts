@@ -14,23 +14,15 @@ class EvaluatorsRepository implements IEvaluatorsRepository {
     this.ormRepository = getRepository(Evaluator);
   }
 
-  public async findAllEvaluators(
-    search: string,
-    page: number,
-  ): Promise<Evaluator[]> {
+  public async findAllEvaluators(search: string): Promise<Evaluator[]> {
     const evaluators =
       search !== ''
         ? await this.ormRepository.find({
-            skip: (page - 1) * 10,
-            take: 10,
             where: {
               name: Like(`%${search}%`),
             },
           })
-        : await this.ormRepository.find({
-            skip: (page - 1) * 10,
-            take: 10,
-          });
+        : await this.ormRepository.find();
 
     return evaluators;
   }
@@ -41,9 +33,9 @@ class EvaluatorsRepository implements IEvaluatorsRepository {
     return findEvaluator;
   }
 
-  public async findByCpf(cpf: string): Promise<Evaluator | undefined> {
+  public async findByEmail(email: string): Promise<Evaluator | undefined> {
     const findEvaluator = await this.ormRepository.findOne({
-      where: { cpf },
+      where: { email },
     });
 
     return findEvaluator;

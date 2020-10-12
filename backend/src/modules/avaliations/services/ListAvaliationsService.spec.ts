@@ -27,12 +27,12 @@ describe('ListAvaliations', () => {
   it('should be able to list all the avaliations', async () => {
     const firstEvaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const secondEvaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe II',
-      cpf: 'evaluator CPF II',
+      email: 'evaluatorII@email.com',
     });
 
     const firstProject = await draftProjectsRepository.create({

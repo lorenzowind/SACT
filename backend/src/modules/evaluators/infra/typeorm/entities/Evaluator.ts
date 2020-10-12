@@ -27,9 +27,6 @@ class Evaluator {
   email?: string;
 
   @Column()
-  cpf: string;
-
-  @Column()
   status: 'to_evaluate' | 'rated';
 
   @CreateDateColumn()

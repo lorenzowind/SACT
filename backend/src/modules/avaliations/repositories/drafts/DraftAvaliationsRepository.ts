@@ -2,7 +2,7 @@ import { v4 } from 'uuid';
 
 import IAvaliationsRepository from '@modules/avaliations/repositories/IAvaliationsRepository';
 
-import ICreateAvaliationDTO from '@modules/avaliations/dtos/ICreateOrUpdateAvaliationDTO';
+import ICreateAvaliationDTO from '@modules/avaliations/dtos/IUpdateAvaliationDTO';
 
 import Avaliation from '@modules/avaliations/infra/typeorm/entities/Avaliation';
 

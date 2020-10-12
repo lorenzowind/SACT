@@ -30,7 +30,7 @@ describe('DeleteAvaliation', () => {
   it('should be able to delete an avaliation', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const project = await draftProjectsRepository.create({

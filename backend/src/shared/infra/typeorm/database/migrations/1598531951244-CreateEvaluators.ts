@@ -38,11 +38,6 @@ export default class CreateEvaluators1598531951244
             isNullable: true,
           },
           {
-            name: 'cpf',
-            type: 'varchar(16)',
-            isUnique: true,
-          },
-          {
             name: 'status',
             type: "enum('to_evaluate', 'rated')",
           },

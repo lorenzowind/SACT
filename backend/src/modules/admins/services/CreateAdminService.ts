@@ -26,9 +26,16 @@ class CreateAdminService {
 
   public async execute({
     name,
+    ra,
     email,
     password,
   }: ICreateAdminDTO): Promise<Admin> {
+    const checkAdminRaExists = await this.adminsRepository.findByRa(ra);
+
+    if (checkAdminRaExists) {
+      throw new AppError('RA already used.');
+    }
+
     const checkAdminEmailExists = await this.adminsRepository.findByEmail(
       email,
     );
@@ -41,6 +48,7 @@ class CreateAdminService {
 
     const admin = await this.adminsRepository.create({
       name,
+      ra,
       email,
       password: hashedPassword,
     });

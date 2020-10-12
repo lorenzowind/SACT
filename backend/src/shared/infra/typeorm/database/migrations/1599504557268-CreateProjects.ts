@@ -18,24 +18,24 @@ export default class CreateProjects1599504557268 implements MigrationInterface {
             isUnique: true,
           },
           {
+            name: 'description',
+            type: 'varchar(255)',
+          },
+          {
             name: 'occupation_area',
             type: 'varchar(255)',
-            isNullable: true,
           },
           {
             name: 'classroom',
             type: 'varchar(255)',
-            isNullable: true,
           },
           {
             name: 'members',
             type: 'varchar(255)',
-            isNullable: true,
           },
           {
-            name: 'observation',
+            name: 'observations',
             type: 'varchar(255)',
-            isNullable: true,
           },
           {
             name: 'image',

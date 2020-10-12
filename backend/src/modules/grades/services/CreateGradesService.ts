@@ -29,8 +29,9 @@ class CreateGradeService {
 
   public async execute({
     avaliation_id,
+    comments,
     grades,
-  }: ICreateGradeRequestDTO): Promise<Grade[]> {
+  }: ICreateGradeRequestDTO): Promise<void> {
     const checkAvaliationExists = await this.avaliationsRepository.findById(
       avaliation_id,
     );
@@ -62,6 +63,7 @@ class CreateGradeService {
     }
 
     checkAvaliationExists.status = 'rated';
+    checkAvaliationExists.comments = comments;
 
     await this.avaliationsRepository.save(checkAvaliationExists);
 
@@ -89,8 +91,6 @@ class CreateGradeService {
         await this.evaluatorsRepository.save(evaluator);
       }
     }
-
-    return createdGrades;
   }
 }
 

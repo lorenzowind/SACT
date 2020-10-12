@@ -45,7 +45,7 @@ describe('ListGrades', () => {
   it('should be able to list all grades by an evaluator id', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const firstProject = await draftProjectsRepository.create({
@@ -83,6 +83,7 @@ describe('ListGrades', () => {
 
     await createGrades.execute({
       avaliation_id: firstAvaliation.id,
+      comments: 'Comments about the project',
       grades: [
         {
           question_id: firstQuestion.id,
@@ -101,6 +102,7 @@ describe('ListGrades', () => {
 
     await createGrades.execute({
       avaliation_id: secondAvaliation.id,
+      comments: 'Comments about the project',
       grades: [
         {
           question_id: firstQuestion.id,

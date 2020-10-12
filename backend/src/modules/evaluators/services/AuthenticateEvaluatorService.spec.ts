@@ -20,11 +20,11 @@ describe('AuthenticateEvaluator', () => {
   it('should be able to authenticate', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const response = await authenticateEvaluator.execute({
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     expect(response).toHaveProperty('token');
@@ -34,21 +34,21 @@ describe('AuthenticateEvaluator', () => {
   it('should not be able to authenticate with non existing evaluator', async () => {
     await expect(
       authenticateEvaluator.execute({
-        cpf: 'evaluator CPF',
+        email: 'evaluator@email.com',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
 
   it('should not be able to authenticate with an evaluator who alredy has evaluated all projects', async () => {
-    const evaluator = await draftEvaluatorsRepository.create({
+    await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
       status: 'rated',
     });
 
     await expect(
       authenticateEvaluator.execute({
-        cpf: 'evaluator CPF',
+        email: 'evaluator@email.com',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

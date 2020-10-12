@@ -19,6 +19,9 @@ class Project {
   name: string;
 
   @Column()
+  description?: string;
+
+  @Column()
   occupation_area?: string;
 
   @Column()
@@ -28,7 +31,7 @@ class Project {
   members?: string;
 
   @Column()
-  observation?: string;
+  observations?: string;
 
   @Column()
   image: string;

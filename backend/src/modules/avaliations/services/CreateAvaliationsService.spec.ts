@@ -28,7 +28,7 @@ describe('CreateAvaliations', () => {
   it('should be able to create new avaliations', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const firstProject = await draftProjectsRepository.create({
@@ -74,7 +74,7 @@ describe('CreateAvaliations', () => {
   it('should not be able to create a new avaliation with non existing project', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     await expect(

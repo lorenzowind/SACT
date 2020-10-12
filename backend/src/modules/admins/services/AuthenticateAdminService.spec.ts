@@ -25,12 +25,13 @@ describe('AuthenticateAdmin', () => {
   it('should be able to authenticate', async () => {
     const admin = await draftAdminsRepository.create({
       name: 'John Doe',
+      ra: '111111',
       email: 'johndoe@example.com',
       password: '123456',
     });
 
     const response = await authenticateAdmin.execute({
-      email: 'johndoe@example.com',
+      ra: '111111',
       password: '123456',
     });
 
@@ -41,7 +42,7 @@ describe('AuthenticateAdmin', () => {
   it('should not be able to authenticate with non existing admin', async () => {
     await expect(
       authenticateAdmin.execute({
-        email: 'johndoe@example.com',
+        ra: '111111',
         password: '123456',
       }),
     ).rejects.toBeInstanceOf(AppError);
@@ -50,13 +51,14 @@ describe('AuthenticateAdmin', () => {
   it('should not be able to authenticate with wrong password', async () => {
     await draftAdminsRepository.create({
       name: 'John Doe',
+      ra: '111111',
       email: 'johndoe@example.com',
       password: '123456',
     });
 
     await expect(
       authenticateAdmin.execute({
-        email: 'johndoe@example.com',
+        ra: '111111',
         password: 'wrong-password',
       }),
     ).rejects.toBeInstanceOf(AppError);

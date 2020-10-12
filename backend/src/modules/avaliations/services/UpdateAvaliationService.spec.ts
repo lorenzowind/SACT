@@ -28,7 +28,7 @@ describe('UpdateAvaliation', () => {
   it('should be able to update an avaliation', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const firstProject = await draftProjectsRepository.create({
@@ -56,7 +56,7 @@ describe('UpdateAvaliation', () => {
   it('should not be able to update from a non existing avaliation', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const project = await draftProjectsRepository.create({
@@ -75,7 +75,7 @@ describe('UpdateAvaliation', () => {
   it('should not be able to update an appointment with non existing evaluator', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const project = await draftProjectsRepository.create({
@@ -99,7 +99,7 @@ describe('UpdateAvaliation', () => {
   it('should not be able to update an appointment with non existing project', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const project = await draftProjectsRepository.create({

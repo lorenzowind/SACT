@@ -30,6 +30,7 @@ class UpdateAdminService {
   public async execute({
     id,
     name,
+    ra,
     email,
     password,
   }: IRequest): Promise<Admin> {
@@ -37,6 +38,12 @@ class UpdateAdminService {
 
     if (!admin) {
       throw new AppError('Admin not found.');
+    }
+
+    const adminWithUpdatedRa = await this.adminsRepository.findByRa(ra);
+
+    if (adminWithUpdatedRa && adminWithUpdatedRa.id !== id) {
+      throw new AppError('RA already in use.');
     }
 
     const adminWithUpdatedEmail = await this.adminsRepository.findByEmail(
@@ -48,6 +55,7 @@ class UpdateAdminService {
     }
 
     admin.name = name;
+    admin.ra = ra;
     admin.email = email;
 
     admin.password = await this.hashProvider.generateHash(password);

@@ -14,23 +14,15 @@ class QuestionsRepository implements IQuestionsRepository {
     this.ormRepository = getRepository(Question);
   }
 
-  public async findAllQuestions(
-    search: string,
-    page: number,
-  ): Promise<Question[]> {
+  public async findAllQuestions(search: string): Promise<Question[]> {
     const questions =
       search !== ''
         ? await this.ormRepository.find({
-            skip: (page - 1) * 10,
-            take: 10,
             where: {
               section: Like(`%${search}%`),
             },
           })
-        : await this.ormRepository.find({
-            skip: (page - 1) * 10,
-            take: 10,
-          });
+        : await this.ormRepository.find();
 
     return questions;
   }

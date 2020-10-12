@@ -26,9 +26,12 @@ class Avaliation {
   @Column()
   project_id: string;
 
-  @ManyToOne(() => Project)
+  @ManyToOne(() => Project, { eager: true })
   @JoinColumn({ name: 'project_id' })
   project: Project;
+
+  @Column()
+  comments: string;
 
   @Column()
   status: 'to_evaluate' | 'rated';

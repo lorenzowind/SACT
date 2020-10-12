@@ -27,22 +27,22 @@ describe('CreateEvaluator', () => {
   it('should be able to create a new evaluator', async () => {
     const evaluator = await createEvaluator.execute({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     expect(evaluator).toHaveProperty('id');
   });
 
-  it('should not be able to create a new evaluator with the same CPF from another', async () => {
+  it('should not be able to create a new evaluator with the same email from another', async () => {
     await createEvaluator.execute({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     await expect(
       createEvaluator.execute({
         name: 'John Doe II',
-        cpf: 'evaluator CPF',
+        email: 'evaluator@email.com',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

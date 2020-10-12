@@ -10,15 +10,11 @@ export default class EvaluatorsController {
   public async show(request: Request, response: Response): Promise<Response> {
     const admin_id = request.admin.id;
 
-    const { search = '', page = 1 } = request.query;
+    const { search = '' } = request.query;
 
     const listEvaluators = container.resolve(ListEvaluatorsService);
 
-    const evaluators = await listEvaluators.execute(
-      String(search),
-      Number(page),
-      admin_id,
-    );
+    const evaluators = await listEvaluators.execute(String(search), admin_id);
 
     return response.json(evaluators);
   }
@@ -30,7 +26,6 @@ export default class EvaluatorsController {
       institution,
       phone_number,
       email,
-      cpf,
       status,
     } = request.body;
 
@@ -42,7 +37,6 @@ export default class EvaluatorsController {
       institution,
       phone_number,
       email,
-      cpf,
       status,
     });
 
@@ -57,7 +51,6 @@ export default class EvaluatorsController {
       institution,
       phone_number,
       email,
-      cpf,
       status,
     } = request.body;
 
@@ -70,7 +63,6 @@ export default class EvaluatorsController {
       institution,
       phone_number,
       email,
-      cpf,
       status,
     });
 

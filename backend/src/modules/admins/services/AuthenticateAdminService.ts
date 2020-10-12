@@ -12,7 +12,7 @@ import IAdminsRepository from '../repositories/IAdminsRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
 interface IRequest {
-  email: string;
+  ra: string;
   password: string;
 }
 
@@ -31,11 +31,11 @@ class AuthenticateAdminService {
     private hashProvider: IHashProvider,
   ) {}
 
-  public async execute({ email, password }: IRequest): Promise<IResponse> {
-    const admin = await this.adminsRepository.findByEmail(email);
+  public async execute({ ra, password }: IRequest): Promise<IResponse> {
+    const admin = await this.adminsRepository.findByRa(ra);
 
     if (!admin) {
-      throw new AppError('Incorrect login/password combination.', 401);
+      throw new AppError('Incorrect RA/password combination.', 401);
     }
 
     const passwordMatched = await this.hashProvider.compareHash(
@@ -44,7 +44,7 @@ class AuthenticateAdminService {
     );
 
     if (!passwordMatched) {
-      throw new AppError('Incorrect login/password combination.', 401);
+      throw new AppError('Incorrect RA/password combination.', 401);
     }
 
     const { secret, expiresIn } = authConfig.jwt;
