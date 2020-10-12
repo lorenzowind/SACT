@@ -80,7 +80,7 @@ describe('UpdateAdmin', () => {
       updateAdmin.execute({
         id: admin.id,
         name: admin.name,
-        ra: '222222',
+        ra: '111111',
         email: admin.email,
         password: '123456',
       }),

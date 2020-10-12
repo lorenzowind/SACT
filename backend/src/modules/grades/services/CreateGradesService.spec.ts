@@ -65,7 +65,7 @@ describe('CreateGrades', () => {
       criterion: 'Criterion Name III',
     });
 
-    const grades = await createGrades.execute({
+    await createGrades.execute({
       avaliation_id: avaliation.id,
       comments: 'Comments about the project',
       grades: [
@@ -83,6 +83,10 @@ describe('CreateGrades', () => {
         },
       ],
     });
+
+    const grades = await draftGradesRepository.findAllGradesByAvaliationId(
+      avaliation.id,
+    );
 
     expect(grades).toHaveLength(3);
   });
