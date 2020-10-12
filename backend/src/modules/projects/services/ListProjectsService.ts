@@ -16,40 +16,16 @@ class ListProjectsService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute(
-    search: string,
-    page: number,
-    admin_id: string,
-  ): Promise<Project[]> {
+  public async execute(search: string, admin_id: string): Promise<Project[]> {
     let projects = !search
-      ? await this.cacheProvider.recover<Project[]>(
-          `projects-list:${admin_id}:page=${page}`,
-        )
+      ? await this.cacheProvider.recover<Project[]>(`projects-list:${admin_id}`)
       : null;
 
     if (!projects) {
-      projects = await this.projectsRepository.findAllProjects(
-        search,
-        page > 0 ? page : 1,
-      );
-
-      const projectsPreviousPage = !search
-        ? await this.cacheProvider.recover<Project[]>(
-            `projects-list:${admin_id}:page=${page - 1}`,
-          )
-        : null;
-
-      if (projectsPreviousPage) {
-        projects = projectsPreviousPage.concat(projects);
-      } else if (page > 1 && !search) {
-        return [];
-      }
+      projects = await this.projectsRepository.findAllProjects(search);
 
       if (!search) {
-        await this.cacheProvider.save(
-          `projects-list:${admin_id}:page=${page}`,
-          projects,
-        );
+        await this.cacheProvider.save(`projects-list:${admin_id}`, projects);
       }
     }
 

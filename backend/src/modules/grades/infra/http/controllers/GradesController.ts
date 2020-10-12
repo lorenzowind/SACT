@@ -16,12 +16,16 @@ export default class GradesController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { avaliation_id, grades } = request.body;
+    const { avaliation_id, comments, grades } = request.body;
 
     const createGrades = container.resolve(CreateGradesService);
 
-    const createdGrades = await createGrades.execute({ avaliation_id, grades });
+    await createGrades.execute({
+      avaliation_id,
+      comments,
+      grades,
+    });
 
-    return response.json(createdGrades);
+    return response.status(204).json();
   }
 }

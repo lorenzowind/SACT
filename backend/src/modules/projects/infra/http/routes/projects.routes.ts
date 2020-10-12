@@ -23,10 +23,11 @@ projectsRouter.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
+      description: Joi.string(),
       occupation_area: Joi.string(),
       classroom: Joi.string(),
       members: Joi.string(),
-      observation: Joi.string(),
+      observations: Joi.string(),
     },
   }),
   projectsController.create,
@@ -38,10 +39,11 @@ projectsRouter.put(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
+      description: Joi.string(),
       occupation_area: Joi.string(),
       classroom: Joi.string(),
       members: Joi.string(),
-      observation: Joi.string(),
+      observations: Joi.string(),
     },
   }),
   projectsController.update,

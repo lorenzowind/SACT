@@ -38,7 +38,7 @@ describe('CreateGrades', () => {
   it('should be able to create new grades', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const project = await draftProjectsRepository.create({
@@ -67,6 +67,7 @@ describe('CreateGrades', () => {
 
     const grades = await createGrades.execute({
       avaliation_id: avaliation.id,
+      comments: 'Comments about the project',
       grades: [
         {
           question_id: firstQuestion.id,
@@ -95,6 +96,7 @@ describe('CreateGrades', () => {
     await expect(
       createGrades.execute({
         avaliation_id: 'non existing avaliation id',
+        comments: 'Comments about the project',
         grades: [
           {
             question_id: question.id,
@@ -108,7 +110,7 @@ describe('CreateGrades', () => {
   it('should not be able to create new grades with avaliation already evaluated', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const project = await draftProjectsRepository.create({
@@ -127,6 +129,7 @@ describe('CreateGrades', () => {
 
     await createGrades.execute({
       avaliation_id: avaliation.id,
+      comments: 'Comments about the project',
       grades: [
         {
           question_id: question.id,
@@ -138,6 +141,7 @@ describe('CreateGrades', () => {
     await expect(
       createGrades.execute({
         avaliation_id: avaliation.id,
+        comments: 'Comments about the project',
         grades: [
           {
             question_id: question.id,
@@ -151,7 +155,7 @@ describe('CreateGrades', () => {
   it('should not be able to create new grades with non existing question', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const project = await draftProjectsRepository.create({
@@ -166,6 +170,7 @@ describe('CreateGrades', () => {
     await expect(
       createGrades.execute({
         avaliation_id: avaliation.id,
+        comments: 'Comments about the project',
         grades: [
           {
             question_id: 'non existing question id',
@@ -179,7 +184,7 @@ describe('CreateGrades', () => {
   it('should be able to evaluate the projects and have the status changed', async () => {
     const evaluator = await draftEvaluatorsRepository.create({
       name: 'John Doe',
-      cpf: 'evaluator CPF',
+      email: 'evaluator@email.com',
     });
 
     const firstProject = await draftProjectsRepository.create({
@@ -207,6 +212,7 @@ describe('CreateGrades', () => {
 
     await createGrades.execute({
       avaliation_id: firstAvaliation.id,
+      comments: 'Comments about the project',
       grades: [
         {
           question_id: question.id,
@@ -217,6 +223,7 @@ describe('CreateGrades', () => {
 
     await createGrades.execute({
       avaliation_id: secondAvaliation.id,
+      comments: 'Comments about the project',
       grades: [
         {
           question_id: question.id,

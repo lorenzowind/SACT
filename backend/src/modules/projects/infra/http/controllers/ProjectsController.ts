@@ -11,15 +11,11 @@ export default class ProjectsController {
   public async show(request: Request, response: Response): Promise<Response> {
     const admin_id = request.admin.id;
 
-    const { search = '', page = 1 } = request.query;
+    const { search = '' } = request.query;
 
     const listProjects = container.resolve(ListProjectsService);
 
-    const projects = await listProjects.execute(
-      String(search),
-      Number(page),
-      admin_id,
-    );
+    const projects = await listProjects.execute(String(search), admin_id);
 
     return response.json(classToClass(projects));
   }
@@ -27,20 +23,22 @@ export default class ProjectsController {
   public async create(request: Request, response: Response): Promise<Response> {
     const {
       name,
+      description,
       occupation_area,
       classroom,
       members,
-      observation,
+      observations,
     } = request.body;
 
     const createProject = container.resolve(CreateProjectService);
 
     const project = await createProject.execute({
       name,
+      description,
       occupation_area,
       classroom,
       members,
-      observation,
+      observations,
     });
 
     return response.json(classToClass(project));
@@ -50,10 +48,11 @@ export default class ProjectsController {
     const { id } = request.params;
     const {
       name,
+      description,
       occupation_area,
       classroom,
       members,
-      observation,
+      observations,
     } = request.body;
 
     const updateProject = container.resolve(UpdateProjectService);
@@ -61,10 +60,11 @@ export default class ProjectsController {
     const project = await updateProject.execute({
       id,
       name,
+      description,
       occupation_area,
       classroom,
       members,
-      observation,
+      observations,
     });
 
     return response.json(classToClass(project));

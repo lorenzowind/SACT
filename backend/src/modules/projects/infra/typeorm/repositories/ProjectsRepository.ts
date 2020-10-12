@@ -14,23 +14,15 @@ class ProjectsRepository implements IProjectsRepository {
     this.ormRepository = getRepository(Project);
   }
 
-  public async findAllProjects(
-    search: string,
-    page: number,
-  ): Promise<Project[]> {
+  public async findAllProjects(search: string): Promise<Project[]> {
     const projects =
       search !== ''
         ? await this.ormRepository.find({
-            skip: (page - 1) * 10,
-            take: 10,
             where: {
               name: Like(`%${search}%`),
             },
           })
-        : await this.ormRepository.find({
-            skip: (page - 1) * 10,
-            take: 10,
-          });
+        : await this.ormRepository.find();
 
     return projects;
   }

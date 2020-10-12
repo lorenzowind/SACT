@@ -22,10 +22,11 @@ class CreateProjectService {
 
   public async execute({
     name,
+    description,
     occupation_area,
     classroom,
     members,
-    observation,
+    observations,
   }: ICreateProjectDTO): Promise<Project> {
     const checkProjectNameExists = await this.projectsRepository.findByName(
       name,
@@ -37,10 +38,11 @@ class CreateProjectService {
 
     const project = await this.projectsRepository.create({
       name,
+      description,
       occupation_area,
       classroom,
       members,
-      observation,
+      observations,
     });
 
     await this.cacheProvider.invalidatePrefix('projects-list');

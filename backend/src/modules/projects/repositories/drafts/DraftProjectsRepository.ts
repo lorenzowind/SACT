@@ -9,15 +9,12 @@ import IProjectsRepository from '../IProjectsRepository';
 export default class DraftProjectsRepository implements IProjectsRepository {
   private projects: Project[] = [];
 
-  public async findAllProjects(
-    search: string,
-    page: number,
-  ): Promise<Project[]> {
+  public async findAllProjects(search: string): Promise<Project[]> {
     const projects = search
       ? this.projects.filter(findProject => findProject.name.includes(search))
       : this.projects;
 
-    return projects.slice((page - 1) * 10, page * 10);
+    return projects;
   }
 
   public async findById(id: string): Promise<Project | undefined> {

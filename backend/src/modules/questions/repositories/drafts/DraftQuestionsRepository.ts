@@ -9,17 +9,14 @@ import IQuestionsRepository from '../IQuestionsRepository';
 export default class DraftQuestionsRepository implements IQuestionsRepository {
   private questions: Question[] = [];
 
-  public async findAllQuestions(
-    search: string,
-    page: number,
-  ): Promise<Question[]> {
+  public async findAllQuestions(search: string): Promise<Question[]> {
     const questions = search
       ? this.questions.filter(findQuestion =>
           findQuestion.section.includes(search),
         )
       : this.questions;
 
-    return questions.slice((page - 1) * 10, page * 10);
+    return questions;
   }
 
   public async findById(id: string): Promise<Question | undefined> {

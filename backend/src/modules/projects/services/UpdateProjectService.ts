@@ -27,10 +27,11 @@ class UpdateProjectService {
   public async execute({
     id,
     name,
+    description,
     occupation_area,
     classroom,
     members,
-    observation,
+    observations,
   }: IRequest): Promise<Project> {
     const project = await this.projectsRepository.findById(id);
 
@@ -47,10 +48,11 @@ class UpdateProjectService {
     }
 
     project.name = name;
+    project.description = description;
     project.occupation_area = occupation_area;
     project.classroom = classroom;
     project.members = members;
-    project.observation = observation;
+    project.observations = observations;
 
     await this.cacheProvider.invalidatePrefix('projects-list');
 
