@@ -13,6 +13,7 @@ export default createGlobalStyle`
     --background: white;
     --light-gray: #777;
     --dark-gray: #676060;
+    --warm-gray: #707070;
   }
 
   * {

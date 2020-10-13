@@ -14,7 +14,7 @@ interface Evaluator {
 }
 
 interface SignInCredentials {
-  cpf: string;
+  email: string;
 }
 
 interface EvaluatorAuthState {
@@ -47,9 +47,9 @@ const EvaluatorAuthProvider: React.FC = ({ children }) => {
     return {} as EvaluatorAuthState;
   });
 
-  const signIn = useCallback(async ({ cpf }) => {
+  const signIn = useCallback(async ({ email }) => {
     const response = await api.post<EvaluatorAuthState>('evaluators/sessions', {
-      cpf,
+      email,
     });
 
     const { token, evaluator } = response.data;
