@@ -22,7 +22,7 @@ interface IModalProps {
 }
 
 interface AdminForgotPasswordFormData {
-  email: string;
+  ra: string;
 }
 
 const ForgotPasswordModal: React.FC<IModalProps> = ({ isOpen, setIsOpen }) => {
@@ -39,9 +39,7 @@ const ForgotPasswordModal: React.FC<IModalProps> = ({ isOpen, setIsOpen }) => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          email: Yup.string()
-            .required('E-mail obrigatório')
-            .email('Digite um e-mail válido'),
+          ra: Yup.string().required('RA obrigatório'),
         });
 
         await schema.validate(data, {
@@ -51,7 +49,7 @@ const ForgotPasswordModal: React.FC<IModalProps> = ({ isOpen, setIsOpen }) => {
         setLoading(true);
 
         await api.post('admins/password/forgot', {
-          email: data.email,
+          ra: data.ra,
         });
 
         setToSend(false);
@@ -86,14 +84,15 @@ const ForgotPasswordModal: React.FC<IModalProps> = ({ isOpen, setIsOpen }) => {
         <Container>
           {toSend ? (
             <Form ref={formRef} onSubmit={handleSubmit}>
-              <Input name="email" placeholder="Email" />
+              <Input name="ra" placeholder="RA" />
 
               <Button type="submit">Enviar</Button>
             </Form>
           ) : (
             <div>
               <strong>
-                Uma requisição de senha foi enviada para o email informado
+                Uma requisição de senha foi enviada para o email cadastrado de
+                acordo com o RA informado
               </strong>
 
               <Button

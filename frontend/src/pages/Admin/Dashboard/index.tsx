@@ -30,12 +30,15 @@ interface EvaluatorData {
   status: 'to_evaluate' | 'rated';
 }
 
+type AvaliationData = EvaluatorData;
+
 const Dashboard: React.FC = () => {
   const history = useHistory();
 
   const [loading, setLoading] = useState(false);
 
   const [evaluators, setEvaluators] = useState<EvaluatorData[]>([]);
+  const [avaliations, setAvaliations] = useState<AvaliationData[]>([]);
 
   const { addToast } = useToast();
 
@@ -44,13 +47,17 @@ const Dashboard: React.FC = () => {
       try {
         setLoading(true);
 
+        await api.get<AvaliationData[]>('avaliations/all').then(response => {
+          setAvaliations(response.data);
+        });
+
         await api.get<EvaluatorData[]>('evaluators/all').then(response => {
           setEvaluators(response.data);
         });
       } catch (err) {
         addToast({
           type: 'error',
-          title: 'Erro na busca por avaliadores',
+          title: 'Erro na busca por avaliadores/fichas de avaliação',
         });
       } finally {
         setLoading(false);
@@ -63,6 +70,11 @@ const Dashboard: React.FC = () => {
   const concludedEvaluators = useMemo(() => {
     return evaluators.filter(evaluator => evaluator.status === 'rated').length;
   }, [evaluators]);
+
+  const concludedAvaliations = useMemo(() => {
+    return avaliations.filter(avaliation => avaliation.status === 'rated')
+      .length;
+  }, [avaliations]);
 
   return (
     <>
@@ -80,7 +92,8 @@ const Dashboard: React.FC = () => {
 
             <AvaliationsContainer>
               <strong>
-                <b>32</b>/50
+                <b>{concludedAvaliations}</b>
+                {`/${avaliations.length}`}
               </strong>
               <h2>Fichas já avaliadas</h2>
             </AvaliationsContainer>
