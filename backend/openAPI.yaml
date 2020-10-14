@@ -310,6 +310,9 @@ paths:
                     type: string
                     format: email
                     example: "admin@email.com"
+                  password:
+                    type: string
+                    example: "admin password"
                   created_at:
                     type: string
                     format: dateformat
@@ -376,6 +379,9 @@ paths:
                     type: string
                     format: email
                     example: "newadmin@email.com"
+                  password:
+                    type: string
+                    example: "admin password"
                   created_at:
                     type: string
                     format: dateformat
@@ -447,6 +453,9 @@ paths:
                       type: string
                       format: email
                       example: "admin@email.com"
+                    password:
+                      type: string
+                      example: "admin password"
                     created_at:
                       type: string
                       format: dateformat
