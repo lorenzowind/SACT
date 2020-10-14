@@ -136,7 +136,7 @@ const Admins: React.FC = () => {
                   <td>{admin.name}</td>
                   <td>{admin.email}</td>
                   <td>{admin.ra}</td>
-                  <td>{admin.password}</td>
+                  <td>{admin.password.replace(/[^*]/g, '*')}</td>
                   <td>
                     <button type="button">
                       <FiEdit2 />
