@@ -1,111 +1,114 @@
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Form } from '@unform/web';
+import { FormHandles } from '@unform/core';
+import * as Yup from 'yup';
 
-import LogoImg from '../../../assets/logo.png';
+import { useAdminAuth } from '../../../hooks/adminAuth';
+import { useToast } from '../../../hooks/toast';
 
-import HeaderAdm from '../../../components/Header';
+import { Background, Main } from './styles';
 
-import {
-  Background,
-  Container,
-  Content,
-  FormAuthentication,
-  ForgotPassword,
-  InputFormAuth,
-  Button,
-  AlertPassword,
-  ButtonHidden,
-  ButtonAlert,
-} from './styles';
+import getValidationErrors from '../../../utils/getValidationErrors';
+
+import logoImg from '../../../assets/logo.png';
+
+import Input from '../../../components/Input';
+import Loading from '../../../components/Loading';
+import Button from '../../../components/Button';
+import ForgotPasswordModal from '../../../components/Modal/ForgotPasswordModal';
+
+interface AdminSignInFormData {
+  ra: string;
+  password: string;
+}
 
 const SignIn: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
   const history = useHistory();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [forgotPassword, setForgotPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
 
-  function hiddenAlert() {
-    setForgotPassword(!forgotPassword);
-  }
+  const { signIn } = useAdminAuth();
+  const { addToast } = useToast();
 
-  function handleSendNewPassword() {
-    hiddenAlert();
-  }
+  const handleSubmit = useCallback(
+    async (data: AdminSignInFormData) => {
+      try {
+        formRef.current?.setErrors({});
+
+        const schema = Yup.object().shape({
+          ra: Yup.string().required('RA obrigatório'),
+          password: Yup.string().required('Senha obrigatória'),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        setLoading(true);
+
+        await signIn({
+          ra: data.ra,
+          password: data.password,
+        });
+
+        history.push('/dashboard');
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+
+          formRef.current?.setErrors(errors);
+
+          return;
+        }
+
+        addToast({
+          type: 'error',
+          title: 'Erro na autenticação',
+          description: 'Ocorreu um erro ao fazer login, cheque as credenciais.',
+        });
+      } finally {
+        setLoading(false);
+      }
+    },
+    [addToast, history, signIn],
+  );
+
+  const toggleModalForgotPassword = useCallback(() => {
+    setForgotPasswordOpen(!forgotPasswordOpen);
+  }, [forgotPasswordOpen]);
 
   return (
-    <Background>
-      <Container>
-        <HeaderAdm isAuthenticated={false} />
-        <Content>
-          <img
-            style={{
-              marginTop: '15%',
-            }}
-            src={LogoImg}
-            alt="SACT"
-            height={255}
-          />
-          <FormAuthentication>
-            <InputFormAuth
-              type="text"
-              placeholder="Email"
-              value={email}
-              onChange={ev => setEmail(ev.target.value)}
-            />
-            <InputFormAuth
-              type="password"
-              placeholder="Senha"
-              value={password}
-              onChange={ev => setPassword(ev.target.value)}
-            />
+    <>
+      {loading && <Loading zIndex={1} />}
 
-            <ForgotPassword type="button" onClick={handleSendNewPassword}>
-              <strong
-                style={{
-                  width: '100%',
-                  color: '#707070',
-                  fontSize: '12pt',
-                  cursor: 'pointer',
-                }}
-              >
+      <ForgotPasswordModal
+        isOpen={forgotPasswordOpen}
+        setIsOpen={toggleModalForgotPassword}
+      />
+
+      <Background>
+        <Main>
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <img src={logoImg} alt="SACT Logo" />
+
+            <section>
+              <Input type="text" name="ra" placeholder="RA" />
+
+              <Input name="password" placeholder="Senha" type="password" />
+
+              <button type="button" onClick={() => setForgotPasswordOpen(true)}>
                 Esqueceu a senha?
-              </strong>
-            </ForgotPassword>
+              </button>
+            </section>
 
-            {forgotPassword ? (
-              <AlertPassword>
-                <div style={{ width: '100%', color: '#0004ff' }}>
-                  <ButtonHidden onClick={hiddenAlert}>X</ButtonHidden>
-                </div>
-                <p>
-                  A sua nova senha foi enviada para o e-mail cadastrado de
-                  acordo com o CPF informado!{' '}
-                </p>
-
-                <ButtonAlert
-                  type="button"
-                  id="buttonAlert"
-                  onClick={hiddenAlert}
-                >
-                  OK
-                </ButtonAlert>
-              </AlertPassword>
-            ) : (
-              ''
-            )}
-            <Button
-              type="button"
-              onClick={() => {
-                history.push('dashboard');
-              }}
-            >
-              Entrar
-            </Button>
-          </FormAuthentication>
-        </Content>
-      </Container>
-    </Background>
+            <Button type="submit">Entrar</Button>
+          </Form>
+        </Main>
+      </Background>
+    </>
   );
 };
 
