@@ -1,37 +1,32 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { FiActivity } from 'react-icons/fi';
-import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
-import * as Yup from 'yup';
-
-import api from '../../../services/api';
+import React from 'react';
 
 import Modal from '..';
-import Loading from '../../Loading';
 
 import { Container, CloseModal } from './styles';
+import Button from '../../Button';
 
 interface IModalProps {
+  text: string;
   isOpen: boolean;
   setIsOpen: () => void;
 }
 
-const InfoModal: React.FC<IModalProps> = ({ isOpen, setIsOpen }) => {
-  const formRef = useRef<FormHandles>(null);
-
-  const [loading, setLoading] = useState(false);
-
+const InfoModal: React.FC<IModalProps> = ({ text, isOpen, setIsOpen }) => {
   return (
-    <>
-      {loading && <Loading zIndex={1} />}
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+      <CloseModal onClick={setIsOpen}>
+        <strong>X</strong>
+      </CloseModal>
+      <Container>
+        <div>
+          <strong>{text}</strong>
 
-      <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-        <CloseModal onClick={setIsOpen}>
-          <strong>X</strong>
-        </CloseModal>
-        <Container />
-      </Modal>
-    </>
+          <Button type="button" onClick={setIsOpen}>
+            Ok
+          </Button>
+        </div>
+      </Container>
+    </Modal>
   );
 };
 

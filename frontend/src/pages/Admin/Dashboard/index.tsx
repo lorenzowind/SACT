@@ -20,6 +20,7 @@ import {
 
 import Header from '../../../components/Header';
 import Loading from '../../../components/Loading';
+import InfoModal from '../../../components/Modal/InfoModal';
 
 import iconTrophy from '../../../assets/icon_trophy.png';
 import iconReport from '../../../assets/icon_report.png';
@@ -39,6 +40,8 @@ const Dashboard: React.FC = () => {
 
   const [evaluators, setEvaluators] = useState<EvaluatorData[]>([]);
   const [avaliations, setAvaliations] = useState<AvaliationData[]>([]);
+
+  const [infoOpen, setInfoOpen] = useState(false);
 
   const { addToast } = useToast();
 
@@ -76,16 +79,26 @@ const Dashboard: React.FC = () => {
       .length;
   }, [avaliations]);
 
+  const toggleModalInfo = useCallback(() => {
+    setInfoOpen(!infoOpen);
+  }, [infoOpen]);
+
   return (
     <>
       {loading && <Loading zIndex={1} />}
+
+      <InfoModal
+        text="Funcionalidade ainda não implementada!"
+        isOpen={infoOpen}
+        setIsOpen={toggleModalInfo}
+      />
 
       <Header />
 
       <Background>
         <Container>
           <LeftContainer>
-            <RankingContainer>
+            <RankingContainer onClick={toggleModalInfo}>
               <img src={iconTrophy} alt="Trophy" />
               <strong>Ranking</strong>
             </RankingContainer>
@@ -108,19 +121,19 @@ const Dashboard: React.FC = () => {
               <nav>
                 <section>
                   <strong>Relatório ranking geral</strong>
-                  <button type="button">
+                  <button type="button" onClick={toggleModalInfo}>
                     <FiDownload />
                   </button>
                 </section>
                 <section>
                   <strong>Relatório ranking por curso</strong>
-                  <button type="button">
+                  <button type="button" onClick={toggleModalInfo}>
                     <FiDownload />
                   </button>
                 </section>
                 <section>
                   <strong>Relatório ranking por nota</strong>
-                  <button type="button">
+                  <button type="button" onClick={toggleModalInfo}>
                     <FiDownload />
                   </button>
                 </section>

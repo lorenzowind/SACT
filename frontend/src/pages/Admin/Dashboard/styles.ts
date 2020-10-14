@@ -69,11 +69,19 @@ export const RightContainer = styled.div`
   }
 `;
 
-export const RankingContainer = styled.aside`
+export const RankingContainer = styled.button`
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.16);
+  border: solid 0.5px var(--warm-gray);
+  background-color: #f9f8f8;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   height: 60%;
   padding: 30px;
   margin-bottom: 15px;
-  cursor: pointer;
   transition: background-color 0.2s;
 
   &:hover {
