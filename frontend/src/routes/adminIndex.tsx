@@ -9,7 +9,7 @@ import Dashboard from '../pages/Admin/Dashboard';
 import Ranking from '../pages/Admin/Ranking';
 
 import Admins from '../pages/Admin/Admins';
-import Avaliations from '../pages/Admin/Avaliations';
+import Questions from '../pages/Admin/Questions';
 import Evaluators from '../pages/Admin/Evaluators';
 import Projects from '../pages/Admin/Projects';
 
@@ -26,7 +26,7 @@ const Routes: React.FC = () => (
     <Route path="/ranking" component={Ranking} isPrivate />
 
     <Route path="/admins" component={Admins} isPrivate />
-    <Route path="/avaliations" component={Avaliations} isPrivate />
+    <Route path="/questions" component={Questions} isPrivate />
     <Route path="/evaluators" component={Evaluators} isPrivate />
     <Route path="/projects" component={Projects} isPrivate />
 

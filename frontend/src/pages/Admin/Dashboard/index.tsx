@@ -157,7 +157,7 @@ const Dashboard: React.FC = () => {
                 <nav>
                   <Link to="evaluators">Avaliadores</Link>
                   <Link to="projects">Projetos</Link>
-                  <Link to="avaliations">Fichas de Avaliação</Link>
+                  <Link to="questions">Fichas de Avaliação</Link>
                   <Link to="admins">Administradores</Link>
                 </nav>
               </InfoContainer>
