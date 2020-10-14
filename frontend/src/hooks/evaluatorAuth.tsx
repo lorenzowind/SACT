@@ -24,6 +24,7 @@ interface EvaluatorAuthState {
 
 interface EvaluatorAuthContextData {
   evaluator: Evaluator;
+  token: string;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
   updateEvaluator(evaluator: Evaluator): void;
@@ -83,7 +84,13 @@ const EvaluatorAuthProvider: React.FC = ({ children }) => {
 
   return (
     <EvaluatorAuthContext.Provider
-      value={{ evaluator: data.evaluator, signIn, signOut, updateEvaluator }}
+      value={{
+        evaluator: data.evaluator,
+        token: data.token,
+        signIn,
+        signOut,
+        updateEvaluator,
+      }}
     >
       {children}
     </EvaluatorAuthContext.Provider>

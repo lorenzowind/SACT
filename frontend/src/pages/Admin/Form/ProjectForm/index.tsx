@@ -1,106 +1,232 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback, useState, useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { Form } from '@unform/web';
+import { FormHandles } from '@unform/core';
+import * as Yup from 'yup';
 
-import HeaderAdm from '../../../../components/Header';
-import BackImg from '../../../../assets/icon_back.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { IoIosAdd } from 'react-icons/io';
+
+import api from '../../../../services/api';
+
+import getValidationErrors from '../../../../utils/getValidationErrors';
+import getClassroomsArray from '../../../../utils/getClassroomsArray';
+
+import { useToast } from '../../../../hooks/toast';
 
 import {
   Background,
   Container,
-  Content,
-  ProjectRegisterForm,
-  InputGroupProject,
-  ButtonForm,
+  SecondaryHeader,
+  LeftContainer,
+  RightContainer,
 } from './styles';
 
+import Header from '../../../../components/Header';
+import Loading from '../../../../components/Loading';
+import Input from '../../../../components/Input';
+import Button from '../../../../components/Button';
+import Textarea from '../../../../components/Textarea';
+import Select from '../../../../components/Select';
+
+interface ICreateProjectData {
+  name: string;
+  description: string;
+  occupation_area: string;
+  classroom: string;
+  members: string;
+  observations: string;
+}
+
 const ProjectForm: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
+
+  const [loading, setLoading] = useState(false);
+
+  const [currentMember, setCurrentMember] = useState('');
+  const [members, setMembers] = useState<String[]>([]);
+
+  const [classroomsArray] = useState(getClassroomsArray());
+
+  const { addToast } = useToast();
+
+  const handleSubmit = useCallback(
+    async (data: ICreateProjectData) => {
+      try {
+        formRef.current?.setErrors({});
+
+        const schema = Yup.object().shape({
+          name: Yup.string().required(),
+          description: Yup.string().required(),
+          // occupation_area: Yup.mixed().test('match', '', () => {
+          //   return data.occupation_area !== '0';
+          // }),
+          classroom: Yup.mixed().test('match', '', () => {
+            return data.classroom !== '0';
+          }),
+          observations: Yup.string().required(),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        if (!members.length) {
+          throw new Error();
+        }
+
+        let occupation_area;
+
+        if (data.classroom.includes('E')) {
+          occupation_area = 'Eletrônica';
+        } else if (data.classroom.includes('I')) {
+          occupation_area = 'Informática';
+        } else {
+          occupation_area = 'Mecatrônica';
+        }
+
+        const projectData: ICreateProjectData = {
+          name: data.name,
+          description: data.description,
+          occupation_area,
+          classroom: data.classroom,
+          members: members.join(', '),
+          observations: data.observations,
+        };
+
+        setLoading(true);
+
+        await api.post('projects', projectData);
+
+        addToast({
+          type: 'success',
+          title: 'Projeto criado com sucesso',
+        });
+
+        history.push('/projects');
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+
+          formRef.current?.setErrors(errors);
+
+          return;
+        }
+
+        addToast({
+          type: 'error',
+          title: 'Erro na criação de projeto',
+        });
+      } finally {
+        setLoading(false);
+      }
+    },
+    [addToast, history, members],
+  );
+
+  const handleAddMember = useCallback(() => {
+    if (currentMember !== '') {
+      setMembers([...members, currentMember]);
+      setCurrentMember('');
+    }
+  }, [currentMember, members]);
+
+  const handleRemoveMember = useCallback((index: number) => {
+    setMembers(state =>
+      state.filter((_member, curIndex) => curIndex !== index),
+    );
+  }, []);
+
   return (
-    <Background>
-      <Container>
-        <HeaderAdm />
-        <Content>
-          <Link
-            to="/projects"
-            style={{
-              gridArea: 'back',
-              height: 71,
-              cursor: 'pointer',
-              marginTop: 10,
-            }}
-          >
-            <img src={BackImg} alt="Voltar" height={71} />
+    <>
+      {loading && <Loading zIndex={1} />}
+
+      <Header />
+
+      <Background>
+        <SecondaryHeader>
+          <Link to="projects">
+            <FontAwesomeIcon size="3x" icon={faChevronLeft} />
           </Link>
-          <ProjectRegisterForm>
-            <h1
-              style={{
-                position: 'absolute',
-                textAlign: 'center',
-                left: '35%',
-                top: 100,
-                color: '#676060',
-              }}
-            >
-              <u>Cadastro de Projeto</u>
-            </h1>
-            <InputGroupProject style={{ gridArea: 'name' }}>
-              <label htmlFor="name">1. Nome do Projeto</label>
-              <input type="text" placeholder="Nome" id="name" />
-            </InputGroupProject>
-            <InputGroupProject style={{ gridArea: 'area', marginTop: 15 }}>
-              <label htmlFor="area">2. Área de atuação</label>
-              <select id="area">
-                <option value="curso" selected>
-                  Curso
+          <strong>Cadastro de projeto</strong>
+        </SecondaryHeader>
+
+        <Container>
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <LeftContainer>
+              <strong>1. Nome do projeto</strong>
+              <Input name="name" type="text" placeholder="Nome" />
+
+              <strong>2. Descrição</strong>
+              <Input name="description" type="text" placeholder="Título" />
+
+              {/* <strong>3. Área de atuação</strong>
+              <Select name="occupation_area" defaultValue="0">
+                <option value="0" disabled>
+                  Selecione curso
                 </option>
-              </select>
-            </InputGroupProject>
-
-            <InputGroupProject style={{ gridArea: 'turma', marginTop: 15 }}>
-              <label htmlFor="turma">3. Turma</label>
-              <select id="turma">
-                <option value="Turma" selected>
-                  Turma
+                <option key="occupation_area_01" value="Eletrônica">
+                  Eletrônica
                 </option>
-              </select>
-            </InputGroupProject>
+                <option key="occupation_area_02" value="Informática">
+                  Informática
+                </option>
+                <option key="occupation_area_03" value="Mecatrônica">
+                  Mecatrônica
+                </option>
+              </Select> */}
 
-            <InputGroupProject style={{ gridArea: 'integrantes' }}>
-              <label htmlFor="integrantes">4. Integrantes</label>
-              <input
-                type="text"
-                placeholder="Integrante 1"
-                id="integrantes"
-                style={{ marginTop: 15 }}
-              />
-              <input
-                type="text"
-                placeholder="Integrante 2"
-                style={{ marginTop: 15 }}
-              />
-              <input
-                type="text"
-                placeholder="Integrante 3"
-                style={{ marginTop: 15 }}
-              />
-            </InputGroupProject>
-            <InputGroupProject style={{ gridArea: 'observacoes' }}>
-              <label htmlFor="observacoes">5. Observações</label>
-              <textarea id="observacoes" />
-            </InputGroupProject>
+              <strong>3. Turma</strong>
+              <Select name="classroom" defaultValue="0">
+                <option value="0" disabled>
+                  Selecione turma
+                </option>
+                {classroomsArray.map(classroom => (
+                  <option key={classroom} value={classroom}>
+                    {classroom}
+                  </option>
+                ))}
+              </Select>
+            </LeftContainer>
 
-            <footer
-              style={{
-                gridArea: 'button',
-                marginTop: 60,
-                marginLeft: '45%',
-              }}
-            >
-              <ButtonForm type="submit">Salvar</ButtonForm>
-            </footer>
-          </ProjectRegisterForm>
-        </Content>
-      </Container>
-    </Background>
+            <RightContainer>
+              <strong>4. Integrantes</strong>
+              <div>
+                <input
+                  type="text"
+                  placeholder="Nome"
+                  value={currentMember}
+                  onChange={e => setCurrentMember(e.target.value)}
+                />
+                <button type="button" onClick={handleAddMember}>
+                  <IoIosAdd />
+                </button>
+              </div>
+              <section>
+                {members.map((member, index) => (
+                  <nav key={`${member}_${index}`}>
+                    <h2>{member}</h2>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveMember(index)}
+                    >
+                      X
+                    </button>
+                  </nav>
+                ))}
+              </section>
+
+              <strong>5. Observações</strong>
+              <Textarea name="observations" placeholder="Observação" />
+
+              <Button type="submit">Criar</Button>
+            </RightContainer>
+          </Form>
+        </Container>
+      </Background>
+    </>
   );
 };
 

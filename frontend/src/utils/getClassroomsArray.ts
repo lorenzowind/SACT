@@ -1,0 +1,28 @@
+export default function getClassroomsArray(): string[] {
+  return [
+    '1AE',
+    '1AI',
+    '1AM',
+    '1BE',
+    '1BI',
+    '1BM',
+    '1CI',
+    '1CM',
+    '2AE',
+    '2AI',
+    '2AM',
+    '2BE',
+    '2BI',
+    '2BM',
+    '2CI',
+    '2CM',
+    '3AE',
+    '3AI',
+    '3AM',
+    '3BE',
+    '3BI',
+    '3BM',
+    '3CI',
+    '3CM',
+  ];
+}

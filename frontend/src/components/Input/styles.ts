@@ -19,7 +19,6 @@ export const Container = styled.div<ContainerProps>`
   box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.16);
   border: solid 0.5px var(--warm-gray);
 
-
   ${props =>
     props.isErrored &&
     css`

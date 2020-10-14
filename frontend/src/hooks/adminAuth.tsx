@@ -20,6 +20,7 @@ interface AdminAuthState {
 
 interface AdminAuthContextData {
   admin: Admin;
+  token: string;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
   updateAdmin(admin: Admin): void;
@@ -80,7 +81,13 @@ const AdminAuthProvider: React.FC = ({ children }) => {
 
   return (
     <AdminAuthContext.Provider
-      value={{ admin: data.admin, signIn, signOut, updateAdmin }}
+      value={{
+        admin: data.admin,
+        token: data.token,
+        signIn,
+        signOut,
+        updateAdmin,
+      }}
     >
       {children}
     </AdminAuthContext.Provider>

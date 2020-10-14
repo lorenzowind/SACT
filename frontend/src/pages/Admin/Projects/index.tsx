@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { IoIosAddCircleOutline } from 'react-icons/io';
+import { FiEdit2, FiFilter, FiSearch } from 'react-icons/fi';
 
-import { FiEdit2, FiSearch } from 'react-icons/fi';
 import api from '../../../services/api';
 
 import { useToast } from '../../../hooks/toast';
@@ -14,6 +15,7 @@ import {
   Container,
   SecondaryHeader,
   TableContainer,
+  FilterContainer,
 } from './styles';
 
 import Header from '../../../components/Header';
@@ -34,6 +36,7 @@ const Projects: React.FC = () => {
 
   const [loading, setLoading] = useState(false);
 
+  const [filter, setFilter] = useState(1);
   const [projectSearch, setProjectSearch] = useState('');
   const [projects, setProjects] = useState<ProjectData[]>([]);
 
@@ -86,6 +89,23 @@ const Projects: React.FC = () => {
     loadData();
   }, [addToast]);
 
+  const filteredProjects = useMemo(() => {
+    switch (filter) {
+      case 2: {
+        return projects.filter(project => project.classroom.includes('E'));
+      }
+      case 3: {
+        return projects.filter(project => project.classroom.includes('I'));
+      }
+      case 4: {
+        return projects.filter(project => project.classroom.includes('M'));
+      }
+      default: {
+        return projects;
+      }
+    }
+  }, [filter, projects]);
+
   return (
     <>
       {loading && <Loading zIndex={1} />}
@@ -118,9 +138,26 @@ const Projects: React.FC = () => {
           <div>
             <strong>Adicionar projeto</strong>
 
-            <button type="button">
+            <button type="button" onClick={() => history.push('project-form')}>
               <IoIosAddCircleOutline />
             </button>
+
+            <FilterContainer selectedIndex={filter}>
+              <button type="button" onClick={() => setFilter(1)}>
+                Todos
+              </button>
+              <button type="button" onClick={() => setFilter(2)}>
+                Eletrônica
+              </button>
+              <button type="button" onClick={() => setFilter(3)}>
+                Informática
+              </button>
+              <button type="button" onClick={() => setFilter(4)}>
+                Mecatrônica
+              </button>
+            </FilterContainer>
+
+            <FiFilter />
           </div>
           <TableContainer>
             <thead>
@@ -133,7 +170,7 @@ const Projects: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {projects.map(project => (
+              {filteredProjects.map(project => (
                 <tr key={project.id}>
                   <td>{project.name}</td>
                   <td>{project.occupation_area}</td>

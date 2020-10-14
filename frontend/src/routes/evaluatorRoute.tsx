@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   Route as ReactDOMRoute,
   RouteProps as ReactDOMRouteProps,
@@ -17,13 +17,26 @@ const Route: React.FC<RouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const { evaluator } = useEvaluatorAuth();
+  const { evaluator, token, signOut } = useEvaluatorAuth();
+
+  const isAuthenticated = useCallback((): boolean => {
+    if (evaluator) {
+      const jwt = JSON.parse(atob(token.split('.')[1]));
+
+      if (new Date().getTime() / 1000 > jwt.exp) {
+        signOut();
+        return false;
+      }
+      return true;
+    }
+    return false;
+  }, [signOut, token, evaluator]);
 
   return (
     <ReactDOMRoute
       {...rest}
       render={({ location }) => {
-        return isPrivate === !!evaluator ? (
+        return isPrivate === isAuthenticated() ? (
           <Component />
         ) : (
           <Redirect

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   Route as ReactDOMRoute,
   RouteProps as ReactDOMRouteProps,
@@ -17,13 +17,26 @@ const Route: React.FC<RouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const { admin } = useAdminAuth();
+  const { admin, token, signOut } = useAdminAuth();
+
+  const isAuthenticated = useCallback((): boolean => {
+    if (admin) {
+      const jwt = JSON.parse(atob(token.split('.')[1]));
+
+      if (new Date().getTime() / 1000 > jwt.exp) {
+        signOut();
+        return false;
+      }
+      return true;
+    }
+    return false;
+  }, [signOut, token, admin]);
 
   return (
     <ReactDOMRoute
       {...rest}
       render={({ location }) => {
-        return isPrivate === !!admin ? (
+        return isPrivate === isAuthenticated() ? (
           <Component />
         ) : (
           <Redirect
