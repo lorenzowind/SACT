@@ -1,56 +1,156 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { IoIosAddCircleOutline } from 'react-icons/io';
 
-import HeaderAdm from '../../../components/Header';
+import { FiEdit2, FiSearch } from 'react-icons/fi';
+import api from '../../../services/api';
 
-import BackImg from '../../../assets/icon_back.png';
-import LupaImg from '../../../assets/icon_search.png';
+import { useToast } from '../../../hooks/toast';
 
-import { Background, Container, Content, ProjectContainer } from './styles';
+import {
+  Background,
+  Container,
+  SecondaryHeader,
+  TableContainer,
+} from './styles';
+
+import Header from '../../../components/Header';
+import Loading from '../../../components/Loading';
+
+interface ProjectData {
+  id: string;
+  name: string;
+  description: string;
+  occupation_area: string;
+  classroom: string;
+  members: string;
+  observations: string;
+}
 
 const Projects: React.FC = () => {
+  const history = useHistory();
+
+  const [loading, setLoading] = useState(false);
+
+  const [projectSearch, setProjectSearch] = useState('');
+  const [projects, setProjects] = useState<ProjectData[]>([]);
+
+  const { addToast } = useToast();
+
+  const handleSearch = useCallback(async () => {
+    try {
+      setLoading(true);
+
+      await api
+        .get<ProjectData[]>(`projects/all?search=${projectSearch}`)
+        .then(response => {
+          setProjects(response.data);
+
+          if (!response.data.length) {
+            addToast({
+              type: 'info',
+              title: 'Nenhum projeto encontrado',
+            });
+          }
+        });
+    } catch (err) {
+      addToast({
+        type: 'error',
+        title: 'Erro na busca por projetos',
+      });
+    } finally {
+      setLoading(false);
+    }
+  }, [addToast, projectSearch]);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true);
+
+        await api.get<ProjectData[]>('projects/all').then(response => {
+          setProjects(response.data);
+        });
+      } catch (err) {
+        addToast({
+          type: 'error',
+          title: 'Erro na busca por projetos',
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, [addToast]);
+
   return (
-    <Background>
-      <Container>
-        {' '}
-        <HeaderAdm />
-        <Content>
-          <Link
-            to="/dashboard"
-            style={{
-              gridArea: 'back',
-              height: 71,
+    <>
+      {loading && <Loading zIndex={1} />}
 
-              cursor: 'pointer',
-              marginTop: 10,
-            }}
-          >
-            <img src={BackImg} alt="Voltar" height={71} />
+      <Header />
+
+      <Background>
+        <SecondaryHeader>
+          <Link to="dashboard">
+            <FontAwesomeIcon size="3x" icon={faChevronLeft} />
           </Link>
+          <strong>Projetos</strong>
+        </SecondaryHeader>
 
-          <ProjectContainer>
-            <h1>Projetos</h1>
-            <h2>Pesquisar Projetos</h2>
-            <div className="input-text">
-              <input type="text" />
-              <img
-                src={LupaImg}
-                alt="Pesquisar"
-                height={25}
-                style={{ justifySelf: 'end', paddingRight: '5px' }}
+        <Container>
+          <form>
+            <strong>Pesquisar projetos</strong>
+            <div>
+              <input
+                type="text"
+                placeholder="Nome"
+                value={projectSearch}
+                onChange={e => setProjectSearch(e.target.value)}
               />
+              <button type="button" onClick={handleSearch}>
+                <FiSearch />
+              </button>
             </div>
-            <div className="add-proj">
-              {' '}
-              <h2>Adicionar Projetos</h2>
-              <Link to="/project-form" style={{ textDecoration: 'none' }}>
-                <div className="btn-add">+</div>
-              </Link>
-            </div>
-          </ProjectContainer>
-        </Content>
-      </Container>
-    </Background>
+          </form>
+          <div>
+            <strong>Adicionar projeto</strong>
+
+            <button type="button">
+              <IoIosAddCircleOutline />
+            </button>
+          </div>
+          <TableContainer>
+            <thead>
+              <tr>
+                <th>Projeto</th>
+                <th>Área de atuação</th>
+                <th>Integrantes</th>
+                <th>Turma</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {projects.map(project => (
+                <tr key={project.id}>
+                  <td>{project.name}</td>
+                  <td>{project.occupation_area}</td>
+                  <td>{project.members}</td>
+                  <td>{project.classroom}</td>
+                  <td>
+                    <button type="button">
+                      <FiEdit2 />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </TableContainer>
+        </Container>
+      </Background>
+    </>
   );
 };
 
