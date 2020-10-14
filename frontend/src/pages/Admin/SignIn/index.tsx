@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { useAdminAuth } from '../../../hooks/adminAuth';
 import { useToast } from '../../../hooks/toast';
 
-import { Background, Main } from './styles';
+import { Background, Container } from './styles';
 
 import getValidationErrors from '../../../utils/getValidationErrors';
 
@@ -16,6 +16,7 @@ import logoImg from '../../../assets/logo.png';
 import Input from '../../../components/Input';
 import Loading from '../../../components/Loading';
 import Button from '../../../components/Button';
+import Header from '../../../components/Header';
 import ForgotPasswordModal from '../../../components/Modal/ForgotPasswordModal';
 
 interface AdminSignInFormData {
@@ -89,13 +90,15 @@ const SignIn: React.FC = () => {
         setIsOpen={toggleModalForgotPassword}
       />
 
+      <Header />
+
       <Background>
-        <Main>
+        <Container>
           <Form ref={formRef} onSubmit={handleSubmit}>
             <img src={logoImg} alt="SACT Logo" />
 
             <section>
-              <Input type="text" name="ra" placeholder="RA" />
+              <Input type="number" name="ra" placeholder="RA" />
 
               <Input name="password" placeholder="Senha" type="password" />
 
@@ -106,7 +109,7 @@ const SignIn: React.FC = () => {
 
             <Button type="submit">Entrar</Button>
           </Form>
-        </Main>
+        </Container>
       </Background>
     </>
   );

@@ -17,7 +17,7 @@ const ProjectForm: React.FC = () => {
   return (
     <Background>
       <Container>
-        <HeaderAdm isAuthenticated />
+        <HeaderAdm />
         <Content>
           <Link
             to="/projects"

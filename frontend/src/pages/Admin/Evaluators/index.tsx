@@ -13,7 +13,7 @@ const Evaluators: React.FC = () => {
     <Background>
       <Container>
         {' '}
-        <HeaderAdm isAuthenticated />
+        <HeaderAdm />
         <Content>
           <Link
             to="/dashboard"

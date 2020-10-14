@@ -19,7 +19,7 @@ const AvaliationForm: React.FC = () => {
   return (
     <Background>
       <Container>
-        <HeaderAdm isAuthenticated />
+        <HeaderAdm />
         <Content>
           <Link
             to="/avaliations"

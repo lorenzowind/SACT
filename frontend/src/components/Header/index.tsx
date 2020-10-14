@@ -1,29 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { faUserTie } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import adminImg from '../../assets/icon_admin.png';
+import { useAdminAuth } from '../../hooks/adminAuth';
 
-import { Header } from './styles';
+import { Container } from './styles';
 
-interface HeaderProps {
-  isAuthenticated: boolean;
-}
+const HeaderAdm: React.FC = () => {
+  const { admin, signOut } = useAdminAuth();
 
-const HeaderAdm: React.FC<HeaderProps> = ({ isAuthenticated }) => {
   return (
-    <Header>
-      <div style={{ color: '#707070' }}>
-        {isAuthenticated ? (
-          <Link to="/admin" style={{ color: '#707070' }}>
-            Logout
-          </Link>
-        ) : (
-          ''
-        )}
-        <img src={adminImg} alt="ADM" height={64} />
-        ADM
-      </div>
-    </Header>
+    <Container>
+      {admin ? (
+        <button type="button" onClick={signOut}>
+          LOGOUT
+        </button>
+      ) : (
+        ''
+      )}
+      <FontAwesomeIcon icon={faUserTie} size="2x" />
+      <strong>ADM</strong>
+    </Container>
   );
 };
 

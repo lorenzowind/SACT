@@ -8,7 +8,11 @@ export const Background = styled.div`
   background-image: url(${backgroundImg});
   background-repeat: no-repeat;
   background-size: cover;
-  padding-top: 17vh;
+  overflow-y: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Main = styled.main`
@@ -19,6 +23,7 @@ export const Main = styled.main`
     flex-direction: column;
 
     img {
+      margin-top: -100px;
       width: 100%;
       max-width: 500px;
     }

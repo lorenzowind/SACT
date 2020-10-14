@@ -8,10 +8,15 @@ export const Background = styled.div`
   background-image: url(${backgroundImg});
   background-repeat: no-repeat;
   background-size: cover;
-  padding-top: 6vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-export const Main = styled.main`
+export const Container = styled.div`
   form {
     display: flex;
     align-items: center;
@@ -19,8 +24,9 @@ export const Main = styled.main`
     flex-direction: column;
 
     img {
+      margin-top: -100px;
       width: 100%;
-      max-width: 800px;
+      max-width: 500px;
     }
 
     section {
@@ -36,6 +42,12 @@ export const Main = styled.main`
       div {
         height: 60px;
         margin-bottom: 1rem;
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
 
         input {
           font-size: 18px;

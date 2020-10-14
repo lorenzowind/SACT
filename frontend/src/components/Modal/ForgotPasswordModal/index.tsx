@@ -66,8 +66,7 @@ const ForgotPasswordModal: React.FC<IModalProps> = ({ isOpen, setIsOpen }) => {
 
         addToast({
           type: 'error',
-          title: 'Erro na autenticação',
-          description: 'Ocorreu um erro ao fazer login, cheque as credenciais.',
+          title: 'Erro ao enviar requisição',
         });
       } finally {
         setLoading(false);
@@ -97,7 +96,13 @@ const ForgotPasswordModal: React.FC<IModalProps> = ({ isOpen, setIsOpen }) => {
                 Uma requisição de senha foi enviada para o email informado
               </strong>
 
-              <Button type="button" onClick={setIsOpen}>
+              <Button
+                type="button"
+                onClick={() => {
+                  setIsOpen();
+                  setToSend(true);
+                }}
+              >
                 Ok
               </Button>
             </div>

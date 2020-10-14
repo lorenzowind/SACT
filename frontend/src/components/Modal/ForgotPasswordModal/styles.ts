@@ -18,6 +18,11 @@ export const Container = styled.div`
       height: 60px;
 
       margin-bottom: 2rem;
+
+      input {
+        font-size: 18px;
+        font-weight: 400;
+      }
     }
   }
 
