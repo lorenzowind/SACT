@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 import backgroundImg from '../../../assets/background.png';
 
@@ -72,9 +73,10 @@ export const Main = styled.main`
       max-width: 175px;
       font-size: 24px;
       font-weight: 700;
+      transition: background-color 0.2s;
 
       &:hover {
-        background: var(--primary-dark);
+        background: ${shade(0.2, '#0000fb')};
       }
     }
   }

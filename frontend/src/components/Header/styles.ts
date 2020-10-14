@@ -1,3 +1,4 @@
+import { shade } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -23,6 +24,11 @@ export const Container = styled.div`
     font-weight: 700;
     text-align: center;
     color: var(--warm-gray);
+    transition: color 0.2s;
+
+    &:hover {
+      color: ${shade(0.2, '#777')};
+    }
   }
 
   strong {
