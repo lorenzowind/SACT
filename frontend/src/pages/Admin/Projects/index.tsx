@@ -20,25 +20,29 @@ import {
 
 import Header from '../../../components/Header';
 import Loading from '../../../components/Loading';
+import ProjectModal from '../../../components/Modal/ProjectModal';
 
-interface ProjectData {
+import { IProjectOperationData } from '../Form/ProjectForm';
+
+export interface ProjectData extends IProjectOperationData {
   id: string;
-  name: string;
-  description: string;
-  occupation_area: string;
-  classroom: string;
-  members: string;
-  observations: string;
 }
 
 const Projects: React.FC = () => {
   const history = useHistory();
 
   const [loading, setLoading] = useState(false);
+  const [toRefresh, setToRefresh] = useState(true);
 
   const [filter, setFilter] = useState(1);
   const [projectSearch, setProjectSearch] = useState('');
   const [projects, setProjects] = useState<ProjectData[]>([]);
+
+  const [selectedProject, setSelectedProject] = useState<ProjectData>(
+    {} as ProjectData,
+  );
+
+  const [projectOpen, setProjectOpen] = useState(false);
 
   const { addToast } = useToast();
 
@@ -86,8 +90,11 @@ const Projects: React.FC = () => {
       }
     };
 
-    loadData();
-  }, [addToast]);
+    if (toRefresh) {
+      loadData();
+      setToRefresh(false);
+    }
+  }, [addToast, toRefresh]);
 
   const filteredProjects = useMemo(() => {
     switch (filter) {
@@ -106,9 +113,20 @@ const Projects: React.FC = () => {
     }
   }, [filter, projects]);
 
+  const toggleModalProject = useCallback(() => {
+    setProjectOpen(!projectOpen);
+  }, [projectOpen]);
+
   return (
     <>
       {loading && <Loading zIndex={1} />}
+
+      <ProjectModal
+        project={selectedProject}
+        isOpen={projectOpen}
+        setIsOpen={toggleModalProject}
+        setToRefresh={setToRefresh}
+      />
 
       <Header />
 
@@ -177,7 +195,13 @@ const Projects: React.FC = () => {
                   <td>{project.members}</td>
                   <td>{project.classroom}</td>
                   <td>
-                    <button type="button">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedProject(project);
+                        toggleModalProject();
+                      }}
+                    >
                       <FiEdit2 />
                     </button>
                   </td>

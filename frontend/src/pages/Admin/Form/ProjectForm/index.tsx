@@ -30,7 +30,7 @@ import Button from '../../../../components/Button';
 import Textarea from '../../../../components/Textarea';
 import Select from '../../../../components/Select';
 
-interface ICreateProjectData {
+export interface IProjectOperationData {
   name: string;
   description: string;
   occupation_area: string;
@@ -53,16 +53,13 @@ const ProjectForm: React.FC = () => {
   const { addToast } = useToast();
 
   const handleSubmit = useCallback(
-    async (data: ICreateProjectData) => {
+    async (data: IProjectOperationData) => {
       try {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
           name: Yup.string().required(),
           description: Yup.string().required(),
-          // occupation_area: Yup.mixed().test('match', '', () => {
-          //   return data.occupation_area !== '0';
-          // }),
           classroom: Yup.mixed().test('match', '', () => {
             return data.classroom !== '0';
           }),
@@ -87,7 +84,7 @@ const ProjectForm: React.FC = () => {
           occupation_area = 'Mecatrônica';
         }
 
-        const projectData: ICreateProjectData = {
+        const projectData: IProjectOperationData = {
           name: data.name,
           description: data.description,
           occupation_area,
@@ -161,22 +158,6 @@ const ProjectForm: React.FC = () => {
 
               <strong>2. Descrição</strong>
               <Input name="description" type="text" placeholder="Título" />
-
-              {/* <strong>3. Área de atuação</strong>
-              <Select name="occupation_area" defaultValue="0">
-                <option value="0" disabled>
-                  Selecione curso
-                </option>
-                <option key="occupation_area_01" value="Eletrônica">
-                  Eletrônica
-                </option>
-                <option key="occupation_area_02" value="Informática">
-                  Informática
-                </option>
-                <option key="occupation_area_03" value="Mecatrônica">
-                  Mecatrônica
-                </option>
-              </Select> */}
 
               <strong>3. Turma</strong>
               <Select name="classroom" defaultValue="0">

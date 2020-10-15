@@ -162,22 +162,6 @@ export const TableContainer = styled.table`
   align-items: center;
   flex-direction: column;
 
-  &::-webkit-scrollbar {
-    width: 7px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #888;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-
   thead {
     border-bottom: 1px solid var(--warm-gray);
   }

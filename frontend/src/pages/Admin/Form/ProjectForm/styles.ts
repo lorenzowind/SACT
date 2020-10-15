@@ -79,6 +79,14 @@ export const LeftContainer = styled.div`
     margin: 10px 0 30px 0;
     height: 60px;
     width: 400px;
+
+    input {
+      font-size: 18px;
+    }
+
+    select {
+      font-size: 18px;
+    }
   }
 `;
 
@@ -172,6 +180,7 @@ export const RightContainer = styled.div`
     margin: 10px 0;
     width: 400px;
     height: 180px;
+    font-size: 18px;
   }
 
   button {
