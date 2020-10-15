@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -18,19 +18,27 @@ import {
 
 import Header from '../../../components/Header';
 import Loading from '../../../components/Loading';
+import QuestionModal from '../../../components/Modal/QuestionModal';
 
-interface QuestionData {
+import { IQuestionOperationsData } from '../Form/QuestionForm';
+
+export interface QuestionData extends IQuestionOperationsData {
   id: string;
-  section: string;
-  criterion: string;
 }
 
 const Questions: React.FC = () => {
   const history = useHistory();
 
   const [loading, setLoading] = useState(false);
+  const [toRefresh, setToRefresh] = useState(true);
 
   const [questions, setQuestions] = useState<QuestionData[]>([]);
+
+  const [questionOpen, setQuestionOpen] = useState(false);
+
+  const [selectedQuestion, setSelectedQuestion] = useState<QuestionData>(
+    {} as QuestionData,
+  );
 
   const { addToast } = useToast();
 
@@ -52,12 +60,26 @@ const Questions: React.FC = () => {
       }
     };
 
-    loadData();
-  }, [addToast]);
+    if (toRefresh) {
+      loadData();
+      setToRefresh(false);
+    }
+  }, [addToast, toRefresh]);
+
+  const toggleModalQuestion = useCallback(() => {
+    setQuestionOpen(!questionOpen);
+  }, [questionOpen]);
 
   return (
     <>
       {loading && <Loading zIndex={1} />}
+
+      <QuestionModal
+        question={selectedQuestion}
+        isOpen={questionOpen}
+        setIsOpen={toggleModalQuestion}
+        setToRefresh={setToRefresh}
+      />
 
       <Header />
 
@@ -73,7 +95,7 @@ const Questions: React.FC = () => {
           <div>
             <strong>Adicionar ficha de avaliação</strong>
 
-            <button type="button">
+            <button type="button" onClick={() => history.push('question-form')}>
               <IoIosAddCircleOutline />
             </button>
           </div>
@@ -91,7 +113,13 @@ const Questions: React.FC = () => {
                   <td>{question.section}</td>
                   <td>{question.criterion}</td>
                   <td>
-                    <button type="button">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedQuestion(question);
+                        toggleModalQuestion();
+                      }}
+                    >
                       <FiEdit2 />
                     </button>
                   </td>

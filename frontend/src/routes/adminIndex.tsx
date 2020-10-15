@@ -14,7 +14,7 @@ import Evaluators from '../pages/Admin/Evaluators';
 import Projects from '../pages/Admin/Projects';
 
 import AdminForm from '../pages/Admin/Form/AdminForm';
-import AvaliationForm from '../pages/Admin/Form/AvaliationForm';
+import QuestionForm from '../pages/Admin/Form/QuestionForm';
 import EvaluatorForm from '../pages/Admin/Form/EvaluatorForm';
 import ProjectForm from '../pages/Admin/Form/ProjectForm';
 
@@ -31,7 +31,7 @@ const Routes: React.FC = () => (
     <Route path="/projects" component={Projects} isPrivate />
 
     <Route path="/admin-form" component={AdminForm} isPrivate />
-    <Route path="/avaliation-form" component={AvaliationForm} isPrivate />
+    <Route path="/question-form" component={QuestionForm} isPrivate />
     <Route path="/evaluator-form" component={EvaluatorForm} isPrivate />
     <Route path="/project-form" component={ProjectForm} isPrivate />
   </Switch>
