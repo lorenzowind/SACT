@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { IoIosAddCircleOutline } from 'react-icons/io';
+import { FiEdit2, FiFilter, FiSearch } from 'react-icons/fi';
 
-import { FiEdit2, FiSearch } from 'react-icons/fi';
 import api from '../../../services/api';
 
 import { useToast } from '../../../hooks/toast';
@@ -14,6 +15,7 @@ import {
   Container,
   SecondaryHeader,
   TableContainer,
+  FilterContainer,
 } from './styles';
 
 import Header from '../../../components/Header';
@@ -32,6 +34,7 @@ const Evaluators: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [toRefresh, setToRefresh] = useState(true);
 
+  const [filter, setFilter] = useState(1);
   const [evaluatorSearch, setEvaluatorSearch] = useState('');
   const [evaluators, setEvaluators] = useState<EvaluatorData[]>([]);
 
@@ -93,6 +96,29 @@ const Evaluators: React.FC = () => {
     }
   }, [addToast, toRefresh]);
 
+  const filteredEvaluators = useMemo(() => {
+    switch (filter) {
+      case 2: {
+        return evaluators.filter(
+          evaluator => evaluator.occupation_area === 'Eletrônica',
+        );
+      }
+      case 3: {
+        return evaluators.filter(
+          evaluator => evaluator.occupation_area === 'Informática',
+        );
+      }
+      case 4: {
+        return evaluators.filter(
+          evaluator => evaluator.occupation_area === 'Mecatrônica',
+        );
+      }
+      default: {
+        return evaluators;
+      }
+    }
+  }, [filter, evaluators]);
+
   const toggleModalEvaluator = useCallback(() => {
     setEvaluatorOpen(!evaluatorOpen);
   }, [evaluatorOpen]);
@@ -142,6 +168,23 @@ const Evaluators: React.FC = () => {
             >
               <IoIosAddCircleOutline />
             </button>
+
+            <FilterContainer selectedIndex={filter}>
+              <button type="button" onClick={() => setFilter(1)}>
+                Todos
+              </button>
+              <button type="button" onClick={() => setFilter(2)}>
+                Eletrônica
+              </button>
+              <button type="button" onClick={() => setFilter(3)}>
+                Informática
+              </button>
+              <button type="button" onClick={() => setFilter(4)}>
+                Mecatrônica
+              </button>
+            </FilterContainer>
+
+            <FiFilter />
           </div>
           <TableContainer>
             <thead>
@@ -154,7 +197,7 @@ const Evaluators: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {evaluators.map(evaluator => (
+              {filteredEvaluators.map(evaluator => (
                 <tr key={evaluator.id}>
                   <td>{evaluator.name}</td>
                   <td>{evaluator.occupation_area}</td>

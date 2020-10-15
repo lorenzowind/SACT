@@ -28,7 +28,7 @@ import Select from '../../../../components/Select';
 
 export interface IEvaluatorOperationsData {
   name: string;
-  occupation_area: string;
+  occupation_area: 'Eletrônica' | 'Informática' | 'Mecatrônica' | '0';
   institution: string;
   phone_number: string;
   email: string;

@@ -1,7 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { shade } from 'polished';
 
 import backgroundImg from '../../../assets/background.png';
+
+interface FilterContainerProps {
+  selectedIndex: number;
+}
 
 export const Background = styled.div`
   min-width: 100vw;
@@ -126,6 +130,13 @@ export const Container = styled.div`
           color: ${shade(0.2, '#707070')};
         }
       }
+    }
+
+    > svg {
+      margin-left: 20px;
+      color: var(--warm-gray);
+      width: 42px;
+      height: 42px;
     }
   }
 
@@ -255,5 +266,35 @@ export const TableContainer = styled.table`
         }
       }
     }
+  }
+`;
+
+export const FilterContainer = styled.nav<FilterContainerProps>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: 30px;
+
+  button {
+    background: none;
+    border: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: rgba(70, 70, 70, 0.5);
+    transition: color 0.2s;
+
+    &:hover {
+      color: ${shade(0.2, '#707070')};
+    }
+
+    ${props => {
+      return css`
+        &:nth-child(${props.selectedIndex}) {
+          cursor: auto;
+          color: ${shade(0.2, '#707070')};
+        }
+      `;
+    }}
   }
 `;
