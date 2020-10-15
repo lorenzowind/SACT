@@ -18,24 +18,28 @@ import {
 
 import Header from '../../../components/Header';
 import Loading from '../../../components/Loading';
+import EvaluatorModal from '../../../components/Modal/EvaluatorModal';
 
-interface EvaluatorData {
+import { IEvaluatorOperationsData } from '../Form/EvaluatorForm';
+
+export interface EvaluatorData extends IEvaluatorOperationsData {
   id: string;
-  name: string;
-  occupation_area: string;
-  institution: string;
-  phone_number: string;
-  email: string;
-  status: string;
 }
 
 const Evaluators: React.FC = () => {
   const history = useHistory();
 
   const [loading, setLoading] = useState(false);
+  const [toRefresh, setToRefresh] = useState(true);
 
   const [evaluatorSearch, setEvaluatorSearch] = useState('');
   const [evaluators, setEvaluators] = useState<EvaluatorData[]>([]);
+
+  const [evaluatorOpen, setEvaluatorOpen] = useState(false);
+
+  const [selectedEvaluator, setSelectedEvaluator] = useState<EvaluatorData>(
+    {} as EvaluatorData,
+  );
 
   const { addToast } = useToast();
 
@@ -83,12 +87,26 @@ const Evaluators: React.FC = () => {
       }
     };
 
-    loadData();
-  }, [addToast]);
+    if (toRefresh) {
+      loadData();
+      setToRefresh(false);
+    }
+  }, [addToast, toRefresh]);
+
+  const toggleModalEvaluator = useCallback(() => {
+    setEvaluatorOpen(!evaluatorOpen);
+  }, [evaluatorOpen]);
 
   return (
     <>
       {loading && <Loading zIndex={1} />}
+
+      <EvaluatorModal
+        evaluator={selectedEvaluator}
+        isOpen={evaluatorOpen}
+        setIsOpen={toggleModalEvaluator}
+        setToRefresh={setToRefresh}
+      />
 
       <Header />
 
@@ -118,7 +136,10 @@ const Evaluators: React.FC = () => {
           <div>
             <strong>Adicionar avaliador</strong>
 
-            <button type="button">
+            <button
+              type="button"
+              onClick={() => history.push('evaluator-form')}
+            >
               <IoIosAddCircleOutline />
             </button>
           </div>
@@ -140,7 +161,13 @@ const Evaluators: React.FC = () => {
                   <td>{evaluator.phone_number}</td>
                   <td>{evaluator.email}</td>
                   <td>
-                    <button type="button">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedEvaluator(evaluator);
+                        toggleModalEvaluator();
+                      }}
+                    >
                       <FiEdit2 />
                     </button>
                   </td>
