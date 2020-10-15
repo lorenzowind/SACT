@@ -18,22 +18,28 @@ import {
 
 import Header from '../../../components/Header';
 import Loading from '../../../components/Loading';
+import AdminModal from '../../../components/Modal/AdminModal';
 
-interface AdminData {
+import { IAdminOperationsData } from '../Form/AdminForm';
+
+export interface AdminData extends IAdminOperationsData {
   id: string;
-  name: string;
-  ra: string;
-  email: string;
-  password: string;
 }
 
 const Admins: React.FC = () => {
   const history = useHistory();
 
   const [loading, setLoading] = useState(false);
+  const [toRefresh, setToRefresh] = useState(true);
 
   const [adminSearch, setAdminSearch] = useState('');
   const [admins, setAdmins] = useState<AdminData[]>([]);
+
+  const [adminOpen, setAdminOpen] = useState(false);
+
+  const [selectedAdmin, setSelectedAdmin] = useState<AdminData>(
+    {} as AdminData,
+  );
 
   const { addToast } = useToast();
 
@@ -81,12 +87,26 @@ const Admins: React.FC = () => {
       }
     };
 
-    loadData();
-  }, [addToast]);
+    if (toRefresh) {
+      loadData();
+      setToRefresh(false);
+    }
+  }, [addToast, toRefresh]);
+
+  const toggleModalAdmin = useCallback(() => {
+    setAdminOpen(!adminOpen);
+  }, [adminOpen]);
 
   return (
     <>
       {loading && <Loading zIndex={1} />}
+
+      <AdminModal
+        admin={selectedAdmin}
+        isOpen={adminOpen}
+        setIsOpen={toggleModalAdmin}
+        setToRefresh={setToRefresh}
+      />
 
       <Header />
 
@@ -116,7 +136,7 @@ const Admins: React.FC = () => {
           <div>
             <strong>Adicionar administrador</strong>
 
-            <button type="button">
+            <button type="button" onClick={() => history.push('admin-form')}>
               <IoIosAddCircleOutline />
             </button>
           </div>
@@ -138,7 +158,13 @@ const Admins: React.FC = () => {
                   <td>{admin.ra}</td>
                   <td>{admin.password.replace(/[^*]/g, '*')}</td>
                   <td>
-                    <button type="button">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedAdmin(admin);
+                        toggleModalAdmin();
+                      }}
+                    >
                       <FiEdit2 />
                     </button>
                   </td>

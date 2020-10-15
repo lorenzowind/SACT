@@ -1,63 +1,101 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 import backgroundImg from '../../../../assets/background.png';
 
 export const Background = styled.div`
   min-width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   background-image: url(${backgroundImg});
-  background-repeat: no-repeat;
   background-size: cover;
+  padding-top: 60px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+`;
+
+export const SecondaryHeader = styled.div`
+  position: absolute;
+  padding-top: 80px;
+  width: 100%;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    padding-left: 80px;
+    position: absolute;
+    left: 0;
+
+    svg {
+      cursor: pointer;
+      color: var(--warm-gray);
+      transition: color 0.2s;
+
+      &:hover {
+        color: ${shade(0.2, '#707070')};
+      }
+    }
+  }
+
+  strong {
+    font-size: 48px;
+    font-weight: 400;
+    text-decoration: underline;
+    color: var(--warm-gray);
+  }
 `;
 
 export const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-`;
+  height: 700px;
+  padding-top: 120px;
 
-export const Content = styled.div`
-  display: grid;
-  grid-template-columns: 10% 90%;
-  grid-template-areas: 'back regis';
-`;
-
-export const AdmRegisterForm = styled.form`
-  grid-area: regis;
-  padding-top: 200px;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const InputGroupAdm = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: max-content;
-  label {
-    font-size: 20px;
-    font-weight: normal;
-    color: #676060;
-    margin-bottom: 5px;
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
   }
-  input {
+
+  @media only screen and (max-width: 1100px) {
+    display: none;
+  }
+`;
+
+export const InputsContainer = styled.div`
+  margin-left: 30px;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+
+  strong {
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--warm-gray);
+  }
+
+  div {
+    margin: 10px 0 30px 0;
+    height: 60px;
     width: 400px;
-    height: 32px;
-    border-radius: 5px;
-    padding: 10px;
-    border: solid 1px #707070;
-    background-color: #ffffff;
-  }
-`;
 
-export const ButtonForm = styled.button`
-  width: 94px;
-  height: 42px;
-  color: #f5f5f5;
-  font-size: 20pt;
-  text-align: center;
-  border-radius: 5px;
-  border: 0;
-  background-color: #0000fb;
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input {
+      font-size: 18px;
+    }
+
+    select {
+      font-size: 18px;
+    }
+  }
+
+  button {
+    align-self: flex-end;
+  }
 `;
