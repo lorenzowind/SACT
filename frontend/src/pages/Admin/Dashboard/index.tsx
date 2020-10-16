@@ -103,7 +103,7 @@ const Dashboard: React.FC = () => {
               <strong>Ranking</strong>
             </RankingContainer>
 
-            <AvaliationsContainer>
+            <AvaliationsContainer onClick={toggleModalInfo}>
               <strong>
                 <b>{concludedAvaliations}</b>
                 {`/${avaliations.length}`}
@@ -141,7 +141,7 @@ const Dashboard: React.FC = () => {
             </ReportsContainer>
 
             <section>
-              <EvaluatorsContainer>
+              <EvaluatorsContainer onClick={toggleModalInfo}>
                 <strong>
                   <b>{concludedEvaluators}</b>
                   {`/${evaluators.length}`}

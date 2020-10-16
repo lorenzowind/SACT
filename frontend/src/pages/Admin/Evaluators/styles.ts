@@ -196,8 +196,8 @@ export const TableContainer = styled.table`
   th {
     font-size: 20px;
     padding: 20px 5px;
-    max-width: 260px;
-    min-width: 260px;
+    max-width: 230px;
+    min-width: 230px;
 
     &:nth-child(2) {
       max-width: 160px;
@@ -210,11 +210,12 @@ export const TableContainer = styled.table`
     }
 
     &:nth-child(4) {
-      max-width: 300px;
-      min-width: 300px;
+      max-width: 270px;
+      min-width: 270px;
     }
 
-    &:last-child {
+    &:nth-child(5),
+    &:nth-child(6) {
       max-width: 60px;
       min-width: 60px;
     }
@@ -228,8 +229,8 @@ export const TableContainer = styled.table`
 
     font-size: 20px;
     padding: 10px 5px;
-    max-width: 260px;
-    min-width: 260px;
+    max-width: 230px;
+    min-width: 230px;
 
     &:nth-child(2) {
       max-width: 160px;
@@ -242,11 +243,12 @@ export const TableContainer = styled.table`
     }
 
     &:nth-child(4) {
-      max-width: 300px;
-      min-width: 300px;
+      max-width: 270px;
+      min-width: 270px;
     }
 
-    &:last-child {
+    &:nth-child(5),
+    &:nth-child(6) {
       max-width: 60px;
       min-width: 60px;
 

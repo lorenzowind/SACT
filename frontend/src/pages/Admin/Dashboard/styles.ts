@@ -28,16 +28,33 @@ export const Container = styled.div`
     display: none;
   }
 
-  aside {
-    border-radius: 10px;
-    box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.16);
-    border: solid 0.5px var(--warm-gray);
-    background-color: #f9f8f8;
+  > div {
+    aside,
+    > button {
+      border-radius: 10px;
+      box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.16);
+      border: solid 0.5px var(--warm-gray);
+      background-color: #f9f8f8;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    > section {
+      > button {
+        border-radius: 10px;
+        box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.16);
+        border: solid 0.5px var(--warm-gray);
+        background-color: #f9f8f8;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+    }
   }
 `;
 
@@ -70,15 +87,6 @@ export const RightContainer = styled.div`
 `;
 
 export const RankingContainer = styled.button`
-  border-radius: 10px;
-  box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.16);
-  border: solid 0.5px var(--warm-gray);
-  background-color: #f9f8f8;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   height: 60%;
   padding: 30px;
   margin-bottom: 15px;
@@ -103,10 +111,15 @@ export const RankingContainer = styled.button`
   }
 `;
 
-export const AvaliationsContainer = styled.aside`
+export const AvaliationsContainer = styled.button`
   height: 40%;
   padding: 30px;
   margin-top: 15px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: ${shade(0.2, '#f9f8f8')};
+  }
 
   strong {
     margin-bottom: 10px;
@@ -206,10 +219,15 @@ export const ReportsContainer = styled.aside`
   }
 `;
 
-export const EvaluatorsContainer = styled.aside`
+export const EvaluatorsContainer = styled.button`
   width: 50%;
   margin-right: 15px;
   padding: 30px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: ${shade(0.2, '#f9f8f8')};
+  }
 
   strong {
     margin-bottom: 10px;

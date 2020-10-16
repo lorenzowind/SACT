@@ -4,11 +4,12 @@ import { Link, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { IoIosAddCircleOutline } from 'react-icons/io';
-import { FiEdit2, FiFilter, FiSearch } from 'react-icons/fi';
+import { FiEdit2, FiFilter, FiFolder, FiSearch } from 'react-icons/fi';
 
 import api from '../../../services/api';
 
 import { useToast } from '../../../hooks/toast';
+import { useEvaluatorProjects } from '../../../hooks/evaluatorProjects';
 
 import {
   Background,
@@ -45,6 +46,7 @@ const Evaluators: React.FC = () => {
   );
 
   const { addToast } = useToast();
+  const { setSelectedEvaluatorState } = useEvaluatorProjects();
 
   const handleSearch = useCallback(async () => {
     try {
@@ -194,6 +196,7 @@ const Evaluators: React.FC = () => {
                 <th>Telefone</th>
                 <th>Email</th>
                 <th />
+                <th />
               </tr>
             </thead>
             <tbody>
@@ -212,6 +215,17 @@ const Evaluators: React.FC = () => {
                       }}
                     >
                       <FiEdit2 />
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedEvaluatorState(evaluator);
+                        history.push('evaluator-projects');
+                      }}
+                    >
+                      <FiFolder />
                     </button>
                   </td>
                 </tr>

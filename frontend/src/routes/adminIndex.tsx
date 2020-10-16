@@ -18,6 +18,8 @@ import QuestionForm from '../pages/Admin/Form/QuestionForm';
 import EvaluatorForm from '../pages/Admin/Form/EvaluatorForm';
 import ProjectForm from '../pages/Admin/Form/ProjectForm';
 
+import EvaluatorProjects from '../pages/Admin/EvaluatorProjects';
+
 const Routes: React.FC = () => (
   <Switch>
     <Route path="/admin" component={SignIn} />
@@ -34,6 +36,8 @@ const Routes: React.FC = () => (
     <Route path="/question-form" component={QuestionForm} isPrivate />
     <Route path="/evaluator-form" component={EvaluatorForm} isPrivate />
     <Route path="/project-form" component={ProjectForm} isPrivate />
+
+    <Route path="/evaluator-projects" component={EvaluatorProjects} isPrivate />
   </Switch>
 );
 

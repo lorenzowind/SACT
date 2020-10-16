@@ -8,9 +8,7 @@ interface Evaluator {
   occupation_area: string;
   institution: string;
   phone_number: string;
-  cpf: string;
   status: 'to_evaluate' | 'rated';
-  password: string;
 }
 
 interface SignInCredentials {
