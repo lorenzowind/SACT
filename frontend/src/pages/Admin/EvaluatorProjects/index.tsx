@@ -55,10 +55,7 @@ const EvaluatorProjects: React.FC = () => {
   >([]);
 
   const { addToast } = useToast();
-  const {
-    selectedEvaluatorState,
-    setSelectedEvaluatorState,
-  } = useEvaluatorProjects();
+  const { selectedEvaluatorState } = useEvaluatorProjects();
 
   const handleSubmit = useCallback(async () => {
     try {

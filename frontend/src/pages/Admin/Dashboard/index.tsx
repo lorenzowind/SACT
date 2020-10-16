@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FiDownload } from 'react-icons/fi';
 
 import api from '../../../services/api';
@@ -34,8 +34,6 @@ interface EvaluatorData {
 type AvaliationData = EvaluatorData;
 
 const Dashboard: React.FC = () => {
-  const history = useHistory();
-
   const [loading, setLoading] = useState(false);
 
   const [evaluators, setEvaluators] = useState<EvaluatorData[]>([]);
