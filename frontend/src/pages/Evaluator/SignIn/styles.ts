@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 import backgroundImg from '../../../assets/background.png';
 
@@ -8,30 +9,74 @@ export const Background = styled.div`
   background-image: url(${backgroundImg});
   background-repeat: no-repeat;
   background-size: cover;
+  overflow-y: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Main = styled.main`
-  padding-top: 10vh;
-  text-align: center;
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 
-  & > input[type='text'] {
-    margin-top: 1rem;
-    margin-bottom: 6rem;
-  }
+    img {
+      margin-top: -100px;
+      width: 100%;
+      max-width: 500px;
+    }
 
-  input {
-    padding: 0.75rem 1rem;
-    border: 0;
-    border-radius: 0.5rem;
-    box-shadow: 5px 5px 3px 0 var(--light-gray);
+    section {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
 
-    &[type='button'] {
-      cursor: pointer;
+      width: 100%;
+      margin-top: 2rem;
+      margin-bottom: 6rem;
+      max-width: 300px;
+      width: 80%;
+
+      div {
+        height: 60px;
+
+        input {
+          font-size: 18px;
+          font-weight: 400;
+        }
+      }
+
+      strong {
+        top: -30px;
+        left: 0;
+        position: absolute;
+        font-size: 18px;
+        font-weight: 700;
+        color: #c53030;
+      }
+    }
+
+    button {
+      border-radius: 10px;
+      box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.16);
+      border: solid 1px var(--warm-gray);
+
       font-size: 1.5rem;
       background: var(--primary);
       color: white;
+      height: 60px;
+      width: 50%;
+      max-width: 175px;
+      font-size: 24px;
+      font-weight: 700;
+      transition: background-color 0.2s;
+
       &:hover {
-        background: var(--primary-dark);
+        background: ${shade(0.2, '#0000fb')};
       }
     }
   }

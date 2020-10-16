@@ -9,7 +9,7 @@ interface Admin {
 }
 
 interface SignInCredentials {
-  email: string;
+  ra: string;
   password: string;
 }
 
@@ -20,6 +20,7 @@ interface AdminAuthState {
 
 interface AdminAuthContextData {
   admin: Admin;
+  token: string;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
   updateAdmin(admin: Admin): void;
@@ -43,9 +44,9 @@ const AdminAuthProvider: React.FC = ({ children }) => {
     return {} as AdminAuthState;
   });
 
-  const signIn = useCallback(async ({ email, password }) => {
+  const signIn = useCallback(async ({ ra, password }) => {
     const response = await api.post<AdminAuthState>('admins/sessions', {
-      email,
+      ra,
       password,
     });
 
@@ -80,7 +81,13 @@ const AdminAuthProvider: React.FC = ({ children }) => {
 
   return (
     <AdminAuthContext.Provider
-      value={{ admin: data.admin, signIn, signOut, updateAdmin }}
+      value={{
+        admin: data.admin,
+        token: data.token,
+        signIn,
+        signOut,
+        updateAdmin,
+      }}
     >
       {children}
     </AdminAuthContext.Provider>

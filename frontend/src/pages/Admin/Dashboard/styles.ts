@@ -1,283 +1,307 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 import backgroundImg from '../../../assets/background.png';
 
 export const Background = styled.div`
   min-width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   background-image: url(${backgroundImg});
-  background-repeat: no-repeat;
   background-size: cover;
+  padding-top: 60px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-`;
-
-export const Content = styled.main`
-  width: 800px;
-  height: 100%;
-  margin: 0 20%;
-  justify-content: center;
-  align-items: center;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 270px 168px;
-  grid-gap: 50px;
-  grid-template-areas: 'trofeu relatorio relatorio ' 'fichas avaliadores info';
-`;
-
-export const Ranking = styled.div`
-  grid-area: trofeu;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  box-shadow: 20px 20px 10px 0 rgba(0, 0, 0, 0.16);
-  border: solid 1px #707070;
-  background-color: #f9f8f8;
-  padding: 40px;
-  margin-top: 150px;
-  a {
-    text-decoration: none;
-  }
-  img {
-    margin-left: 10%;
-  }
-  footer {
-    color: #0004ff;
-    font-size: 24pt;
-    font-weight: bold;
-    text-align: center;
-  }
-`;
-
-export const Relatorio = styled.div`
-  width: 100%;
-  height: 250px;
-  grid-area: relatorio;
-  grid-column: relatorio span relatorio;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  box-shadow: 20px 20px 10px 0 rgba(0, 0, 0, 0.16);
-  border: solid 1px #707070;
-  background-color: #f9f8f8;
-  padding: 20px;
-  margin-top: 180px;
-  div#group-icon {
-    display: flex;
-    color: #0004ff;
-    font-size: 20pt;
-    font-weight: bold;
-    text-align: left;
-    align-items: center;
-    justify-content: start;
-  }
-  ul {
-    margin-left: 15%;
-    list-style-type: none;
-  }
-  li {
-    width: 100%;
-    color: #707070;
-    font-size: 14pt;
-    font-weight: 400;
-    text-align: left;
-    margin-top: 20px;
-  }
-  li a {
-    text-decoration: none;
-    cursor: pointer;
-  }
-`;
-export const DonwloadsDiv = styled.div`
-  display: grid;
-  grid-template-columns: 400px 45px;
-  grid-template-areas: 'name icone';
-  grid-column-gap: 10px;
-  align-items: center;
-`;
-export const ListNames = styled.ul`
-  grid-area: name;
-`;
-
-export const ListIcones = styled.ul`
-  grid-area: icone;
-  margin-top: -12px;
-  li + li {
-    margin-top: 5px;
-  }
-  li {
-    cursor: pointer;
-  }
-`;
-
-export const Fichas = styled.div`
-  width: 115%;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  box-shadow: 20px 20px 10px 0 rgba(0, 0, 0, 0.16);
-  border: solid 1px #707070;
-  background-color: #f9f8f8;
-  padding: 40px;
-  margin-top: 150px;
+  height: 700px;
   display: flex;
-  flex-direction: column;
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  div h1 {
-    font-size: 75px;
-    color: #0004ff;
-    font-weight: bold;
-    text-align: left;
-  }
-  div h2 {
-    margin-top: 17%;
-    margin-left: 2px;
-    font-size: 45px;
-    color: #707070;
-    font-weight: bold;
-    text-align: right;
-  }
-  footer {
-    color: #0004ff;
-    font-size: 15pt;
-    font-weight: bold;
-    text-align: justify;
-  }
-`;
-
-export const Avaliadores = styled.div`
-  cursor: pointer;
-  height: 195px;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
-  box-shadow: 20px 20px 10px 0 rgba(0, 0, 0, 0.16);
-  border: solid 1px #707070;
-  background-color: #f9f8f8;
-  padding: 20px;
-  margin-top: 150px;
-  display: flex;
-  flex-direction: column;
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  div h1 {
-    font-size: 75px;
-    color: #0004ff;
-    font-weight: bold;
-    text-align: left;
-  }
-  div h2 {
-    margin-top: 17%;
-    margin-left: 2px;
-    font-size: 45px;
-    color: #707070;
-    font-weight: bold;
-    text-align: right;
-  }
-  footer {
-    color: #0004ff;
-    font-size: 15pt;
-    font-weight: bold;
-    text-align: center;
-  }
-`;
-
-export const Informacoes = styled.div`
-  grid-area: info;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  box-shadow: 20px 20px 10px 0 rgba(0, 0, 0, 0.16);
-  border: solid 1px #707070;
-  background-color: #f9f8f8;
-  padding: 20px;
-  margin-top: 150px;
-  display: flex;
-  flex-direction: column;
-  div#group-icon {
-    display: flex;
-    color: #0004ff;
-    font-size: 20pt;
-    font-weight: bold;
-    text-align: left;
-    align-items: center;
-    justify-content: start;
-  }
-  ul {
-    margin-top: 2px;
-    list-style-type: none;
-  }
-  li {
-    width: 100%;
-    color: #707070;
-    font-size: 14pt;
-    font-weight: 400;
-    text-align: left;
-  }
-  li + li {
-    margin-top: 2px;
-  }
-  li a {
-    text-decoration: none;
-  }
-  li a:visited {
-    color: #0004ff;
-  }
-`;
-
-export const ButtonHidden = styled.a`
-  width: 25px;
-  height: 25px;
-  margin: 0;
-  font-size: 14pt;
-  border: 0;
-  cursor: pointer;
-  font-size: 24pt;
-  line-height: 30px;
-  font-weight: 700;
-  float: right;
-`;
-export const Popup = styled.div`
-  position: absolute;
-  top: 12%;
-  left: 30%;
-  width: 450px;
-  height: 350px;
-  border-radius: 10px;
-  box-shadow: 20px 20px 10px 0 rgba(0, 0, 0, 0.16);
-  border: solid 1px #707070;
-  background-color: #f9f8f8;
-  display: flex;
-  flex-direction: column;
-  border-radius: 15px;
-  padding: 10px;
-`;
-
-export const ListAvaliadores = styled.ul`
-  width: 80%;
-  height: 90%;
-  margin: 0 auto;
-  padding: 10px;
-  list-style-type: none;
-`;
-
-export const ItemAvaliador = styled.li`
-  display: flex;
   flex-direction: row;
-  align-items: center;
-  h1 {
-    font-size: 14pt;
-    color: #707070;
+
+  @media only screen and (max-width: 1100px) {
+    display: none;
+  }
+
+  > div {
+    aside,
+    > button {
+      border-radius: 10px;
+      box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.16);
+      border: solid 0.5px var(--warm-gray);
+      background-color: #f9f8f8;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    > section {
+      > button {
+        border-radius: 10px;
+        box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.16);
+        border: solid 0.5px var(--warm-gray);
+        background-color: #f9f8f8;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+    }
+  }
+`;
+
+export const LeftContainer = styled.div`
+  height: 600px;
+  width: 300px;
+  margin-right: 15px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
+
+export const RightContainer = styled.div`
+  height: 600px;
+  width: 800px;
+  margin-left: 15px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  > section {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    height: 40%;
+    margin-top: 15px;
+  }
+`;
+
+export const RankingContainer = styled.button`
+  height: 60%;
+  padding: 30px;
+  margin-bottom: 15px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: ${shade(0.2, '#f9f8f8')};
+  }
+
+  img {
+    margin-bottom: 15px;
+    height: 180px;
+    width: 180px;
+  }
+
+  strong {
+    margin-top: 15px;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--primary);
+  }
+`;
+
+export const AvaliationsContainer = styled.button`
+  height: 40%;
+  padding: 30px;
+  margin-top: 15px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: ${shade(0.2, '#f9f8f8')};
+  }
+
+  strong {
+    margin-bottom: 10px;
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--warm-gray);
+
+    b {
+      margin-top: 15px;
+      font-size: 48px;
+      font-weight: 700;
+      text-align: center;
+      color: var(--primary);
+    }
+  }
+
+  h2 {
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+`;
+
+export const ReportsContainer = styled.aside`
+  height: 60%;
+  margin-bottom: 15px;
+  padding: 15px 30px;
+
+  article {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border-bottom: 1px solid var(--warm-gray);
+
+    img {
+      margin: 0 10px 10px 10px;
+      height: 50px;
+      width: 50px;
+    }
+
+    strong {
+      margin: 0 20px 10px 10px;
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      color: var(--primary);
+    }
+  }
+
+  nav {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 30px 0 0 80px;
+    width: 100%;
+
+    section {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+
+      button {
+        background: none;
+        border: 0;
+        margin-right: 60px;
+
+        svg {
+          height: 40px;
+          width: 40px;
+          color: var(--primary);
+          transition: color 0.2s;
+
+          &:hover {
+            color: ${shade(0.2, '#0000fb')};
+          }
+        }
+      }
+
+      strong {
+        font-size: 20px;
+        font-weight: 400;
+        text-align: center;
+        color: var(--light-gray);
+      }
+
+      & + section {
+        margin-top: 30px;
+      }
+    }
+  }
+`;
+
+export const EvaluatorsContainer = styled.button`
+  width: 50%;
+  margin-right: 15px;
+  padding: 30px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: ${shade(0.2, '#f9f8f8')};
+  }
+
+  strong {
+    margin-bottom: 10px;
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--warm-gray);
+
+    b {
+      margin-top: 15px;
+      font-size: 48px;
+      font-weight: 700;
+      text-align: center;
+      color: var(--primary);
+    }
+  }
+
+  h2 {
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+    color: var(--primary);
+  }
+`;
+
+export const InfoContainer = styled.aside`
+  width: 50%;
+  margin-left: 15px;
+  padding: 15px 5px;
+
+  article {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border-bottom: 1px solid var(--warm-gray);
+
+    img {
+      margin: 0 10px 0 10px;
+      height: 50px;
+      width: 50px;
+    }
+
+    strong {
+      margin: 0 20px 0 10px;
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      color: var(--primary);
+    }
+  }
+
+  nav {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 15px 0 0 -30px;
+
+    a {
+      font-size: 20px;
+      font-weight: 400;
+      text-align: center;
+      color: var(--light-gray);
+      text-decoration: none;
+      transition: color 0.2s;
+
+      &:hover {
+        color: ${shade(0.2, '#777')};
+      }
+
+      & + a {
+        margin-top: 10px;
+      }
+    }
   }
 `;

@@ -19,7 +19,7 @@ const Ranking: React.FC = () => {
   return (
     <Background>
       <Container>
-        <HeaderAdm isAuthenticated />
+        <HeaderAdm />
         <Content>
           <Link
             to="/dashboard"

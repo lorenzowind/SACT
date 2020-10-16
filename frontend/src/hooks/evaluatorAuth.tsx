@@ -8,13 +8,11 @@ interface Evaluator {
   occupation_area: string;
   institution: string;
   phone_number: string;
-  cpf: string;
   status: 'to_evaluate' | 'rated';
-  password: string;
 }
 
 interface SignInCredentials {
-  cpf: string;
+  email: string;
 }
 
 interface EvaluatorAuthState {
@@ -24,6 +22,7 @@ interface EvaluatorAuthState {
 
 interface EvaluatorAuthContextData {
   evaluator: Evaluator;
+  token: string;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
   updateEvaluator(evaluator: Evaluator): void;
@@ -47,9 +46,9 @@ const EvaluatorAuthProvider: React.FC = ({ children }) => {
     return {} as EvaluatorAuthState;
   });
 
-  const signIn = useCallback(async ({ cpf }) => {
+  const signIn = useCallback(async ({ email }) => {
     const response = await api.post<EvaluatorAuthState>('evaluators/sessions', {
-      cpf,
+      email,
     });
 
     const { token, evaluator } = response.data;
@@ -83,7 +82,13 @@ const EvaluatorAuthProvider: React.FC = ({ children }) => {
 
   return (
     <EvaluatorAuthContext.Provider
-      value={{ evaluator: data.evaluator, signIn, signOut, updateEvaluator }}
+      value={{
+        evaluator: data.evaluator,
+        token: data.token,
+        signIn,
+        signOut,
+        updateEvaluator,
+      }}
     >
       {children}
     </EvaluatorAuthContext.Provider>

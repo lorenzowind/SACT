@@ -1,32 +1,40 @@
+import { shade } from 'polished';
 import styled from 'styled-components';
 
-export const Header = styled.header`
-  width: 100%;
-  height: max-content;
+export const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: row;
+  position: absolute;
 
-  div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    float: right;
-    margin-right: 20px;
-    text-align: right;
-    color: '#707070';
-    line-height: 20px;
-    font-size: 14pt;
+  min-width: 100vw;
+  height: 100px;
+  padding-right: 3rem;
+
+  svg {
+    color: var(--warm-gray);
+    margin: 0 1rem 0 3rem;
   }
 
-  div a {
-    align-items: center;
-    float: right;
-    text-decoration: none;
-    cursor: pointer;
-    color: '#707070';
-    line-height: 20px;
-    font-size: 14pt;
+  button {
+    background: none;
+    border: 0;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--warm-gray);
+    transition: color 0.2s;
+
+    &:hover {
+      color: ${shade(0.2, '#777')};
+    }
   }
 
-  div a:visited {
-    color: '#707070';
+  strong {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--warm-gray);
   }
 `;

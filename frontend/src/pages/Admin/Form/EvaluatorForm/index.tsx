@@ -1,110 +1,157 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback, useState, useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { Form } from '@unform/web';
+import { FormHandles } from '@unform/core';
+import * as Yup from 'yup';
 
-import HeaderAdm from '../../../../components/Header';
-import BackImg from '../../../../assets/icon_back.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+
+import api from '../../../../services/api';
+
+import getValidationErrors from '../../../../utils/getValidationErrors';
+
+import { useToast } from '../../../../hooks/toast';
 
 import {
   Background,
   Container,
-  Content,
-  EvaluatorRegisterForm,
-  InputGroupEvaluator,
-  ButtonForm,
+  SecondaryHeader,
+  InputsContainer,
 } from './styles';
 
+import Header from '../../../../components/Header';
+import Loading from '../../../../components/Loading';
+import Input from '../../../../components/Input';
+import Button from '../../../../components/Button';
+import Select from '../../../../components/Select';
+
+export interface IEvaluatorOperationsData {
+  name: string;
+  occupation_area: 'Eletrônica' | 'Informática' | 'Mecatrônica' | '0';
+  institution: string;
+  phone_number: string;
+  email: string;
+}
+
 const EvaluatorForm: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
+
+  const [loading, setLoading] = useState(false);
+
+  const { addToast } = useToast();
+
+  const handleSubmit = useCallback(
+    async (data: IEvaluatorOperationsData) => {
+      try {
+        formRef.current?.setErrors({});
+
+        const schema = Yup.object().shape({
+          name: Yup.string().required(),
+          occupation_area: Yup.mixed().test('match', '', () => {
+            return data.occupation_area !== '0';
+          }),
+          institution: Yup.string().required(),
+          phone_number: Yup.string().required(),
+          email: Yup.string().email().required(),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        const evaluatorData: IEvaluatorOperationsData = {
+          name: data.name,
+          occupation_area: data.occupation_area,
+          institution: data.institution,
+          phone_number: data.phone_number,
+          email: data.email,
+        };
+
+        setLoading(true);
+
+        await api.post('evaluators', evaluatorData);
+
+        addToast({
+          type: 'success',
+          title: 'Avaliador criado com sucesso',
+        });
+
+        history.push('/evaluators');
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+
+          formRef.current?.setErrors(errors);
+
+          return;
+        }
+
+        addToast({
+          type: 'error',
+          title: 'Erro na criação de avaliador',
+        });
+      } finally {
+        setLoading(false);
+      }
+    },
+    [addToast, history],
+  );
+
   return (
-    <Background>
-      <Container>
-        <HeaderAdm isAuthenticated />
-        <Content>
-          <Link
-            to="/evaluators"
-            style={{
-              gridArea: 'back',
-              height: 71,
-              cursor: 'pointer',
-              marginTop: 10,
-            }}
-          >
-            <img src={BackImg} alt="Voltar" height={71} />
+    <>
+      {loading && <Loading zIndex={1} />}
+
+      <Header />
+
+      <Background>
+        <SecondaryHeader>
+          <Link to="evaluators">
+            <FontAwesomeIcon size="3x" icon={faChevronLeft} />
           </Link>
-          <EvaluatorRegisterForm>
-            <h1
-              style={{
-                position: 'absolute',
-                textAlign: 'center',
-                left: '35%',
-                top: 100,
-                color: '#676060',
-              }}
-            >
-              <u>Cadastro de Avaliador</u>
-            </h1>
-            <InputGroupEvaluator style={{ gridArea: 'name' }}>
-              <label htmlFor="name">1. Nome</label>
-              <input type="text" id="name" />
-            </InputGroupEvaluator>
-            <InputGroupEvaluator style={{ gridArea: 'area' }}>
-              <label htmlFor="area">2. Área de atuação</label>
-              <input type="text" id="area" />
-            </InputGroupEvaluator>
-            <InputGroupEvaluator style={{ gridArea: 'instituicao' }}>
-              <label htmlFor="instituicao">3. Instituição que representa</label>
-              <input type="text" id="instituicao" />
-            </InputGroupEvaluator>
-            <InputGroupEvaluator style={{ gridArea: 'telefone' }}>
-              <label htmlFor="telefone">4. Telefone</label>
-              <input type="tel" id="telefone" />
-            </InputGroupEvaluator>
-            <InputGroupEvaluator style={{ gridArea: 'email' }}>
-              <label htmlFor="email">5. E-mail</label>
-              <input type="email" id="email" />
-            </InputGroupEvaluator>
-            <InputGroupEvaluator style={{ gridArea: 'cpf' }}>
-              <label htmlFor="cpf">6. CPF</label>
-              <input type="number" id="cpf" />
-            </InputGroupEvaluator>
-            <InputGroupEvaluator style={{ gridArea: 'projetos' }}>
-              <label htmlFor="projetos">7. Projetos que irá avaliar</label>
-              <select id="projetos" style={{ marginTop: 15 }}>
-                <option value="proj1">Projeto 1</option>
-              </select>
-              <select id="projetos" style={{ marginTop: 15 }}>
-                <option value="proj1">Projeto 1</option>
-              </select>
-              <select id="projetos" style={{ marginTop: 15 }}>
-                <option value="proj1">Projeto 1</option>
-              </select>
-              <select id="projetos" style={{ marginTop: 15 }}>
-                <option value="proj1">Projeto 1</option>
-              </select>
-              <select id="projetos" style={{ marginTop: 15 }}>
-                <option value="proj1">Projeto 1</option>
-              </select>
-            </InputGroupEvaluator>
+          <strong>Cadastro de avaliador</strong>
+        </SecondaryHeader>
 
-            <InputGroupEvaluator style={{ gridArea: 'status' }}>
-              <label htmlFor="status">6. Status de Avaliador</label>
-              <select id="status">
-                <option value="status1">Status 1</option>
-              </select>
-            </InputGroupEvaluator>
+        <Container>
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <InputsContainer>
+              <strong>1. Nome do avaliador</strong>
+              <Input name="name" type="text" placeholder="Nome" />
 
-            <footer
-              style={{
-                gridArea: 'button',
-                marginTop: 60,
-                marginLeft: '45%',
-              }}
-            >
-              <ButtonForm type="submit">Salvar</ButtonForm>
-            </footer>
-          </EvaluatorRegisterForm>
-        </Content>
-      </Container>
-    </Background>
+              <strong>2. Área de atuação</strong>
+              <Select name="occupation_area" defaultValue="0">
+                <option value="0" disabled>
+                  Selecione área de atuação
+                </option>
+                <option key="occupation_area_01" value="Eletrônica">
+                  Eletrônica
+                </option>
+                <option key="occupation_area_02" value="Informática">
+                  Informática
+                </option>
+                <option key="occupation_area_03" value="Mecatrônica">
+                  Mecatrônica
+                </option>
+              </Select>
+            </InputsContainer>
+
+            <InputsContainer>
+              <strong>3. Instituição</strong>
+              <Input name="institution" type="text" placeholder="Instituição" />
+
+              <strong>4. Número de telefone</strong>
+              <Input name="phone_number" type="number" placeholder="Número" />
+
+              <strong>5. Email</strong>
+              <Input name="email" type="text" placeholder="Email" />
+
+              <Button type="submit">Criar</Button>
+            </InputsContainer>
+          </Form>
+        </Container>
+      </Background>
+    </>
   );
 };
 
