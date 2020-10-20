@@ -9,15 +9,11 @@ export const Background = styled.div`
   background-image: url(${backgroundImg});
   background-size: cover;
   padding-top: 60px;
-  overflow-y: hidden;
   overflow-x: hidden;
 `;
 
 export const SecondaryHeader = styled.div`
-  position: absolute;
-  padding-top: 80px;
-  width: 100%;
-  top: 0;
+  padding-top: 40px;
 
   display: flex;
   justify-content: center;
@@ -48,8 +44,8 @@ export const SecondaryHeader = styled.div`
 `;
 
 export const Container = styled.div`
-  height: 700px;
-  padding-top: 120px;
+  height: 500px;
+  padding-top: 60px;
 
   form {
     display: flex;
@@ -64,7 +60,7 @@ export const Container = styled.div`
 `;
 
 export const InputsContainer = styled.div`
-  height: 700px;
+  height: 500px;
   display: flex;
   flex-direction: column;
 

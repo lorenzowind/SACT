@@ -8,7 +8,8 @@ export const Container = styled.div`
   flex-direction: row;
   position: absolute;
 
-  min-width: 100vw;
+  top: 0;
+  right: 0;
   height: 100px;
   padding-right: 3rem;
 
