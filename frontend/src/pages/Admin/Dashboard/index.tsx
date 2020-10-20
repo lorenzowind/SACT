@@ -21,25 +21,36 @@ import {
 import Header from '../../../components/Header';
 import Loading from '../../../components/Loading';
 import InfoModal from '../../../components/Modal/InfoModal';
+import AvaliationsProgressModal from '../../../components/Modal/AvaliationsProgressModal';
+import EvaluatorsProgressModal from '../../../components/Modal/EvaluatorsProgressModal';
 
 import iconTrophy from '../../../assets/icon_trophy.png';
 import iconReport from '../../../assets/icon_report.png';
 import iconInfo from '../../../assets/icon_info.png';
 
-interface EvaluatorData {
-  id: string;
+import { EvaluatorData } from '../Evaluators';
+import { ProjectData } from '../Projects';
+
+export interface Evaluator extends EvaluatorData {
   status: 'to_evaluate' | 'rated';
 }
 
-type AvaliationData = EvaluatorData;
+export interface Avaliation {
+  id: string;
+  evaluator_id: string;
+  project: ProjectData;
+  status: 'to_evaluate' | 'rated';
+}
 
 const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
-  const [evaluators, setEvaluators] = useState<EvaluatorData[]>([]);
-  const [avaliations, setAvaliations] = useState<AvaliationData[]>([]);
+  const [evaluators, setEvaluators] = useState<Evaluator[]>([]);
+  const [avaliations, setAvaliations] = useState<Avaliation[]>([]);
 
   const [infoOpen, setInfoOpen] = useState(false);
+  const [avaliationsProgressOpen, setAvaliationsProgressOpen] = useState(false);
+  const [evaluatorsProgressOpen, setEvaluatorsProgressOpen] = useState(false);
 
   const { addToast } = useToast();
 
@@ -48,11 +59,11 @@ const Dashboard: React.FC = () => {
       try {
         setLoading(true);
 
-        await api.get<AvaliationData[]>('avaliations/all').then(response => {
+        await api.get<Avaliation[]>('avaliations/all').then(response => {
           setAvaliations(response.data);
         });
 
-        await api.get<EvaluatorData[]>('evaluators/all').then(response => {
+        await api.get<Evaluator[]>('evaluators/all').then(response => {
           setEvaluators(response.data);
         });
       } catch (err) {
@@ -81,6 +92,14 @@ const Dashboard: React.FC = () => {
     setInfoOpen(!infoOpen);
   }, [infoOpen]);
 
+  const toggleModalAvaliationsProgress = useCallback(() => {
+    setAvaliationsProgressOpen(!avaliationsProgressOpen);
+  }, [avaliationsProgressOpen]);
+
+  const toggleModalEvaluatorsProgress = useCallback(() => {
+    setEvaluatorsProgressOpen(!evaluatorsProgressOpen);
+  }, [evaluatorsProgressOpen]);
+
   return (
     <>
       {loading && <Loading zIndex={1} />}
@@ -89,6 +108,19 @@ const Dashboard: React.FC = () => {
         text="Funcionalidade ainda não implementada!"
         isOpen={infoOpen}
         setIsOpen={toggleModalInfo}
+      />
+
+      <AvaliationsProgressModal
+        avaliations={avaliations}
+        isOpen={avaliationsProgressOpen}
+        setIsOpen={toggleModalAvaliationsProgress}
+      />
+
+      <EvaluatorsProgressModal
+        evaluators={evaluators}
+        avaliations={avaliations}
+        isOpen={evaluatorsProgressOpen}
+        setIsOpen={toggleModalEvaluatorsProgress}
       />
 
       <Header />
@@ -101,7 +133,7 @@ const Dashboard: React.FC = () => {
               <strong>Ranking</strong>
             </RankingContainer>
 
-            <AvaliationsContainer onClick={toggleModalInfo}>
+            <AvaliationsContainer onClick={toggleModalAvaliationsProgress}>
               <strong>
                 <b>{concludedAvaliations}</b>
                 {`/${avaliations.length}`}
@@ -139,7 +171,7 @@ const Dashboard: React.FC = () => {
             </ReportsContainer>
 
             <section>
-              <EvaluatorsContainer onClick={toggleModalInfo}>
+              <EvaluatorsContainer onClick={toggleModalEvaluatorsProgress}>
                 <strong>
                   <b>{concludedEvaluators}</b>
                   {`/${evaluators.length}`}

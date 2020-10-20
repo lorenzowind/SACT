@@ -41,18 +41,9 @@ const ProjectModal: React.FC<IModalProps> = ({
 
   const [loading, setLoading] = useState(false);
 
-  const [currentMember, setCurrentMember] = useState('');
-  const [members, setMembers] = useState<String[]>([]);
-
   const [classroomsArray] = useState(getClassroomsArray());
 
   const { addToast } = useToast();
-
-  useEffect(() => {
-    if (project.members) {
-      setMembers(project.members.split(', '));
-    }
-  }, [project]);
 
   const handleDelete = useCallback(async () => {
     try {
@@ -85,6 +76,7 @@ const ProjectModal: React.FC<IModalProps> = ({
         const schema = Yup.object().shape({
           name: Yup.string().required(),
           description: Yup.string().required(),
+          members: Yup.string().required(),
           classroom: Yup.mixed().test('match', '', () => {
             return data.classroom !== '0';
           }),
@@ -94,10 +86,6 @@ const ProjectModal: React.FC<IModalProps> = ({
         await schema.validate(data, {
           abortEarly: false,
         });
-
-        if (!members.length) {
-          throw new Error();
-        }
 
         let occupation_area;
 
@@ -114,7 +102,7 @@ const ProjectModal: React.FC<IModalProps> = ({
           description: data.description,
           occupation_area,
           classroom: data.classroom,
-          members: members.join(', '),
+          members: data.members,
           observations: data.observations,
         };
 
@@ -146,21 +134,8 @@ const ProjectModal: React.FC<IModalProps> = ({
         setLoading(false);
       }
     },
-    [addToast, members, project.id, setIsOpen, setToRefresh],
+    [addToast, project.id, setIsOpen, setToRefresh],
   );
-
-  const handleAddMember = useCallback(() => {
-    if (currentMember !== '') {
-      setMembers([...members, currentMember]);
-      setCurrentMember('');
-    }
-  }, [currentMember, members]);
-
-  const handleRemoveMember = useCallback((index: number) => {
-    setMembers(state =>
-      state.filter((_member, curIndex) => curIndex !== index),
-    );
-  }, []);
 
   return (
     <>
@@ -202,30 +177,12 @@ const ProjectModal: React.FC<IModalProps> = ({
             </Select>
 
             <strong>Integrantes</strong>
-            <div>
-              <input
-                type="text"
-                placeholder="Nome"
-                value={currentMember}
-                onChange={e => setCurrentMember(e.target.value)}
-              />
-              <button type="button" onClick={handleAddMember}>
-                <IoIosAdd />
-              </button>
-            </div>
-            <section>
-              {members.map((member, index) => (
-                <nav key={`${member}_${index}`}>
-                  <h2>{member}</h2>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveMember(index)}
-                  >
-                    X
-                  </button>
-                </nav>
-              ))}
-            </section>
+            <Input
+              name="members"
+              type="text"
+              placeholder="Integrantes"
+              defaultValue={project.members}
+            />
 
             <strong>Observações</strong>
             <Textarea

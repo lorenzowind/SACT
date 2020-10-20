@@ -37,12 +37,6 @@ export const Container = styled.div`
       align-items: center;
       justify-content: center;
 
-      background: white;
-
-      border-radius: 10px;
-      box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.16);
-      border: solid 0.5px var(--warm-gray);
-
       input {
         flex: 1;
         background: transparent;
@@ -53,59 +47,6 @@ export const Container = styled.div`
 
       select {
         font-size: 14px;
-      }
-
-      button {
-        background: none;
-        border: 0;
-        margin-left: 16px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        svg {
-          color: var(--primary);
-          width: 28px;
-          height: 28px;
-          transition: color 0.2s;
-
-          &:hover {
-            color: ${shade(0.2, '#0000fb')};
-          }
-        }
-      }
-    }
-
-    section {
-      max-height: 90px;
-      overflow-y: auto;
-      width: 400px;
-      margin-bottom: 10px;
-
-      nav {
-        margin: 0 10px 10px 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-direction: row;
-
-        h2 {
-          font-size: 14px;
-          font-weight: 400;
-          color: var(--dark-gray);
-        }
-
-        button {
-          background: none;
-          border: 0;
-          color: #c53030;
-
-          svg {
-            width: 28px;
-            height: 28px;
-          }
-        }
       }
     }
 
