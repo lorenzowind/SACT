@@ -20,9 +20,9 @@ import {
 
 import Header from '../../../components/Header';
 import Loading from '../../../components/Loading';
-import InfoModal from '../../../components/Modal/InfoModal';
-import AvaliationsProgressModal from '../../../components/Modal/AvaliationsProgressModal';
-import EvaluatorsProgressModal from '../../../components/Modal/EvaluatorsProgressModal';
+import InfoModal from '../../../components/Admin/Modal/InfoModal';
+import AvaliationsProgressModal from '../../../components/Admin/Modal/AvaliationsProgressModal';
+import EvaluatorsProgressModal from '../../../components/Admin/Modal/EvaluatorsProgressModal';
 
 import iconTrophy from '../../../assets/icon_trophy.png';
 import iconReport from '../../../assets/icon_report.png';

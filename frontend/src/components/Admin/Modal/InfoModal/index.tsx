@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Modal from '..';
+import Button from '../../../Button';
 
 import { Container, CloseModal } from './styles';
-import Button from '../../Button';
 
 interface IModalProps {
   text: string;

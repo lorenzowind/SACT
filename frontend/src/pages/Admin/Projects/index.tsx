@@ -20,7 +20,7 @@ import {
 
 import Header from '../../../components/Header';
 import Loading from '../../../components/Loading';
-import ProjectModal from '../../../components/Modal/ProjectModal';
+import ProjectModal from '../../../components/Admin/Modal/ProjectModal';
 
 import { IProjectOperationData } from '../Form/ProjectForm';
 

@@ -4,24 +4,24 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
 import { FiTrash } from 'react-icons/fi';
-import api from '../../../services/api';
+import api from '../../../../services/api';
 
-import getValidationErrors from '../../../utils/getValidationErrors';
-import getClassroomsArray from '../../../utils/getClassroomsArray';
+import getValidationErrors from '../../../../utils/getValidationErrors';
+import getClassroomsArray from '../../../../utils/getClassroomsArray';
 
-import { useToast } from '../../../hooks/toast';
+import { useToast } from '../../../../hooks/toast';
 
 import Modal from '..';
-import Loading from '../../Loading';
-import Input from '../../Input';
-import Button from '../../Button';
-import Textarea from '../../Textarea';
-import Select from '../../Select';
+import Loading from '../../../Loading';
+import Input from '../../../Input';
+import Button from '../../../Button';
+import Textarea from '../../../Textarea';
+import Select from '../../../Select';
 
 import { Container, CloseModal } from './styles';
 
-import { IProjectOperationData } from '../../../pages/Admin/Form/ProjectForm';
-import { ProjectData } from '../../../pages/Admin/Projects';
+import { IProjectOperationData } from '../../../../pages/Admin/Form/ProjectForm';
+import { ProjectData } from '../../../../pages/Admin/Projects';
 
 interface IModalProps {
   project: ProjectData;

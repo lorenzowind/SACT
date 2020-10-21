@@ -3,18 +3,18 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
-import api from '../../../services/api';
+import api from '../../../../services/api';
 
-import { useToast } from '../../../hooks/toast';
+import { useToast } from '../../../../hooks/toast';
 
-import getValidationErrors from '../../../utils/getValidationErrors';
+import getValidationErrors from '../../../../utils/getValidationErrors';
 
 import Modal from '..';
-import Loading from '../../Loading';
-import Button from '../../Button';
+import Loading from '../../../Loading';
+import Button from '../../../Button';
+import Input from '../../../Input';
 
 import { Container, CloseModal } from './styles';
-import Input from '../../Input';
 
 interface IModalProps {
   isOpen: boolean;

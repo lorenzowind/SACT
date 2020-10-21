@@ -17,7 +17,7 @@ import Input from '../../../components/Input';
 import Loading from '../../../components/Loading';
 import Button from '../../../components/Button';
 import Header from '../../../components/Header';
-import ForgotPasswordModal from '../../../components/Modal/ForgotPasswordModal';
+import ForgotPasswordModal from '../../../components/Admin/Modal/ForgotPasswordModal';
 
 interface AdminSignInFormData {
   ra: string;

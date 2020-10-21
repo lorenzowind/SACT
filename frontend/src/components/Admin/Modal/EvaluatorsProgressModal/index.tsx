@@ -4,9 +4,9 @@ import { FiCheck } from 'react-icons/fi';
 import { Container, CloseModal } from './styles';
 
 import Modal from '..';
-import Button from '../../Button';
+import Button from '../../../Button';
 
-import { Avaliation, Evaluator } from '../../../pages/Admin/Dashboard';
+import { Avaliation, Evaluator } from '../../../../pages/Admin/Dashboard';
 
 interface IModalProps {
   evaluators: Evaluator[];

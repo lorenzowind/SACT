@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import api from '../../../services/api';
@@ -15,6 +15,7 @@ import { useEvaluatorAuth } from '../../../hooks/evaluatorAuth';
 import { useEvaluatorAvaliation } from '../../../hooks/evaluatorAvaliation';
 
 import Loading from '../../../components/Loading';
+import InfoModal from '../../../components/Evaluator/Modal/InfoModal';
 
 export interface AvaliationData {
   id: string;
@@ -38,8 +39,13 @@ const ProjectsList: React.FC = () => {
   const [avaliations, setAvaliations] = useState<AvaliationData[]>([]);
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [empty, setEmpty] = useState(false);
+
+  const [textInfo, setTextInfo] = useState('');
+  const [infoOpen, setInfoOpen] = useState(false);
+
+  const toggleModalInfo = useCallback(() => {
+    setInfoOpen(!infoOpen);
+  }, [infoOpen]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -52,63 +58,85 @@ const ProjectsList: React.FC = () => {
             setAvaliations(response.data);
 
             if (!response.data.length) {
-              setEmpty(true);
+              setTextInfo(
+                'ATENÇÃO! Você não possui fichas de avaliação no momento!',
+              );
+            } else {
+              const toEvaluateExists = response.data.find(
+                avaliation => avaliation.status === 'to_evaluate',
+              );
+
+              if (!toEvaluateExists) {
+                setTextInfo(
+                  'PARABÉNS! Você concluiu todas as suas fichas de avaliações!',
+                );
+              }
             }
           });
       } catch (err) {
-        setError(true);
+        setTextInfo(
+          'ATENÇÃO! Não foi possível carregar as fichas de avaliação!',
+        );
       } finally {
         setLoading(false);
       }
     };
 
     loadData();
-  }, [evaluator.id]);
+  }, [evaluator.id, textInfo]);
+
+  useEffect(() => {
+    if (textInfo) {
+      setInfoOpen(true);
+    }
+  }, [textInfo]);
 
   return (
     <>
       {loading && <Loading zIndex={1} />}
 
+      <InfoModal
+        text={textInfo}
+        isOpen={infoOpen}
+        setIsOpen={toggleModalInfo}
+      />
+
       <Background>
         <Main>
-          {empty ? (
-            <strong>Não há projetos para avaliar</strong>
-          ) : (
-            avaliations.map(avaliation => {
-              return (
-                <CardContainer
-                  key={avaliation.id}
-                  onClick={() => {
+          {avaliations.map(avaliation => {
+            return (
+              <CardContainer
+                key={avaliation.id}
+                onClick={() => {
+                  if (avaliation.status !== 'rated') {
                     setSelectedAvaliationState(avaliation);
                     history.push('project-info');
-                  }}
-                >
-                  <div>
-                    <BasicCard>
+                  }
+                }}
+              >
+                <div>
+                  <BasicCard>
+                    <div>
+                      <TitleCard done={avaliation.status === 'rated'}>
+                        {avaliation.project.name}
+                      </TitleCard>
+
                       <div>
-                        <TitleCard done={avaliation.status === 'rated'}>
-                          {avaliation.project.name}
-                        </TitleCard>
-
-                        <div>
-                          <h1>{avaliation.project.classroom}</h1>
-                          <p>{avaliation.project.occupation_area}</p>
-                        </div>
+                        <h1>{avaliation.project.classroom}</h1>
+                        <p>{avaliation.project.occupation_area}</p>
                       </div>
+                    </div>
 
-                      {avaliation.project.members
-                        .split(', ')
-                        .map((member, indexMember) => {
-                          return <p key={`member-${indexMember}`}>{member}</p>;
-                        })}
-                    </BasicCard>
-                  </div>
-                </CardContainer>
-              );
-            })
-          )}
-
-          {error && <strong>Erro na busca por projetos</strong>}
+                    {avaliation.project.members
+                      .split(', ')
+                      .map((member, indexMember) => {
+                        return <p key={`member-${indexMember}`}>{member}</p>;
+                      })}
+                  </BasicCard>
+                </div>
+              </CardContainer>
+            );
+          })}
         </Main>
       </Background>
     </>

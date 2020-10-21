@@ -18,7 +18,7 @@ import {
 
 import Header from '../../../components/Header';
 import Loading from '../../../components/Loading';
-import QuestionModal from '../../../components/Modal/QuestionModal';
+import QuestionModal from '../../../components/Admin/Modal/QuestionModal';
 
 import { IQuestionOperationsData } from '../Form/QuestionForm';
 

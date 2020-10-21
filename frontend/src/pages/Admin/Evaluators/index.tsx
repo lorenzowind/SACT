@@ -21,7 +21,7 @@ import {
 
 import Header from '../../../components/Header';
 import Loading from '../../../components/Loading';
-import EvaluatorModal from '../../../components/Modal/EvaluatorModal';
+import EvaluatorModal from '../../../components/Admin/Modal/EvaluatorModal';
 
 import { IEvaluatorOperationsData } from '../Form/EvaluatorForm';
 

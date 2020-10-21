@@ -14,6 +14,7 @@ import logoImg from '../../../assets/logo.png';
 
 import Input from '../../../components/Input';
 import Loading from '../../../components/Loading';
+import InfoModal from '../../../components/Evaluator/Modal/InfoModal';
 
 interface EvaluatorSignInFormData {
   email: string;
@@ -25,6 +26,7 @@ const SignIn: React.FC = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
 
   const { signIn } = useEvaluatorAuth();
 
@@ -69,9 +71,19 @@ const SignIn: React.FC = () => {
     [history, signIn],
   );
 
+  const toggleModalInfo = useCallback(() => {
+    setInfoOpen(!infoOpen);
+  }, [infoOpen]);
+
   return (
     <>
       {loading && <Loading zIndex={1} />}
+
+      <InfoModal
+        text="Você já concluiu todas as suas fichas de avaliações!\nVocê não pode navegar na aplicação!"
+        isOpen={infoOpen}
+        setIsOpen={toggleModalInfo}
+      />
 
       <Background>
         <Main>
