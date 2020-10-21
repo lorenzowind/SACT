@@ -6,6 +6,8 @@ import IAvaliationsRepository from '@modules/avaliations/repositories/IAvaliatio
 import IEvaluatorsRepository from '@modules/evaluators/repositories/IEvaluatorsRepository';
 import IProjectsRepository from '@modules/projects/repositories/IProjectsRepository';
 
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+
 import ICreateAvaliations from '../dtos/ICreateAvaliationsRequestDTO';
 
 import Avaliation from '../infra/typeorm/entities/Avaliation';
@@ -21,6 +23,9 @@ class CreateAvaliationService {
 
     @inject('ProjectsRepository')
     private projectsRepository: IProjectsRepository,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -35,7 +40,23 @@ class CreateAvaliationService {
       throw new AppError('Informed evaluator does not exists.');
     }
 
+    const oldAvaliations = await this.avaliationsRepository.findAllAvaliationsByEvaluatorId(
+      evaluator_id,
+    );
+
+    for (let index = 0; index < oldAvaliations.length; index += 1) {
+      const avaliationAlreadyExists = projects.find(
+        project => project.project_id === oldAvaliations[index].project_id,
+      );
+
+      if (!avaliationAlreadyExists) {
+        await this.avaliationsRepository.remove(oldAvaliations[index]);
+      }
+    }
+
     const avaliations: Avaliation[] = [];
+
+    let updateEvaluator = true;
 
     for (let index = 0; index < projects.length; index += 1) {
       const checkProjectExists = await this.projectsRepository.findById(
@@ -46,15 +67,34 @@ class CreateAvaliationService {
         throw new AppError('Informed project does not exists.');
       }
 
-      const avaliation = await this.avaliationsRepository.create({
-        evaluator_id,
-        project_id: projects[index].project_id,
-        comments: '',
-        status: 'to_evaluate',
-      });
+      const avaliationAlreadyExists = oldAvaliations.find(
+        oldAvaliation =>
+          oldAvaliation.project_id === projects[index].project_id,
+      );
 
-      avaliations.push(avaliation);
+      if (!avaliationAlreadyExists) {
+        const avaliation = await this.avaliationsRepository.create({
+          evaluator_id,
+          project_id: projects[index].project_id,
+          comments: '',
+          status: 'to_evaluate',
+        });
+
+        avaliations.push(avaliation);
+
+        if (updateEvaluator) {
+          updateEvaluator = false;
+
+          checkEvaluatorExists.status = 'to_evaluate';
+
+          await this.evaluatorsRepository.save(checkEvaluatorExists);
+        }
+      } else {
+        avaliations.push(avaliationAlreadyExists);
+      }
     }
+
+    await this.cacheProvider.invalidatePrefix('evaluators-list');
 
     return avaliations;
   }

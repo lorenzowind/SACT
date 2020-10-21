@@ -9,6 +9,8 @@ const avaliationsRouter = Router();
 
 const avaliationsController = new AvaliationsController();
 
+avaliationsRouter.get('/all', ensureAuthenticated, avaliationsController.all);
+
 avaliationsRouter.get(
   '/:evaluator_id',
   ensureAuthenticated,

@@ -16,7 +16,9 @@ questionsRouter.post(
   celebrate({
     [Segments.BODY]: {
       section: Joi.string().required(),
-      criterion: Joi.string(),
+      criterion: Joi.string().required(),
+      min_grade: Joi.number(),
+      max_grade: Joi.number(),
     },
   }),
   questionsController.create,
@@ -28,7 +30,9 @@ questionsRouter.put(
   celebrate({
     [Segments.BODY]: {
       section: Joi.string().required(),
-      criterion: Joi.string(),
+      criterion: Joi.string().required(),
+      min_grade: Joi.number(),
+      max_grade: Joi.number(),
     },
   }),
   questionsController.update,

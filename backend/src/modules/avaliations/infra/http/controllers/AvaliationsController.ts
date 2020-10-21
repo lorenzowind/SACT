@@ -2,11 +2,20 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import ListAvaliationsService from '@modules/avaliations/services/ListAvaliationsService';
+import ListAllAvaliationsService from '@modules/avaliations/services/ListAllAvaliationsService';
 import CreateAvaliationService from '@modules/avaliations/services/CreateAvaliationsService';
 import UpdateAvaliationService from '@modules/avaliations/services/UpdateAvaliationService';
 import DeleteAvaliationService from '@modules/avaliations/services/DeleteAvaliationService';
 
 export default class AvaliationsController {
+  public async all(request: Request, response: Response): Promise<Response> {
+    const listAvaliations = container.resolve(ListAllAvaliationsService);
+
+    const avaliations = await listAvaliations.execute();
+
+    return response.json(avaliations);
+  }
+
   public async show(request: Request, response: Response): Promise<Response> {
     const { evaluator_id } = request.params;
 

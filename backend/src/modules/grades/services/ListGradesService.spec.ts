@@ -7,6 +7,8 @@ import DraftQuestionsRepository from '@modules/questions/repositories/drafts/Dra
 import DraftEvaluatorsRepository from '@modules/evaluators/repositories/drafts/DraftEvaluatorsRepository';
 import DraftProjectsRepository from '@modules/projects/repositories/drafts/DraftProjectsRepository';
 
+import DraftCacheProvider from '@shared/container/providers/CacheProvider/drafts/DraftCacheProvider';
+
 import ListGradesService from './ListGradesService';
 import CreateGradesService from './CreateGradesService';
 
@@ -16,6 +18,8 @@ let draftGradesRepository: DraftGradesRepository;
 let draftQuestionsRepository: DraftQuestionsRepository;
 let draftEvaluatorsRepository: DraftEvaluatorsRepository;
 let draftProjectsRepository: DraftProjectsRepository;
+
+let draftCacheProvider: DraftCacheProvider;
 
 let listGrades: ListGradesService;
 let createGrades: CreateGradesService;
@@ -29,6 +33,8 @@ describe('ListGrades', () => {
     draftEvaluatorsRepository = new DraftEvaluatorsRepository();
     draftProjectsRepository = new DraftProjectsRepository();
 
+    draftCacheProvider = new DraftCacheProvider();
+
     listGrades = new ListGradesService(
       draftGradesRepository,
       draftAvaliationsRepository,
@@ -39,6 +45,7 @@ describe('ListGrades', () => {
       draftAvaliationsRepository,
       draftQuestionsRepository,
       draftEvaluatorsRepository,
+      draftCacheProvider,
     );
   });
 
@@ -69,16 +76,22 @@ describe('ListGrades', () => {
     const firstQuestion = await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     const secondQuestion = await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name II',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     const thirdQuestion = await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name III',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     await createGrades.execute({

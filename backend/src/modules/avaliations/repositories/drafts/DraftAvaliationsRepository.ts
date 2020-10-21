@@ -10,6 +10,10 @@ export default class DraftAvaliationsRepository
   implements IAvaliationsRepository {
   private avaliations: Avaliation[] = [];
 
+  public async findAllAvaliations(): Promise<Avaliation[]> {
+    return this.avaliations;
+  }
+
   public async findAllAvaliationsByEvaluatorId(
     evaluator_id: string,
   ): Promise<Avaliation[]> {

@@ -28,7 +28,7 @@ describe('SendForgotPasswordEmail', () => {
     );
   });
 
-  it('should be able to recover the password using the email', async () => {
+  it('should be able to recover the password using the RA', async () => {
     const sendMail = jest.spyOn(draftMailProvider, 'sendMail');
 
     await draftAdminsRepository.create({
@@ -39,7 +39,7 @@ describe('SendForgotPasswordEmail', () => {
     });
 
     await sendForgotPasswordEmail.execute({
-      email: 'johndoe@example.com',
+      ra: '111111',
     });
 
     expect(sendMail).toHaveBeenCalled();
@@ -48,7 +48,7 @@ describe('SendForgotPasswordEmail', () => {
   it('should not be able to recover a non existing admin password', async () => {
     await expect(
       sendForgotPasswordEmail.execute({
-        email: 'johndoe@example.com',
+        ra: '111111',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -64,7 +64,7 @@ describe('SendForgotPasswordEmail', () => {
     });
 
     await sendForgotPasswordEmail.execute({
-      email: 'johndoe@example.com',
+      ra: '111111',
     });
 
     expect(generateToken).toHaveBeenCalledWith(admin.id);

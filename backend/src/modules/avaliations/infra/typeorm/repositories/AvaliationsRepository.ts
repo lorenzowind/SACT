@@ -14,6 +14,12 @@ class AvaliationsRepository implements IAvaliationsRepository {
     this.ormRepository = getRepository(Avaliation);
   }
 
+  public async findAllAvaliations(): Promise<Avaliation[]> {
+    const avaliations = await this.ormRepository.find();
+
+    return avaliations;
+  }
+
   public async findAllAvaliationsByEvaluatorId(
     evaluator_id: string,
   ): Promise<Avaliation[]> {
