@@ -15,7 +15,13 @@ class Question {
   section: string;
 
   @Column()
-  criterion?: string;
+  criterion: string;
+
+  @Column()
+  min_grade: number;
+
+  @Column()
+  max_grade: number;
 
   @CreateDateColumn()
   created_at: Date;

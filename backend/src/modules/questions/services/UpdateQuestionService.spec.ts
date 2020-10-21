@@ -28,12 +28,16 @@ describe('UpdateQuestion', () => {
     const question = await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     const updatedQuestion = await updateQuestion.execute({
       id: question.id,
       section: 'Section Name II',
       criterion: 'Criterion Name II',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     expect(updatedQuestion.section).toBe('Section Name II');
@@ -46,6 +50,8 @@ describe('UpdateQuestion', () => {
         id: 'non existing question id',
         section: 'Section Name II',
         criterion: 'Criterion Name II',
+        min_grade: 6,
+        max_grade: 10,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

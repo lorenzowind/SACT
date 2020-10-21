@@ -1,0 +1,20 @@
+[
+  {
+    "name": "default",
+    "type": "mysql",
+    "host": "192.168.99.100",
+    "port": 3306,
+    "username": "root",
+    "password": "root",
+    "database": "sact",
+    "entities": [
+      "./src/modules/**/infra/typeorm/entities/*.ts"
+    ],
+    "migrations": [
+      "./src/shared/infra/typeorm/database/migrations/*.ts"
+    ],
+    "cli": {
+      "migrationsDir": "./src/shared/infra/typeorm/database/migrations"
+    }
+  }
+]

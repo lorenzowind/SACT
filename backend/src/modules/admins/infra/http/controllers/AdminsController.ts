@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { classToClass } from 'class-transformer';
 
 import ListAdminsService from '@modules/admins/services/ListAdminsService';
 import CreateAdminService from '@modules/admins/services/CreateAdminService';
@@ -17,7 +16,7 @@ export default class AdminsController {
 
     const admins = await listAdmins.execute(String(search), admin_id);
 
-    return response.json(classToClass(admins));
+    return response.json(admins);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
@@ -27,7 +26,7 @@ export default class AdminsController {
 
     const admin = await createAdmin.execute({ name, ra, email, password });
 
-    return response.json(classToClass(admin));
+    return response.json(admin);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
@@ -38,7 +37,7 @@ export default class AdminsController {
 
     const admin = await updateAdmin.execute({ id, name, ra, email, password });
 
-    return response.json(classToClass(admin));
+    return response.json(admin);
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {

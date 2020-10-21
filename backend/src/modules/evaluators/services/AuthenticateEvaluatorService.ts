@@ -33,7 +33,7 @@ class AuthenticateEvaluatorService {
     }
 
     if (evaluator.status === 'rated') {
-      throw new AppError('All projects have already been evaluated.', 401);
+      throw new AppError('All projects have already been evaluated.', 403);
     }
 
     const { secret, expiresIn } = authConfig.jwt;

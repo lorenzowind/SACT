@@ -4,8 +4,9 @@ import DraftGradesRepository from '@modules/grades/repositories/drafts/DraftGrad
 import DraftAvaliationsRepository from '@modules/avaliations/repositories/drafts/DraftAvaliationsRepository';
 import DraftQuestionsRepository from '@modules/questions/repositories/drafts/DraftQuestionsRepository';
 import DraftEvaluatorsRepository from '@modules/evaluators/repositories/drafts/DraftEvaluatorsRepository';
-
 import DraftProjectsRepository from '@modules/projects/repositories/drafts/DraftProjectsRepository';
+
+import DraftCacheProvider from '@shared/container/providers/CacheProvider/drafts/DraftCacheProvider';
 
 import CreateGradesService from './CreateGradesService';
 
@@ -13,8 +14,9 @@ let draftGradesRepository: DraftGradesRepository;
 let draftAvaliationsRepository: DraftAvaliationsRepository;
 let draftQuestionsRepository: DraftQuestionsRepository;
 let draftEvaluatorsRepository: DraftEvaluatorsRepository;
-
 let draftProjectsRepository: DraftProjectsRepository;
+
+let draftCacheProvider: DraftCacheProvider;
 
 let createGrades: CreateGradesService;
 
@@ -24,14 +26,16 @@ describe('CreateGrades', () => {
     draftAvaliationsRepository = new DraftAvaliationsRepository();
     draftQuestionsRepository = new DraftQuestionsRepository();
     draftEvaluatorsRepository = new DraftEvaluatorsRepository();
-
     draftProjectsRepository = new DraftProjectsRepository();
+
+    draftCacheProvider = new DraftCacheProvider();
 
     createGrades = new CreateGradesService(
       draftGradesRepository,
       draftAvaliationsRepository,
       draftQuestionsRepository,
       draftEvaluatorsRepository,
+      draftCacheProvider,
     );
   });
 
@@ -53,16 +57,22 @@ describe('CreateGrades', () => {
     const firstQuestion = await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     const secondQuestion = await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name II',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     const thirdQuestion = await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name III',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     await createGrades.execute({
@@ -95,6 +105,8 @@ describe('CreateGrades', () => {
     const question = await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     await expect(
@@ -129,6 +141,8 @@ describe('CreateGrades', () => {
     const question = await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     await createGrades.execute({
@@ -212,6 +226,8 @@ describe('CreateGrades', () => {
     const question = await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     await createGrades.execute({

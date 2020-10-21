@@ -20,7 +20,14 @@ export default class CreateQuestions1599510133686
           {
             name: 'criterion',
             type: 'varchar(255)',
-            isNullable: true,
+          },
+          {
+            name: 'min_grade',
+            type: 'tinyint',
+          },
+          {
+            name: 'max_grade',
+            type: 'tinyint',
           },
           {
             name: 'created_at',

@@ -36,11 +36,15 @@ describe('ListQuestions', () => {
     await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name II',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     const response = await listQuestions.execute('', admin.id);
@@ -59,6 +63,8 @@ describe('ListQuestions', () => {
     await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     await listQuestions.execute('', admin.id);
@@ -81,31 +87,43 @@ describe('ListQuestions', () => {
     await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name II',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name III',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     await draftQuestionsRepository.create({
       section: questionSearch,
       criterion: 'Criterion Name IV',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     await draftQuestionsRepository.create({
       section: 'Section Name II',
       criterion: 'Criterion Name',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     await draftQuestionsRepository.create({
       section: 'Section Name II',
       criterion: 'Criterion Name II',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     const response = await listQuestions.execute(questionSearch, admin.id);

@@ -9,7 +9,7 @@ import IAdminsRepository from '../repositories/IAdminsRepository';
 import IAdminTokensRepository from '../repositories/IAdminTokensRepository';
 
 interface IRequest {
-  email: string;
+  ra: string;
 }
 
 @injectable()
@@ -25,8 +25,8 @@ class SendForgotPasswordEmailService {
     private adminTokensRepository: IAdminTokensRepository,
   ) {}
 
-  public async execute({ email }: IRequest): Promise<void> {
-    const admin = await this.adminsRepository.findByEmail(email);
+  public async execute({ ra }: IRequest): Promise<void> {
+    const admin = await this.adminsRepository.findByRa(ra);
 
     if (!admin) {
       throw new AppError('Admin does not exist.');
