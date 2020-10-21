@@ -26,6 +26,8 @@ describe('CreateQuestion', () => {
     const question = await createQuestion.execute({
       section: 'Section Name',
       criterion: 'Criterion Name',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     expect(question).toHaveProperty('id');

@@ -17,7 +17,7 @@ gradesRouter.post(
   celebrate({
     [Segments.BODY]: {
       avaliation_id: Joi.string().required(),
-      comments: Joi.string().allow(''),
+      comments: Joi.string().optional().allow(''),
       grades: Joi.array().items(
         Joi.object({
           question_id: Joi.string().required(),

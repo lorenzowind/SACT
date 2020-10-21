@@ -34,11 +34,15 @@ describe('DeleteQuestion', () => {
     await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     const question = await draftQuestionsRepository.create({
       section: 'Section Name',
       criterion: 'Criterion Name II',
+      min_grade: 6,
+      max_grade: 10,
     });
 
     await deleteQuestion.execute(question.id);

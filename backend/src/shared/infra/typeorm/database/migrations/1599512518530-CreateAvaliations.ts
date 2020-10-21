@@ -31,6 +31,7 @@ export default class CreateAvaliations1599512518530
           {
             name: 'comments',
             type: 'varchar(255)',
+            isNullable: true,
           },
           {
             name: 'status',

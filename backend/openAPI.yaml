@@ -111,6 +111,10 @@ components:
           type: string
         criterion:
           type: string
+        min_grade:
+          type: integer
+        max_grade:
+          type: integer
         created_at:
           type: string
           format: dateformat
@@ -1096,7 +1100,13 @@ paths:
                     example: "Section Name"
                   criterion:
                     type: string
-                    example: ""
+                    example: "Criterion Name"
+                  min_grade:
+                    type: integer
+                    example: 6
+                  max_grade:
+                    type: integer
+                    example: 10
       responses:
         '200':
           description: Returns a JSON containing the created question.
@@ -1114,7 +1124,13 @@ paths:
                     example: "Section Name"
                   criterion:
                     type: string
-                    example: ""
+                    example: "Criterion Name"
+                  min_grade:
+                    type: integer
+                    example: 6
+                  max_grade:
+                    type: integer
+                    example: 10
                   created_at:
                     type: string
                     format: dateformat
@@ -1152,6 +1168,12 @@ paths:
                   criterion:
                     type: string
                     example: "Criterion Name"
+                  min_grade:
+                    type: integer
+                    example: 6
+                  max_grade:
+                    type: integer
+                    example: 10
       responses:
         '200':
           description: Returns a JSON containing the updated question.
@@ -1170,6 +1192,12 @@ paths:
                   criterion:
                     type: string
                     example: "Criterion Name"
+                  min_grade:
+                    type: integer
+                    example: 6
+                  max_grade:
+                    type: integer
+                    example: 10
                   created_at:
                     type: string
                     format: dateformat
