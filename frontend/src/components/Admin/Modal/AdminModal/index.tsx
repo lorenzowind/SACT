@@ -4,31 +4,31 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
 import { FiTrash } from 'react-icons/fi';
-import api from '../../../services/api';
+import api from '../../../../services/api';
 
-import getValidationErrors from '../../../utils/getValidationErrors';
+import getValidationErrors from '../../../../utils/getValidationErrors';
 
-import { useToast } from '../../../hooks/toast';
+import { useToast } from '../../../../hooks/toast';
 
 import Modal from '..';
-import Loading from '../../Loading';
-import Input from '../../Input';
-import Button from '../../Button';
+import Loading from '../../../Loading';
+import Input from '../../../Input';
+import Button from '../../../Button';
 
 import { Container, CloseModal } from './styles';
 
-import { IQuestionOperationsData } from '../../../pages/Admin/Form/QuestionForm';
-import { QuestionData } from '../../../pages/Admin/Questions';
+import { IAdminOperationsData } from '../../../../pages/Admin/Form/AdminForm';
+import { AdminData } from '../../../../pages/Admin/Admins';
 
 interface IModalProps {
-  question: QuestionData;
+  admin: AdminData;
   isOpen: boolean;
   setIsOpen: () => void;
   setToRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const QuestionModal: React.FC<IModalProps> = ({
-  question,
+const AdminModal: React.FC<IModalProps> = ({
+  admin,
   isOpen,
   setIsOpen,
   setToRefresh,
@@ -43,11 +43,11 @@ const QuestionModal: React.FC<IModalProps> = ({
     try {
       setLoading(true);
 
-      await api.delete(`questions/${question.id}`);
+      await api.delete(`admins/${admin.id}`);
 
       addToast({
         type: 'success',
-        title: 'Ficha de avaliação excluída com sucesso',
+        title: 'Administrador excluído com sucesso',
       });
 
       setIsOpen();
@@ -55,39 +55,43 @@ const QuestionModal: React.FC<IModalProps> = ({
     } catch (err) {
       addToast({
         type: 'error',
-        title: 'Erro na exclusão da ficha de avaliação',
+        title: 'Erro na exclusão do administrador',
       });
     } finally {
       setLoading(false);
     }
-  }, [addToast, question.id, setIsOpen, setToRefresh]);
+  }, [addToast, admin.id, setIsOpen, setToRefresh]);
 
   const handleSubmit = useCallback(
-    async (data: IQuestionOperationsData) => {
+    async (data: IAdminOperationsData) => {
       try {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          section: Yup.string().required(),
-          criterion: Yup.string().required(),
+          name: Yup.string().required(),
+          email: Yup.string().email().required(),
+          ra: Yup.string().required(),
+          password: Yup.string().required(),
         });
 
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        const questionData: IQuestionOperationsData = {
-          section: data.section,
-          criterion: data.criterion,
+        const adminData: IAdminOperationsData = {
+          name: data.name,
+          email: data.email,
+          ra: data.ra,
+          password: data.password,
         };
 
         setLoading(true);
 
-        await api.put(`questions/${question.id}`, questionData);
+        await api.put(`admins/${admin.id}`, adminData);
 
         addToast({
           type: 'success',
-          title: 'Ficha de avaliação alterada com sucesso',
+          title: 'Administrador alterado com sucesso',
         });
 
         setIsOpen();
@@ -103,13 +107,13 @@ const QuestionModal: React.FC<IModalProps> = ({
 
         addToast({
           type: 'error',
-          title: 'Erro na alteração da ficha de avaliação',
+          title: 'Erro na alteração do administrador',
         });
       } finally {
         setLoading(false);
       }
     },
-    [addToast, question.id, setIsOpen, setToRefresh],
+    [addToast, admin.id, setIsOpen, setToRefresh],
   );
 
   return (
@@ -122,24 +126,35 @@ const QuestionModal: React.FC<IModalProps> = ({
         </CloseModal>
 
         <Container>
-          <strong>Editar ficha de avaliação</strong>
+          <strong>Editar Administrador</strong>
 
           <Form ref={formRef} onSubmit={handleSubmit}>
-            <strong>Nome da seção</strong>
+            <strong>Nome do administrador</strong>
             <Input
-              name="section"
+              name="name"
               type="text"
-              placeholder="Seção"
-              defaultValue={question.section}
+              placeholder="Nome"
+              defaultValue={admin.name}
             />
 
-            <strong>Nome do critério</strong>
+            <strong>Email</strong>
             <Input
-              name="criterion"
+              name="email"
               type="text"
-              placeholder="Critério"
-              defaultValue={question.criterion}
+              placeholder="Email"
+              defaultValue={admin.email}
             />
+
+            <strong>RA</strong>
+            <Input
+              name="ra"
+              type="number"
+              placeholder="RA"
+              defaultValue={admin.ra}
+            />
+
+            <strong>Senha</strong>
+            <Input name="password" type="password" placeholder="Senha" />
 
             <nav>
               <button type="button" onClick={handleDelete}>
@@ -155,4 +170,4 @@ const QuestionModal: React.FC<IModalProps> = ({
   );
 };
 
-export default QuestionModal;
+export default AdminModal;

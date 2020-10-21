@@ -18,7 +18,7 @@ import {
 
 import Header from '../../../components/Header';
 import Loading from '../../../components/Loading';
-import AdminModal from '../../../components/Modal/AdminModal';
+import AdminModal from '../../../components/Admin/Modal/AdminModal';
 
 import { IAdminOperationsData } from '../Form/AdminForm';
 

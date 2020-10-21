@@ -4,22 +4,22 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
 import { FiTrash } from 'react-icons/fi';
-import api from '../../../services/api';
+import api from '../../../../services/api';
 
-import getValidationErrors from '../../../utils/getValidationErrors';
+import getValidationErrors from '../../../../utils/getValidationErrors';
 
-import { useToast } from '../../../hooks/toast';
+import { useToast } from '../../../../hooks/toast';
 
 import Modal from '..';
-import Loading from '../../Loading';
-import Input from '../../Input';
-import Button from '../../Button';
-import Select from '../../Select';
+import Loading from '../../../Loading';
+import Input from '../../../Input';
+import Button from '../../../Button';
+import Select from '../../../Select';
 
 import { Container, CloseModal } from './styles';
 
-import { IEvaluatorOperationsData } from '../../../pages/Admin/Form/EvaluatorForm';
-import { EvaluatorData } from '../../../pages/Admin/Evaluators';
+import { IEvaluatorOperationsData } from '../../../../pages/Admin/Form/EvaluatorForm';
+import { EvaluatorData } from '../../../../pages/Admin/Evaluators';
 
 interface IModalProps {
   evaluator: EvaluatorData;

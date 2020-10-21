@@ -28,6 +28,8 @@ import Button from '../../../../components/Button';
 export interface IQuestionOperationsData {
   section: string;
   criterion: string;
+  min_grade: number;
+  max_grade: number;
 }
 
 const QuestionForm: React.FC = () => {
@@ -46,6 +48,8 @@ const QuestionForm: React.FC = () => {
         const schema = Yup.object().shape({
           section: Yup.string().required(),
           criterion: Yup.string().required(),
+          min_grade: Yup.number().required(),
+          max_grade: Yup.number().required(),
         });
 
         await schema.validate(data, {
@@ -55,6 +59,8 @@ const QuestionForm: React.FC = () => {
         const questionData: IQuestionOperationsData = {
           section: data.section,
           criterion: data.criterion,
+          min_grade: data.min_grade,
+          max_grade: data.max_grade,
         };
 
         setLoading(true);
@@ -106,11 +112,17 @@ const QuestionForm: React.FC = () => {
             <InputsContainer>
               <strong>1. Nome da seção</strong>
               <Input name="section" type="text" placeholder="Seção" />
+
+              <strong>3. Nota mínima</strong>
+              <Input name="min_grade" type="number" placeholder="ex: 0" />
             </InputsContainer>
 
             <InputsContainer>
               <strong>2. Nome do critério</strong>
               <Input name="criterion" type="text" placeholder="Critério" />
+
+              <strong>4. Nota máxima</strong>
+              <Input name="max_grade" type="number" placeholder="ex: 10" />
 
               <Button type="submit">Criar</Button>
             </InputsContainer>

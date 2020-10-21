@@ -30,6 +30,7 @@ export default createGlobalStyle`
     background: var(--background);
     color: var(--dark-gray);
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6, strong {

@@ -49,16 +49,16 @@ export const Container = styled.div`
         margin: 0;
       }
 
+      input[type='number'] {
+        -moz-appearance: textfield;
+      }
+
       input {
         flex: 1;
         background: transparent;
         border: 0;
         font-size: 14px;
         font-weight: 400;
-      }
-
-      select {
-        font-size: 14px;
       }
     }
 

@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import api from '../../../services/api';
 
 import {
   Background,
@@ -9,92 +11,135 @@ import {
   TitleCard,
 } from './styles';
 
-interface IProject {
-  id: string;
-  name: string;
-  occupation_area: string;
-  classroom: string;
-  members: string;
-  observation: string;
-  image_url: string;
-  created_at: string;
-  updated_at: string;
-}
+import { useEvaluatorAuth } from '../../../hooks/evaluatorAuth';
+import { useEvaluatorAvaliation } from '../../../hooks/evaluatorAvaliation';
 
-const projects: IProject[] = [
-  {
-    id: 'uuid-1',
-    name: 'Project Name 1',
-    occupation_area: 'Informática',
-    classroom: '3ºAI',
-    members: 'Member 1, Member 2, Member 3',
-    observation: 'Project observation',
-    image_url:
-      'https://image_upload_provider/2196cf1aec2f18533aaf-file_name.png',
-    created_at: '2020-07-02T21:57:00.421Z',
-    updated_at: '2020-07-02T21:57:00.421Z',
-  },
-  {
-    id: 'uuid-2',
-    name: 'Project Name 2',
-    occupation_area: 'Informática',
-    classroom: '3ºBI',
-    members: 'Member 1, Member 2, Member 3',
-    observation: 'Project observation',
-    image_url:
-      'https://image_upload_provider/2196cf1aec2f18533aaf-file_name.png',
-    created_at: '2020-07-02T21:57:00.421Z',
-    updated_at: '2020-07-02T21:57:00.421Z',
-  },
-  {
-    id: 'uuid-3',
-    name: 'Project Name 3',
-    occupation_area: 'Informática',
-    classroom: '3ºCI',
-    members: 'Member 1, Member 2, Member 3',
-    observation: 'Project observation',
-    image_url:
-      'https://image_upload_provider/2196cf1aec2f18533aaf-file_name.png',
-    created_at: '2020-07-02T21:57:00.421Z',
-    updated_at: '2020-07-02T21:57:00.421Z',
-  },
-];
+import Loading from '../../../components/Loading';
+import InfoModal from '../../../components/Evaluator/Modal/InfoModal';
+
+export interface AvaliationData {
+  id: string;
+  project: {
+    name: string;
+    description: string;
+    occupation_area: string;
+    classroom: string;
+    members: string;
+    observations: string;
+  };
+  status: 'to_evaluate' | 'rated';
+}
 
 const ProjectsList: React.FC = () => {
   const history = useHistory();
 
+  const { evaluator } = useEvaluatorAuth();
+  const { setSelectedAvaliationState } = useEvaluatorAvaliation();
+
+  const [avaliations, setAvaliations] = useState<AvaliationData[]>([]);
+
+  const [loading, setLoading] = useState(false);
+
+  const [textInfo, setTextInfo] = useState('');
+  const [infoOpen, setInfoOpen] = useState(false);
+
+  const toggleModalInfo = useCallback(() => {
+    setInfoOpen(!infoOpen);
+  }, [infoOpen]);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true);
+
+        await api
+          .get<AvaliationData[]>(`avaliations/${evaluator.id}`)
+          .then(response => {
+            setAvaliations(response.data);
+
+            if (!response.data.length) {
+              setTextInfo(
+                'ATENÇÃO! Você não possui fichas de avaliação no momento!',
+              );
+            } else {
+              const toEvaluateExists = response.data.find(
+                avaliation => avaliation.status === 'to_evaluate',
+              );
+
+              if (!toEvaluateExists) {
+                setTextInfo(
+                  'PARABÉNS! Você concluiu todas as suas fichas de avaliação!',
+                );
+              }
+            }
+          });
+      } catch (err) {
+        setTextInfo(
+          'ATENÇÃO! Não foi possível carregar as fichas de avaliação!',
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, [evaluator.id, textInfo]);
+
+  useEffect(() => {
+    if (textInfo) {
+      setInfoOpen(true);
+    }
+  }, [textInfo]);
+
   return (
-    <Background>
-      <Main>
-        {projects.map((project, index) => {
-          return (
-            <CardContainer
-              key={`${index}:${project.id}`}
-              onClick={() => {
-                history.push('project-info');
-              }}
-            >
-              <div>
-                <BasicCard>
-                  <div>
-                    <TitleCard done={false}>{project.name}</TitleCard>
+    <>
+      {loading && <Loading zIndex={1} />}
 
+      <InfoModal
+        text={textInfo}
+        isOpen={infoOpen}
+        setIsOpen={toggleModalInfo}
+      />
+
+      <Background>
+        <Main>
+          {avaliations.map(avaliation => {
+            return (
+              <CardContainer
+                key={avaliation.id}
+                onClick={() => {
+                  if (avaliation.status !== 'rated') {
+                    setSelectedAvaliationState(avaliation);
+                    history.push('project-info');
+                  }
+                }}
+              >
+                <div>
+                  <BasicCard>
                     <div>
-                      <h1>{project.classroom}</h1>
-                      <p>{project.occupation_area}</p>
-                    </div>
-                  </div>
+                      <TitleCard done={avaliation.status === 'rated'}>
+                        {avaliation.project.name}
+                      </TitleCard>
 
-                  {project.members.split(', ').map((member, indexMember) => {
-                    return <p key={`member-${indexMember}`}>{member}</p>;
-                  })}
-                </BasicCard>
-              </div>
-            </CardContainer>
-          );
-        })}
-      </Main>
-    </Background>
+                      <div>
+                        <h1>{avaliation.project.classroom}</h1>
+                        <p>{avaliation.project.occupation_area}</p>
+                      </div>
+                    </div>
+
+                    {avaliation.project.members
+                      .split(', ')
+                      .map((member, indexMember) => {
+                        return <p key={`member-${indexMember}`}>{member}</p>;
+                      })}
+                  </BasicCard>
+                </div>
+              </CardContainer>
+            );
+          })}
+        </Main>
+      </Background>
+    </>
   );
 };
 

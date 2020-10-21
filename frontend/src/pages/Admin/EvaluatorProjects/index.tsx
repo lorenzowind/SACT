@@ -139,7 +139,7 @@ const EvaluatorProjects: React.FC = () => {
     if (!selectedEvaluatorState.id) {
       history.push('evaluators');
     }
-  }, [addToast, history, selectedEvaluatorState]);
+  }, [history, selectedEvaluatorState]);
 
   useEffect(() => {
     const loadData = async () => {

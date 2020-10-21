@@ -37,18 +37,6 @@ export const Container = styled.div`
       align-items: center;
       justify-content: center;
 
-      background: white;
-
-      border-radius: 10px;
-      box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.16);
-      border: solid 0.5px var(--warm-gray);
-
-      input::-webkit-outer-spin-button,
-      input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-
       input {
         flex: 1;
         background: transparent;
@@ -56,6 +44,17 @@ export const Container = styled.div`
         font-size: 14px;
         font-weight: 400;
       }
+
+      select {
+        font-size: 14px;
+      }
+    }
+
+    textarea {
+      margin: 10px 0;
+      width: 400px;
+      height: 80px;
+      font-size: 14px;
     }
 
     > nav {

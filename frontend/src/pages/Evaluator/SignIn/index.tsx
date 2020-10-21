@@ -14,6 +14,7 @@ import logoImg from '../../../assets/logo.png';
 
 import Input from '../../../components/Input';
 import Loading from '../../../components/Loading';
+import InfoModal from '../../../components/Evaluator/Modal/InfoModal';
 
 interface EvaluatorSignInFormData {
   email: string;
@@ -25,8 +26,13 @@ const SignIn: React.FC = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
 
   const { signIn } = useEvaluatorAuth();
+
+  const toggleModalInfo = useCallback(() => {
+    setInfoOpen(!infoOpen);
+  }, [infoOpen]);
 
   const handleSubmit = useCallback(
     async (data: EvaluatorSignInFormData) => {
@@ -51,7 +57,7 @@ const SignIn: React.FC = () => {
 
         setError(false);
 
-        history.push('/projects-list');
+        history.push('projects-list');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -61,17 +67,29 @@ const SignIn: React.FC = () => {
           return;
         }
 
+        if (err.message.split(' ')[5] === '403') {
+          toggleModalInfo();
+
+          return;
+        }
+
         setError(true);
       } finally {
         setLoading(false);
       }
     },
-    [history, signIn],
+    [history, signIn, toggleModalInfo],
   );
 
   return (
     <>
       {loading && <Loading zIndex={1} />}
+
+      <InfoModal
+        text="Você já concluiu todas as suas fichas de avaliação! Você não pode navegar na aplicação!"
+        isOpen={infoOpen}
+        setIsOpen={toggleModalInfo}
+      />
 
       <Background>
         <Main>

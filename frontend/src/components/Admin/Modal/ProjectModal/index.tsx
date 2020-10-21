@@ -1,28 +1,27 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { IoIosAdd } from 'react-icons/io';
+import React, { useCallback, useRef, useState } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
 import { FiTrash } from 'react-icons/fi';
-import api from '../../../services/api';
+import api from '../../../../services/api';
 
-import getValidationErrors from '../../../utils/getValidationErrors';
-import getClassroomsArray from '../../../utils/getClassroomsArray';
+import getValidationErrors from '../../../../utils/getValidationErrors';
+import getClassroomsArray from '../../../../utils/getClassroomsArray';
 
-import { useToast } from '../../../hooks/toast';
+import { useToast } from '../../../../hooks/toast';
 
 import Modal from '..';
-import Loading from '../../Loading';
-import Input from '../../Input';
-import Button from '../../Button';
-import Textarea from '../../Textarea';
-import Select from '../../Select';
+import Loading from '../../../Loading';
+import Input from '../../../Input';
+import Button from '../../../Button';
+import Textarea from '../../../Textarea';
+import Select from '../../../Select';
 
 import { Container, CloseModal } from './styles';
 
-import { IProjectOperationData } from '../../../pages/Admin/Form/ProjectForm';
-import { ProjectData } from '../../../pages/Admin/Projects';
+import { IProjectOperationData } from '../../../../pages/Admin/Form/ProjectForm';
+import { ProjectData } from '../../../../pages/Admin/Projects';
 
 interface IModalProps {
   project: ProjectData;
@@ -41,18 +40,9 @@ const ProjectModal: React.FC<IModalProps> = ({
 
   const [loading, setLoading] = useState(false);
 
-  const [currentMember, setCurrentMember] = useState('');
-  const [members, setMembers] = useState<String[]>([]);
-
   const [classroomsArray] = useState(getClassroomsArray());
 
   const { addToast } = useToast();
-
-  useEffect(() => {
-    if (project.members) {
-      setMembers(project.members.split(', '));
-    }
-  }, [project]);
 
   const handleDelete = useCallback(async () => {
     try {
@@ -85,6 +75,7 @@ const ProjectModal: React.FC<IModalProps> = ({
         const schema = Yup.object().shape({
           name: Yup.string().required(),
           description: Yup.string().required(),
+          members: Yup.string().required(),
           classroom: Yup.mixed().test('match', '', () => {
             return data.classroom !== '0';
           }),
@@ -94,10 +85,6 @@ const ProjectModal: React.FC<IModalProps> = ({
         await schema.validate(data, {
           abortEarly: false,
         });
-
-        if (!members.length) {
-          throw new Error();
-        }
 
         let occupation_area;
 
@@ -114,7 +101,7 @@ const ProjectModal: React.FC<IModalProps> = ({
           description: data.description,
           occupation_area,
           classroom: data.classroom,
-          members: members.join(', '),
+          members: data.members,
           observations: data.observations,
         };
 
@@ -146,21 +133,8 @@ const ProjectModal: React.FC<IModalProps> = ({
         setLoading(false);
       }
     },
-    [addToast, members, project.id, setIsOpen, setToRefresh],
+    [addToast, project.id, setIsOpen, setToRefresh],
   );
-
-  const handleAddMember = useCallback(() => {
-    if (currentMember !== '') {
-      setMembers([...members, currentMember]);
-      setCurrentMember('');
-    }
-  }, [currentMember, members]);
-
-  const handleRemoveMember = useCallback((index: number) => {
-    setMembers(state =>
-      state.filter((_member, curIndex) => curIndex !== index),
-    );
-  }, []);
 
   return (
     <>
@@ -202,30 +176,12 @@ const ProjectModal: React.FC<IModalProps> = ({
             </Select>
 
             <strong>Integrantes</strong>
-            <div>
-              <input
-                type="text"
-                placeholder="Nome"
-                value={currentMember}
-                onChange={e => setCurrentMember(e.target.value)}
-              />
-              <button type="button" onClick={handleAddMember}>
-                <IoIosAdd />
-              </button>
-            </div>
-            <section>
-              {members.map((member, index) => (
-                <nav key={`${member}_${index}`}>
-                  <h2>{member}</h2>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveMember(index)}
-                  >
-                    X
-                  </button>
-                </nav>
-              ))}
-            </section>
+            <Input
+              name="members"
+              type="text"
+              placeholder="Integrantes"
+              defaultValue={project.members}
+            />
 
             <strong>Observações</strong>
             <Textarea

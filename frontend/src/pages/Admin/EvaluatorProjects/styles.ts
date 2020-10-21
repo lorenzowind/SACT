@@ -19,15 +19,11 @@ export const Background = styled.div`
   background-image: url(${backgroundImg});
   background-size: cover;
   padding-top: 60px;
-  overflow-y: hidden;
   overflow-x: hidden;
 `;
 
 export const SecondaryHeader = styled.div`
-  position: absolute;
-  padding-top: 80px;
-  width: 100%;
-  top: 0;
+  padding-top: 40px;
 
   display: flex;
   justify-content: center;
@@ -60,7 +56,7 @@ export const SecondaryHeader = styled.div`
 export const Container = styled.div`
   height: 700px;
   display: flex;
-  padding-top: 100px;
+  padding-top: 60px;
   align-items: center;
   flex-direction: column;
 

@@ -9,7 +9,6 @@ export const Background = styled.div`
   background-image: url(${backgroundImg});
   background-size: cover;
   padding-top: 60px;
-  overflow-y: hidden;
   overflow-x: hidden;
 
   display: flex;

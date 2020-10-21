@@ -9,20 +9,16 @@ export const Background = styled.div`
   background-image: url(${backgroundImg});
   background-size: cover;
   padding-top: 60px;
-  overflow-y: hidden;
   overflow-x: hidden;
 `;
 
 export const SecondaryHeader = styled.div`
-  position: absolute;
-  padding-top: 80px;
+  padding-top: 40px;
   padding-left: 80px;
-  top: 0;
-  left: 0;
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
   svg {
     cursor: pointer;
@@ -46,7 +42,7 @@ export const SecondaryHeader = styled.div`
 export const Container = styled.div`
   height: 700px;
   display: flex;
-  padding-top: 100px;
+  padding-top: 40px;
   padding-left: 190px;
   flex-direction: column;
 

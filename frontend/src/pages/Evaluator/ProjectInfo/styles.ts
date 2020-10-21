@@ -1,32 +1,31 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 export const Main = styled.main`
-  padding: 0 1rem;
-  padding-bottom: 1rem;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   > div:first-child {
-    display: inline-flex;
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    max-width: 400px;
+    justify-content: center;
+    height: 12rem;
+    margin-bottom: -2rem;
 
     > img {
-      max-width: 85%;
+      height: 9rem;
     }
 
-    > svg:first-child {
+    svg {
       cursor: pointer;
+      margin-top: -10px;
+      margin-right: -10px;
+      width: 4rem;
+      height: 4rem;
       color: var(--dark-gray);
-    }
-
-    > svg:last-child {
-      cursor: pointer;
-      color: var(--secondary);
-    }
-
-    > svg {
-      flex: 1;
-      height: auto;
     }
   }
 
@@ -45,5 +44,25 @@ export const Main = styled.main`
 
   & > p {
     font-size: 1rem;
+  }
+
+  button {
+    border-radius: 10px;
+    box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.16);
+    border: solid 1px var(--warm-gray);
+
+    font-size: 1.5rem;
+    background: var(--primary);
+    color: white;
+    height: 60px;
+    width: 75%;
+    margin: 30px 0;
+    font-size: 24px;
+    font-weight: 700;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: ${shade(0.2, '#0000fb')};
+    }
   }
 `;
