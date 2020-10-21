@@ -6,6 +6,8 @@ import IAvaliationsRepository from '@modules/avaliations/repositories/IAvaliatio
 import IEvaluatorsRepository from '@modules/evaluators/repositories/IEvaluatorsRepository';
 import IProjectsRepository from '@modules/projects/repositories/IProjectsRepository';
 
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+
 import ICreateAvaliations from '../dtos/ICreateAvaliationsRequestDTO';
 
 import Avaliation from '../infra/typeorm/entities/Avaliation';
@@ -21,6 +23,9 @@ class CreateAvaliationService {
 
     @inject('ProjectsRepository')
     private projectsRepository: IProjectsRepository,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -88,6 +93,8 @@ class CreateAvaliationService {
         avaliations.push(avaliationAlreadyExists);
       }
     }
+
+    await this.cacheProvider.invalidatePrefix('evaluators-list');
 
     return avaliations;
   }
