@@ -51,7 +51,7 @@ class CreateAvaliationService {
 
     const avaliations: Avaliation[] = [];
 
-    let newAvaliationsExists = false;
+    let updateEvaluator = true;
 
     for (let index = 0; index < projects.length; index += 1) {
       const checkProjectExists = await this.projectsRepository.findById(
@@ -75,18 +75,18 @@ class CreateAvaliationService {
           status: 'to_evaluate',
         });
 
-        newAvaliationsExists = true;
-
         avaliations.push(avaliation);
+
+        if (updateEvaluator) {
+          updateEvaluator = false;
+
+          checkEvaluatorExists.status = 'to_evaluate';
+
+          await this.evaluatorsRepository.save(checkEvaluatorExists);
+        }
       } else {
         avaliations.push(avaliationAlreadyExists);
       }
-    }
-
-    if (newAvaliationsExists) {
-      checkEvaluatorExists.status = 'to_evaluate';
-
-      await this.evaluatorsRepository.save(checkEvaluatorExists);
     }
 
     return avaliations;
