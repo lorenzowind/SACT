@@ -83,6 +83,16 @@ export const InputsContainer = styled.div`
     height: 60px;
     width: 400px;
 
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type='number'] {
+      -moz-appearance: textfield;
+    }
+
     input {
       font-size: 18px;
     }

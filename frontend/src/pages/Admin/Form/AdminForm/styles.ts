@@ -89,6 +89,10 @@ export const InputsContainer = styled.div`
       margin: 0;
     }
 
+    input[type='number'] {
+      -moz-appearance: textfield;
+    }
+
     input {
       font-size: 18px;
     }

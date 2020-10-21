@@ -30,6 +30,10 @@ const SignIn: React.FC = () => {
 
   const { signIn } = useEvaluatorAuth();
 
+  const toggleModalInfo = useCallback(() => {
+    setInfoOpen(!infoOpen);
+  }, [infoOpen]);
+
   const handleSubmit = useCallback(
     async (data: EvaluatorSignInFormData) => {
       try {
@@ -63,24 +67,26 @@ const SignIn: React.FC = () => {
           return;
         }
 
+        if (err.message.split(' ')[5] === '403') {
+          toggleModalInfo();
+
+          return;
+        }
+
         setError(true);
       } finally {
         setLoading(false);
       }
     },
-    [history, signIn],
+    [history, signIn, toggleModalInfo],
   );
-
-  const toggleModalInfo = useCallback(() => {
-    setInfoOpen(!infoOpen);
-  }, [infoOpen]);
 
   return (
     <>
       {loading && <Loading zIndex={1} />}
 
       <InfoModal
-        text="Você já concluiu todas as suas fichas de avaliações!\nVocê não pode navegar na aplicação!"
+        text="Você já concluiu todas as suas fichas de avaliação! Você não pode navegar na aplicação!"
         isOpen={infoOpen}
         setIsOpen={toggleModalInfo}
       />

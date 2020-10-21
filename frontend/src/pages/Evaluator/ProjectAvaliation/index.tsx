@@ -22,6 +22,8 @@ interface QuestionData {
   id: string;
   section: string;
   criterion: string;
+  min_grade: number;
+  max_grade: number;
 }
 
 interface QuestionFormat {
@@ -29,6 +31,8 @@ interface QuestionFormat {
   criterions: {
     name: string;
     question_id: string;
+    min_grade: number;
+    max_grade: number;
     grade: number;
   }[];
 }
@@ -70,7 +74,9 @@ const ProjectInfo: React.FC = () => {
                 existentQuestion.criterions.push({
                   name: question.criterion,
                   question_id: question.id,
-                  grade: 60,
+                  min_grade: question.min_grade * 10,
+                  max_grade: question.max_grade * 10,
+                  grade: question.min_grade * 10,
                 });
               } else {
                 newQuestions.push({
@@ -79,7 +85,9 @@ const ProjectInfo: React.FC = () => {
                     {
                       name: question.criterion,
                       question_id: question.id,
-                      grade: 60,
+                      min_grade: question.min_grade * 10,
+                      max_grade: question.max_grade * 10,
+                      grade: question.min_grade * 10,
                     },
                   ],
                 });
@@ -104,9 +112,17 @@ const ProjectInfo: React.FC = () => {
   }, [history, selectedAvaliationState]);
 
   const handleTransformGrade = useCallback((grade: number) => {
-    return `${String(grade).substring(0, String(grade).length - 1)}.${String(
-      grade,
-    ).substring(String(grade).length - 1, String(grade).length)}`;
+    const leftPart = String(grade).substring(0, String(grade).length - 1);
+    const rightPart = String(grade).substring(
+      String(grade).length - 1,
+      String(grade).length,
+    );
+
+    if (leftPart) {
+      return `${leftPart}.${rightPart}`;
+    }
+
+    return rightPart;
   }, []);
 
   const handleSubmit = useCallback(async () => {
@@ -155,8 +171,10 @@ const ProjectInfo: React.FC = () => {
                 return {
                   question_id: criterion.question_id,
                   name: criterion.name,
+                  min_grade: criterion.min_grade,
+                  max_grade: criterion.max_grade,
                   grade:
-                    criterion.grade > 60
+                    criterion.grade > criterion.min_grade
                       ? criterion.grade - 5
                       : criterion.grade,
                 };
@@ -183,8 +201,10 @@ const ProjectInfo: React.FC = () => {
                 return {
                   question_id: criterion.question_id,
                   name: criterion.name,
+                  min_grade: criterion.min_grade,
+                  max_grade: criterion.max_grade,
                   grade:
-                    criterion.grade < 100
+                    criterion.grade < criterion.max_grade
                       ? criterion.grade + 5
                       : criterion.grade,
                 };
@@ -211,6 +231,8 @@ const ProjectInfo: React.FC = () => {
                 return {
                   question_id: criterion.question_id,
                   name: criterion.name,
+                  min_grade: criterion.min_grade,
+                  max_grade: criterion.max_grade,
                   grade,
                 };
               }
@@ -282,6 +304,8 @@ const ProjectInfo: React.FC = () => {
                       index={index}
                       criterionIndex={criterionIndex}
                       value={criterion.grade}
+                      min_grade={criterion.min_grade}
+                      max_grade={criterion.max_grade}
                       setValue={handleChangeGrade}
                     />
                   </CriterionContainer>
@@ -298,11 +322,13 @@ const ProjectInfo: React.FC = () => {
             />
           </section>
 
-          {error && <strong>Erro ao concluir avaliação</strong>}
+          <footer>
+            {error && <strong>*Erro ao concluir avaliação</strong>}
 
-          <button type="button" onClick={handleSubmit}>
-            Concluir
-          </button>
+            <button type="button" onClick={handleSubmit}>
+              Concluir
+            </button>
+          </footer>
         </Main>
       </Background>
     </>

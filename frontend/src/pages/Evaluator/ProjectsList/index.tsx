@@ -68,7 +68,7 @@ const ProjectsList: React.FC = () => {
 
               if (!toEvaluateExists) {
                 setTextInfo(
-                  'PARABÉNS! Você concluiu todas as suas fichas de avaliações!',
+                  'PARABÉNS! Você concluiu todas as suas fichas de avaliação!',
                 );
               }
             }

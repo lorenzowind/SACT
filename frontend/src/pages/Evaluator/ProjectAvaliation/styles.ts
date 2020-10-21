@@ -72,23 +72,40 @@ export const Main = styled.main`
     }
   }
 
-  > button {
-    border-radius: 10px;
-    box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.16);
-    border: solid 1px var(--warm-gray);
+  footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 
-    font-size: 1.5rem;
-    background: var(--primary);
-    color: white;
-    height: 60px;
-    width: 75%;
-    margin: 30px 0;
-    font-size: 24px;
-    font-weight: 700;
-    transition: background-color 0.2s;
+    > strong {
+      width: 75%;
+      top: 20px;
+      position: absolute;
+      font-size: 18px;
+      font-weight: 700;
+      color: #c53030;
+    }
 
-    &:hover {
-      background: ${shade(0.2, '#0000fb')};
+    > button {
+      border-radius: 10px;
+      box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.16);
+      border: solid 1px var(--warm-gray);
+
+      font-size: 1.5rem;
+      background: var(--primary);
+      color: white;
+      height: 60px;
+      width: 75%;
+      margin: 60px 0 30px 0;
+      font-size: 24px;
+      font-weight: 700;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background: ${shade(0.2, '#0000fb')};
+      }
     }
   }
 `;
