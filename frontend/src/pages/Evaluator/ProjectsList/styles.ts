@@ -11,9 +11,7 @@ export const Background = styled.div`
 `;
 
 export const Main = styled.main`
-  padding: 2rem;
-  padding-left: 1rem;
-  padding-bottom: 1rem;
+  padding: 2rem 2rem 2rem 1rem;
 
   > button {
     background: none;

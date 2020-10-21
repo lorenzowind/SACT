@@ -30,6 +30,7 @@
     "camelcase": "off",
     "prettier/prettier": "error",
     "jsx-a11y/control-has-associated-label": "off",
+    "react/jsx-curly-newline": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
     "react/no-array-index-key": "off",

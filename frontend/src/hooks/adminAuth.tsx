@@ -3,6 +3,7 @@ import React, { createContext, useCallback, useState, useContext } from 'react';
 import api from '../services/api';
 
 interface Admin {
+  id: string;
   name: string;
   email: string;
   password: string;

@@ -51,7 +51,7 @@ const SignIn: React.FC = () => {
 
         setError(false);
 
-        history.push('/projects-list');
+        history.push('projects-list');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
