@@ -7,6 +7,8 @@ import IAvaliationsRepository from '@modules/avaliations/repositories/IAvaliatio
 import IQuestionsRepository from '@modules/questions/repositories/IQuestionsRepository';
 import IEvaluatorsRepository from '@modules/evaluators/repositories/IEvaluatorsRepository';
 
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+
 import ICreateGradeRequestDTO from '../dtos/ICreateGradesRequestDTO';
 
 import Grade from '../infra/typeorm/entities/Grade';
@@ -25,6 +27,9 @@ class CreateGradeService {
 
     @inject('EvaluatorsRepository')
     private evaluatorsRepository: IEvaluatorsRepository,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -91,6 +96,10 @@ class CreateGradeService {
         await this.evaluatorsRepository.save(evaluator);
       }
     }
+
+    await this.cacheProvider.invalidatePrefix('evaluators-list');
+
+    await this.cacheProvider.invalidatePrefix('projects-list');
   }
 }
 
