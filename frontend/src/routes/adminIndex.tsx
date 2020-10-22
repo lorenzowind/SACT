@@ -4,6 +4,7 @@ import { Switch } from 'react-router-dom';
 import Route from './adminRoute';
 
 import SignIn from '../pages/Admin/SignIn';
+import ResetPassword from '../pages/Admin/ResetPassword';
 
 import Dashboard from '../pages/Admin/Dashboard';
 // import Ranking from '../pages/Admin/Ranking';
@@ -23,6 +24,7 @@ import EvaluatorProjects from '../pages/Admin/EvaluatorProjects';
 const Routes: React.FC = () => (
   <Switch>
     <Route path="/admin" component={SignIn} />
+    <Route path="/reset-password" component={ResetPassword} />
 
     <Route path="/dashboard" component={Dashboard} isPrivate />
     {/* <Route path="/ranking" component={Ranking} isPrivate /> */}
