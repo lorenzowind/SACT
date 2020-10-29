@@ -1265,6 +1265,12 @@ paths:
                     criterion:
                       type: string
                       example: "Criterion Name"
+                    min_grade:
+                      type: integer
+                      example: 6
+                    max_grade:
+                      type: integer
+                      example: 10
                     created_at:
                       type: string
                       format: dateformat
