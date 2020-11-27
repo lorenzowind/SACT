@@ -119,11 +119,12 @@ class GetCourseRankingReportService {
               if (question) {
                 data[occupationAreaIndex].projects_report[
                   projectReportIndex
-                ].grade_sum += grades[gradesIndex].grade * question.weight;
+                ].grade_sum +=
+                  grades[gradesIndex].grade * Number(question.weight);
 
                 data[occupationAreaIndex].projects_report[
                   projectReportIndex
-                ].factor += question.weight;
+                ].factor += Number(question.weight);
               }
             }
           } else {
@@ -140,7 +141,8 @@ class GetCourseRankingReportService {
               );
 
               if (question) {
-                grade_sum += grades[gradesIndex].grade * question.weight;
+                grade_sum +=
+                  grades[gradesIndex].grade * Number(question.weight);
                 factor += Number(question.weight);
               }
             }
@@ -167,9 +169,9 @@ class GetCourseRankingReportService {
 
             if (question) {
               auxProjectReport.grade_sum =
-                grades[gradesIndex].grade * question.weight;
+                grades[gradesIndex].grade * Number(question.weight);
 
-              auxProjectReport.factor = question.weight;
+              auxProjectReport.factor = Number(question.weight);
             }
           }
 

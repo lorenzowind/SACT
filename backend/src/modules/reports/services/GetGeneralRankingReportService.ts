@@ -106,9 +106,9 @@ class GetGeneralRankingReportService {
 
             if (question) {
               data[projectIndex].grade_sum +=
-                grades[gradesIndex].grade * question.weight;
+                grades[gradesIndex].grade * Number(question.weight);
 
-              data[projectIndex].factor += question.weight;
+              data[projectIndex].factor += Number(question.weight);
             }
           }
         } else {
@@ -127,9 +127,9 @@ class GetGeneralRankingReportService {
 
             if (question) {
               auxProjectReport.grade_sum =
-                grades[gradesIndex].grade * question.weight;
+                grades[gradesIndex].grade * Number(question.weight);
 
-              auxProjectReport.factor = question.weight;
+              auxProjectReport.factor = Number(question.weight);
             }
           }
 
