@@ -30,6 +30,7 @@ class UpdateQuestionService {
     criterion,
     min_grade,
     max_grade,
+    weight,
   }: IRequest): Promise<Question> {
     const question = await this.questionsRepository.findById(id);
 
@@ -41,6 +42,7 @@ class UpdateQuestionService {
     question.criterion = criterion;
     question.min_grade = min_grade;
     question.max_grade = max_grade;
+    question.weight = weight;
 
     await this.cacheProvider.invalidatePrefix('questions-list');
 

@@ -23,6 +23,9 @@ class Question {
   @Column()
   max_grade: number;
 
+  @Column()
+  weight: number;
+
   @CreateDateColumn()
   created_at: Date;
 

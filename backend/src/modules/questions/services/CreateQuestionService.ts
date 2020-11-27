@@ -23,12 +23,14 @@ class CreateQuestionService {
     criterion,
     min_grade,
     max_grade,
+    weight,
   }: ICreateQuestionDTO): Promise<Question> {
     const question = await this.questionsRepository.create({
       section,
       criterion,
       min_grade,
       max_grade,
+      weight,
     });
 
     await this.cacheProvider.invalidatePrefix('questions-list');

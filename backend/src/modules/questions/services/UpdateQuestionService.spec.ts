@@ -30,6 +30,7 @@ describe('UpdateQuestion', () => {
       criterion: 'Criterion Name',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     const updatedQuestion = await updateQuestion.execute({
@@ -38,6 +39,7 @@ describe('UpdateQuestion', () => {
       criterion: 'Criterion Name II',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     expect(updatedQuestion.section).toBe('Section Name II');
@@ -52,6 +54,7 @@ describe('UpdateQuestion', () => {
         criterion: 'Criterion Name II',
         min_grade: 6,
         max_grade: 10,
+        weight: 1,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

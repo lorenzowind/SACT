@@ -72,6 +72,7 @@ const QuestionModal: React.FC<IModalProps> = ({
           criterion: Yup.string().required(),
           min_grade: Yup.number().required(),
           max_grade: Yup.number().required(),
+          weight: Yup.number().required(),
         });
 
         await schema.validate(data, {
@@ -83,6 +84,7 @@ const QuestionModal: React.FC<IModalProps> = ({
           criterion: data.criterion,
           min_grade: data.min_grade,
           max_grade: data.max_grade,
+          weight: data.weight,
         };
 
         setLoading(true);
@@ -159,6 +161,14 @@ const QuestionModal: React.FC<IModalProps> = ({
               type="number"
               placeholder="ex: 10"
               defaultValue={question.max_grade}
+            />
+
+            <strong>Peso</strong>
+            <Input
+              name="weight"
+              type="number"
+              placeholder="ex: 1"
+              defaultValue={question.weight}
             />
 
             <nav>

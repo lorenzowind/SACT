@@ -36,6 +36,7 @@ describe('DeleteQuestion', () => {
       criterion: 'Criterion Name',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     const question = await draftQuestionsRepository.create({
@@ -43,6 +44,7 @@ describe('DeleteQuestion', () => {
       criterion: 'Criterion Name II',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     await deleteQuestion.execute(question.id);

@@ -20,7 +20,7 @@ export default class ProjectsController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { section, criterion, min_grade, max_grade } = request.body;
+    const { section, criterion, min_grade, max_grade, weight } = request.body;
 
     const createQuestion = container.resolve(CreateQuestionService);
 
@@ -29,6 +29,7 @@ export default class ProjectsController {
       criterion,
       min_grade,
       max_grade,
+      weight,
     });
 
     return response.json(question);
@@ -36,7 +37,7 @@ export default class ProjectsController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-    const { section, criterion, min_grade, max_grade } = request.body;
+    const { section, criterion, min_grade, max_grade, weight } = request.body;
 
     const updateQuestion = container.resolve(UpdateQuestionService);
 
@@ -46,6 +47,7 @@ export default class ProjectsController {
       criterion,
       min_grade,
       max_grade,
+      weight,
     });
 
     return response.json(question);

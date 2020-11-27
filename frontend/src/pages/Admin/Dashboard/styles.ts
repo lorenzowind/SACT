@@ -86,14 +86,10 @@ export const RightContainer = styled.div`
 `;
 
 export const RankingContainer = styled.button`
+  cursor: default;
   height: 60%;
   padding: 30px;
   margin-bottom: 15px;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: ${shade(0.2, '#f9f8f8')};
-  }
 
   img {
     margin-bottom: 15px;
@@ -177,7 +173,7 @@ export const ReportsContainer = styled.aside`
     display: flex;
     align-items: flex-start;
     flex-direction: column;
-    margin: 30px 0 0 80px;
+    margin: 60px 0 30px 80px;
     width: 100%;
 
     section {

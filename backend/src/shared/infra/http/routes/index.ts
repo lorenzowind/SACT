@@ -11,6 +11,7 @@ import projectsRouter from '@modules/projects/infra/http/routes/projects.routes'
 import questionsRouter from '@modules/questions/infra/http/routes/questions.routes';
 import avaliationsRouter from '@modules/avaliations/infra/http/routes/avaliations.routes';
 import gradesRouter from '@modules/grades/infra/http/routes/grades.routes';
+import reportsRouter from '@modules/reports/infra/http/routes/reports.routes';
 
 const routes = Router();
 
@@ -25,5 +26,6 @@ routes.use('/projects', projectsRouter);
 routes.use('/questions', questionsRouter);
 routes.use('/avaliations', avaliationsRouter);
 routes.use('/grades', gradesRouter);
+routes.use('/reports', reportsRouter);
 
 export default routes;

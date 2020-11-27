@@ -100,15 +100,43 @@ const Dashboard: React.FC = () => {
     setEvaluatorsProgressOpen(!evaluatorsProgressOpen);
   }, [evaluatorsProgressOpen]);
 
+  const handleDownloadGeneralRankingReport = useCallback(async () => {
+    try {
+      setLoading(true);
+
+      await api.get('reports/general').then(response => {
+        window.open(response.data, '_blank');
+      });
+    } catch (err) {
+      addToast({
+        type: 'error',
+        title: 'Erro ao fazer donwload do relatório geral',
+      });
+    } finally {
+      setLoading(false);
+    }
+  }, [addToast]);
+
+  const handleDownloadCourseRankingReport = useCallback(async () => {
+    try {
+      setLoading(true);
+
+      await api.get('reports/course').then(response => {
+        window.open(response.data, '_blank');
+      });
+    } catch (err) {
+      addToast({
+        type: 'error',
+        title: 'Erro ao fazer donwload do relatório por cursos',
+      });
+    } finally {
+      setLoading(false);
+    }
+  }, [addToast]);
+
   return (
     <>
       {loading && <Loading zIndex={1} />}
-
-      <InfoModal
-        text="Funcionalidade ainda não implementada!"
-        isOpen={infoOpen}
-        setIsOpen={toggleModalInfo}
-      />
 
       <AvaliationsProgressModal
         avaliations={avaliations}
@@ -151,19 +179,19 @@ const Dashboard: React.FC = () => {
               <nav>
                 <section>
                   <strong>Relatório ranking geral</strong>
-                  <button type="button" onClick={toggleModalInfo}>
+                  <button
+                    type="button"
+                    onClick={handleDownloadGeneralRankingReport}
+                  >
                     <FiDownload />
                   </button>
                 </section>
                 <section>
                   <strong>Relatório ranking por curso</strong>
-                  <button type="button" onClick={toggleModalInfo}>
-                    <FiDownload />
-                  </button>
-                </section>
-                <section>
-                  <strong>Relatório ranking por nota</strong>
-                  <button type="button" onClick={toggleModalInfo}>
+                  <button
+                    type="button"
+                    onClick={handleDownloadCourseRankingReport}
+                  >
                     <FiDownload />
                   </button>
                 </section>

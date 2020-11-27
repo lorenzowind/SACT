@@ -78,6 +78,7 @@ describe('ListGrades', () => {
       criterion: 'Criterion Name',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     const secondQuestion = await draftQuestionsRepository.create({
@@ -85,6 +86,7 @@ describe('ListGrades', () => {
       criterion: 'Criterion Name II',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     const thirdQuestion = await draftQuestionsRepository.create({
@@ -92,6 +94,7 @@ describe('ListGrades', () => {
       criterion: 'Criterion Name III',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     await createGrades.execute({

@@ -38,6 +38,7 @@ describe('ListQuestions', () => {
       criterion: 'Criterion Name',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     await draftQuestionsRepository.create({
@@ -45,6 +46,7 @@ describe('ListQuestions', () => {
       criterion: 'Criterion Name II',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     const response = await listQuestions.execute('', admin.id);
@@ -65,6 +67,7 @@ describe('ListQuestions', () => {
       criterion: 'Criterion Name',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     await listQuestions.execute('', admin.id);
@@ -89,6 +92,7 @@ describe('ListQuestions', () => {
       criterion: 'Criterion Name',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     await draftQuestionsRepository.create({
@@ -96,6 +100,7 @@ describe('ListQuestions', () => {
       criterion: 'Criterion Name II',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     await draftQuestionsRepository.create({
@@ -103,6 +108,7 @@ describe('ListQuestions', () => {
       criterion: 'Criterion Name III',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     await draftQuestionsRepository.create({
@@ -110,6 +116,7 @@ describe('ListQuestions', () => {
       criterion: 'Criterion Name IV',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     await draftQuestionsRepository.create({
@@ -117,6 +124,7 @@ describe('ListQuestions', () => {
       criterion: 'Criterion Name',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     await draftQuestionsRepository.create({
@@ -124,6 +132,7 @@ describe('ListQuestions', () => {
       criterion: 'Criterion Name II',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     const response = await listQuestions.execute(questionSearch, admin.id);

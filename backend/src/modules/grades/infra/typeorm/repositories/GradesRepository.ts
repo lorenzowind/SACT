@@ -14,9 +14,11 @@ class GradesRepository implements IGradesRepository {
     this.ormRepository = getRepository(Grade);
   }
 
-  public async findAllGradesByAvaliationId(grade_id: string): Promise<Grade[]> {
+  public async findAllGradesByAvaliationId(
+    avaliation_id: string,
+  ): Promise<Grade[]> {
     const grades = await this.ormRepository.find({
-      where: { grade_id },
+      where: { avaliation_id },
     });
 
     return grades;

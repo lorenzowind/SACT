@@ -30,6 +30,7 @@ export interface IQuestionOperationsData {
   criterion: string;
   min_grade: number;
   max_grade: number;
+  weight: number;
 }
 
 const QuestionForm: React.FC = () => {
@@ -50,6 +51,7 @@ const QuestionForm: React.FC = () => {
           criterion: Yup.string().required(),
           min_grade: Yup.number().required(),
           max_grade: Yup.number().required(),
+          weight: Yup.number().required(),
         });
 
         await schema.validate(data, {
@@ -61,6 +63,7 @@ const QuestionForm: React.FC = () => {
           criterion: data.criterion,
           min_grade: data.min_grade,
           max_grade: data.max_grade,
+          weight: data.weight,
         };
 
         setLoading(true);
@@ -115,6 +118,9 @@ const QuestionForm: React.FC = () => {
 
               <strong>3. Nota mínima</strong>
               <Input name="min_grade" type="number" placeholder="ex: 0" />
+
+              <strong>5. Peso</strong>
+              <Input name="weight" type="number" placeholder="ex: 1" />
             </InputsContainer>
 
             <InputsContainer>

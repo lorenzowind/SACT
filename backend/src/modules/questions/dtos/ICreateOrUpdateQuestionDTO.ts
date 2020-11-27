@@ -3,4 +3,5 @@ export default interface ICreateOrUpdateQuestionDTO {
   criterion: string;
   min_grade: number;
   max_grade: number;
+  weight: number;
 }

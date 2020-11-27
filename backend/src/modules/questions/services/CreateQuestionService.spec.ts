@@ -28,6 +28,7 @@ describe('CreateQuestion', () => {
       criterion: 'Criterion Name',
       min_grade: 6,
       max_grade: 10,
+      weight: 1,
     });
 
     expect(question).toHaveProperty('id');
