@@ -20,7 +20,6 @@ import {
 
 import Header from '../../../components/Header';
 import Loading from '../../../components/Loading';
-import InfoModal from '../../../components/Admin/Modal/InfoModal';
 import AvaliationsProgressModal from '../../../components/Admin/Modal/AvaliationsProgressModal';
 import EvaluatorsProgressModal from '../../../components/Admin/Modal/EvaluatorsProgressModal';
 
