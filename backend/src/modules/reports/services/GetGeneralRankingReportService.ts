@@ -105,8 +105,9 @@ class GetGeneralRankingReportService {
             );
 
             if (question) {
-              data[projectIndex].grade_sum +=
-                grades[gradesIndex].grade * Number(question.weight);
+              data[projectIndex].grade_sum += Number(
+                grades[gradesIndex].grade * Number(question.weight),
+              );
 
               data[projectIndex].factor += Number(question.weight);
             }
@@ -126,8 +127,9 @@ class GetGeneralRankingReportService {
             );
 
             if (question) {
-              auxProjectReport.grade_sum =
-                grades[gradesIndex].grade * Number(question.weight);
+              auxProjectReport.grade_sum = Number(
+                grades[gradesIndex].grade * Number(question.weight),
+              );
 
               auxProjectReport.factor = Number(question.weight);
             }
