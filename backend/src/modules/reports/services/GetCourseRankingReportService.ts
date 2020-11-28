@@ -213,9 +213,7 @@ class GetCourseRankingReportService {
         .fillColor('#0000db')
         .text(data[i].occupation_area, { align: 'center' });
 
-      data[i].projects_report = sort(data[i].projects_report);
-
-      console.log(data);
+      sort(data[i].projects_report);
 
       for (let j = 0; j < data[i].projects_report.length; j += 1) {
         const project = await this.projectsRepository.findById(

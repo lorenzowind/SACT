@@ -133,6 +133,23 @@ const Dashboard: React.FC = () => {
     }
   }, [addToast]);
 
+  const handleDownloadDetailedRankingReport = useCallback(async () => {
+    try {
+      setLoading(true);
+
+      await api.get('reports/detailed').then(response => {
+        window.open(response.data, '_blank');
+      });
+    } catch (err) {
+      addToast({
+        type: 'error',
+        title: 'Erro ao fazer donwload do relatório detalhado',
+      });
+    } finally {
+      setLoading(false);
+    }
+  }, [addToast]);
+
   return (
     <>
       {loading && <Loading zIndex={1} />}
@@ -190,6 +207,15 @@ const Dashboard: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleDownloadCourseRankingReport}
+                  >
+                    <FiDownload />
+                  </button>
+                </section>
+                <section>
+                  <strong>Relatório ranking detalhado</strong>
+                  <button
+                    type="button"
+                    onClick={handleDownloadDetailedRankingReport}
                   >
                     <FiDownload />
                   </button>

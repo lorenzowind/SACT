@@ -1726,3 +1726,18 @@ paths:
           $ref:  '#/components/responses/IncorrectToken'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
+
+  /reports/detailed:
+    get:
+      summary: Gets the detailed ranking report.
+      tags:
+        - reports
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: Returns a PDF URL containing the detailed ranking report.
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'

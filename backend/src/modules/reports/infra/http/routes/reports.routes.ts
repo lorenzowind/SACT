@@ -12,4 +12,6 @@ reportsRouter.get('/general', ensureAuthenticated, reportsController.general);
 
 reportsRouter.get('/course', ensureAuthenticated, reportsController.course);
 
+reportsRouter.get('/detailed', ensureAuthenticated, reportsController.detailed);
+
 export default reportsRouter;

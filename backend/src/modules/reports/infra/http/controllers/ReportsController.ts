@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 
 import GetGeneralRankingReportService from '@modules/reports/services/GetGeneralRankingReportService';
 import GetCourseRankingReportService from '@modules/reports/services/GetCourseRankingReportService';
+import GetDetailedRankingReportService from '@modules/reports/services/GetDetailedRankingReportService';
 
 export default class ReportsController {
   public async general(
@@ -24,6 +25,19 @@ export default class ReportsController {
     );
 
     const filePath = await getCourseRankingReport.execute();
+
+    return response.json(filePath);
+  }
+
+  public async detailed(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const getDetailedRankingReport = container.resolve(
+      GetDetailedRankingReportService,
+    );
+
+    const filePath = await getDetailedRankingReport.execute();
 
     return response.json(filePath);
   }

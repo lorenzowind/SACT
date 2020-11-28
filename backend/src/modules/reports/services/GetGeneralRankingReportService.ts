@@ -32,7 +32,7 @@ function getImageUrl(fileName: string): string | null {
   }
 }
 
-function sort(projects_report: ProjectReport[]): ProjectReport[] {
+function sort(projects_report: ProjectReport[]) {
   for (let i = 0; i < projects_report.length; i += 1) {
     for (let j = 0; j < projects_report.length; j += 1) {
       const projectA = Number(
@@ -52,8 +52,6 @@ function sort(projects_report: ProjectReport[]): ProjectReport[] {
       }
     }
   }
-
-  return projects_report;
 }
 
 @injectable()
@@ -155,17 +153,15 @@ class GetGeneralRankingReportService {
       });
     }
 
-    const auxData = sort(data);
+    sort(data);
 
-    console.log(auxData);
-
-    for (let i = 0; i < auxData.length; i += 1) {
+    for (let i = 0; i < data.length; i += 1) {
       const project = await this.projectsRepository.findById(
-        auxData[i].project_id,
+        data[i].project_id,
       );
 
       if (project) {
-        const total = (auxData[i].grade_sum / auxData[i].factor).toFixed(2);
+        const total = (data[i].grade_sum / data[i].factor).toFixed(2);
 
         pdfDocument
           .fontSize(20)

@@ -173,7 +173,7 @@ export const ReportsContainer = styled.aside`
     display: flex;
     align-items: flex-start;
     flex-direction: column;
-    margin: 60px 0 30px 80px;
+    margin: 30px 0 0 80px;
     width: 100%;
 
     section {
