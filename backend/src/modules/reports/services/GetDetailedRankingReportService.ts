@@ -161,7 +161,7 @@ class GetDetailedRankingReportService {
 
     pdfDocument
       .fontSize(36)
-      .text('SACT - Relatório de classificação por curso', {
+      .text('SACT - Relatório de classificação detalhado', {
         align: 'center',
       });
     pdfDocument.addPage();
