@@ -215,6 +215,8 @@ class GetCourseRankingReportService {
 
       data[i].projects_report = sort(data[i].projects_report);
 
+      console.log(data);
+
       for (let j = 0; j < data[i].projects_report.length; j += 1) {
         const project = await this.projectsRepository.findById(
           data[i].projects_report[j].project_id,

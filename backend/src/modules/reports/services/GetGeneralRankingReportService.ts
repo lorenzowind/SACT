@@ -141,7 +141,6 @@ class GetGeneralRankingReportService {
     }
 
     const pdfDocument = new PDFDocument();
-    let auxData = data;
 
     pdfDocument.pipe(fs.createWriteStream('tmp/GeneralRankingReport.pdf'));
 
@@ -156,15 +155,17 @@ class GetGeneralRankingReportService {
       });
     }
 
-    auxData = sort(data);
+    const auxData = sort(data);
 
-    for (let i = 0; i < data.length; i += 1) {
+    console.log(auxData);
+
+    for (let i = 0; i < auxData.length; i += 1) {
       const project = await this.projectsRepository.findById(
-        data[i].project_id,
+        auxData[i].project_id,
       );
 
       if (project) {
-        const total = (data[i].grade_sum / data[i].factor).toFixed(2);
+        const total = (auxData[i].grade_sum / auxData[i].factor).toFixed(2);
 
         pdfDocument
           .fontSize(20)
