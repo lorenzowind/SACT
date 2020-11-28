@@ -178,9 +178,11 @@ class GetDetailedRankingReportService {
       }
 
       pdfDocument
-        .fontSize(24)
+        .fontSize(36)
         .fillColor('#0000db')
         .text(data[i].occupation_area, { align: 'center' });
+
+      pdfDocument.addPage();
 
       for (let j = 0; j < data[i].evaluators.length; j += 1) {
         const evaluator = await this.evaluatorsRepository.findById(
@@ -191,7 +193,7 @@ class GetDetailedRankingReportService {
           pdfDocument
             .fontSize(24)
             .fillColor('#000')
-            .text(`Avaliador: ${evaluator.name}`, { align: 'center' });
+            .text(evaluator.name, { align: 'center' });
         }
 
         for (
@@ -205,7 +207,7 @@ class GetDetailedRankingReportService {
 
           if (project) {
             pdfDocument
-              .fontSize(24)
+              .fontSize(20)
               .fillColor('#000')
               .text(`Projeto: ${project.name}`, { align: 'left' });
           }
@@ -220,10 +222,12 @@ class GetDetailedRankingReportService {
             );
 
             if (question) {
-              pdfDocument.text(
-                `${question.criterion}: ${data[i].evaluators[j].projects_report[k].questions[l].grade}`,
-                { align: 'left' },
-              );
+              pdfDocument
+                .fontSize(12)
+                .text(
+                  `${question.criterion}: ${data[i].evaluators[j].projects_report[k].questions[l].grade}`,
+                  { align: 'left' },
+                );
             }
           }
         }
