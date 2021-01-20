@@ -28,7 +28,7 @@
 ## Table of Contents
 * [About the Project](#about-the-project)
 * [Team](#team)
-* [How to install?](#how-to-install?)
+* [How to install?](#how-to-install)
 * [Built With](#built-with)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
