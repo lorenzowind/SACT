@@ -5,7 +5,7 @@
 
 <br />
 <p align="center">
-  <a href="https://github.com/lorenzowind/UBEMath">
+  <a href="https://github.com/lorenzowind/SACT">
     <img src="logo.png" alt="Logo" width="360" height="180">
   </a>
 
