@@ -28,12 +28,13 @@
 ## Table of Contents
 * [About the Project](#about-the-project)
 * [Team](#team)
+* [How to install?](#how-to-install?)
 * [Built With](#built-with)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
 
 ## About The Project
-This project deals with a intern software solution for the Fundação Matias Machline, who intends to efficiently assist in the planning and organization of the evaluations of the course completion projects during the technical fair at the FMM. 
+This project deals with a intern software solution for the [Fundação Matias Machline](https://www.fundacaomatiasmachline.org.br/), who intends to efficiently assist in the planning and organization of the evaluations of the course completion projects during the technical fair at the FMM. 
 
 The system should store information about the evaluators, also providing evaluation sheets for them based on their respective schedule, avoiding possible conflicts of visits and evaluations. The system must also be able to inform the projects that have been evaluated or not in real time.
 
@@ -42,8 +43,8 @@ The system should store information about the evaluators, also providing evaluat
 - Débora Colhyer (Designer)
 - Euclides Lins (Back-end developer)
 - Ian Marcony (Front-end developer)
-- Lorenzo Windmoller Martins (Full-stack developer)
 - Leonardo Viana (Back-end developer)
+- Lorenzo Windmoller Martins (Full-stack developer)
 
 ## How to install?
 1. To run the backend, follow these steps:
@@ -119,9 +120,9 @@ Euclides Lins - [LinkedIn](linkedin.com/in/euclides-lins) - euclidesvasconcelos0
 
 Ian Marcony - [LinkedIn](https://www.linkedin.com/in/ian-marcony-94996319b/) - imarconyls@gmail.com
 
-Lorenzo Windmoller Martins - [LinkedIn](https://www.linkedin.com/in/lorenzo-windmoller-martins/) - lorenzomart01@gmail.com
-
 Leonardo Viana - [LinkedIn](https://www.linkedin.com/in/leo-viana/) - vianaleonardo.es@gmail.com
+
+Lorenzo Windmoller Martins - [LinkedIn](https://www.linkedin.com/in/lorenzo-windmoller-martins/) - lorenzomart01@gmail.com
 
 ## Acknowledgements
 * [README Template by othneildrew](https://github.com/othneildrew/Best-README-Template)
