@@ -47,7 +47,7 @@ The system should store information about the evaluators, also providing evaluat
 - Lorenzo Windmoller Martins (Full-stack developer)
 
 ## How to install?
-1. To run the backend, follow these steps:
+1. To run the back-end, follow these steps:
 - Navigate to the backend folder and install the dependencies:
 ```bash
 // Navigate to the backend folder
@@ -87,7 +87,7 @@ $ docker update --restart=unless-stopped ID_DA_IMAGEM
 // Start the server
 $ yarn dev:server
 ```
-2. To run the frontend, follow these steps:
+2. To run the front-end, follow these steps:
 - Navigate to the frontend folder and install the dependencies:
 ```bash
 // Navigate to the frontend folder
@@ -96,6 +96,7 @@ $ cd frontend
 // Install application dependencies
 $ yarn
 ```
+- Create a file called .env based on .env.example and enter the API URL;
 - Start the application using the command:
 ```bash
 // Start the application
@@ -103,11 +104,12 @@ $ yarn start
 ```
 
 ## Built With
-* Framework for platform frontend: [React.js](https://reactjs.org/)
-* Backend Framework: [Node.js](https://nodejs.org)
+* Front-end framework: [React.js](https://reactjs.org/)
+* Back-end framework: [Node.js](https://nodejs.org)
+* Back-end data processing technology: [TypeORM](https://typeorm.io)
 * Database technology: [MySQL](https://www.mysql.com/) and [Redis](https://redis.io/)
-* Backend data processing technology: [TypeORM](https://typeorm.io)
 * Technology for testing implementation: [Jest](https://jestjs.io/)
+* Environment creation tool: [Docker](https://www.docker.com/)
 * API documentation tool: [SwaggerHUB](https://swagger.io/tools/swaggerhub/)
 * Prototyping tool: [Figma](https://www.figma.com/)
 

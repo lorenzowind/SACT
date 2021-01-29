@@ -109,7 +109,7 @@ const Dashboard: React.FC = () => {
     } catch (err) {
       addToast({
         type: 'error',
-        title: 'Erro ao fazer donwload do relatório geral',
+        title: 'Erro ao fazer download do relatório geral',
       });
     } finally {
       setLoading(false);
@@ -126,7 +126,7 @@ const Dashboard: React.FC = () => {
     } catch (err) {
       addToast({
         type: 'error',
-        title: 'Erro ao fazer donwload do relatório por cursos',
+        title: 'Erro ao fazer download do relatório por cursos',
       });
     } finally {
       setLoading(false);
@@ -143,7 +143,7 @@ const Dashboard: React.FC = () => {
     } catch (err) {
       addToast({
         type: 'error',
-        title: 'Erro ao fazer donwload do relatório detalhado',
+        title: 'Erro ao fazer download do relatório detalhado',
       });
     } finally {
       setLoading(false);
